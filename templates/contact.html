@@ -1,98 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <title>Contact Us</title>
+    <!-- Updated meta tags and CSS links to match dashboard styling -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Mann Ki Baat 2.0</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Updated CSS reference to use Flask static folder -->
+    <link href="/static/css/style.css" rel="stylesheet">
 </head>
 
 <body>
-{% include "components/navbar.html" %}
+    <!-- Added navigation matching dashboard navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold text-primary" href="/dashboard">
+                <i class="fas fa-brain me-2"></i>Mann Ki Baat 2.0
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/community">
+                            <i class="fas fa-users me-1"></i>Community
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/category">
+                            <i class="fas fa-th-large me-1"></i>Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contact">
+                            <i class="fas fa-envelope me-1"></i>Contact
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <div class="nav-item">
+                        <a class="btn btn-primary" href="/dashboard">Go to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <div class="container my-4" style="display: flex; justify-content: center; align-items: center;">
-    <h1 class="display-4 fw-normal text-body-emphasis font-weight-bold">Feel Free to Share Your Thoughts</h1>
-  </div>
+    <!-- Added main-content class and updated form styling -->
+    <main class="main-content">
+        <div class="container-fluid px-4 py-4">
+            <div class="text-center mb-5">
+                <h1 class="display-4 text-primary mb-3">Feel Free to Share Your Thoughts</h1>
+                <p class="lead text-muted">We're here to listen and support you on your mental health journey</p>
+            </div>
 
-  <div class="container mx-auto mt-2">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Updated form with dashboard card styling -->
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-comments text-primary me-2"></i>Contact Form
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="/contact" method="POST">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="Name" class="form-label">Your Name</label>
+                                        <input type="text" class="form-control" id="Name" name="Name" placeholder="Enter your name" required>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="Gender" class="form-label">Select Gender</label>
+                                        <select class="form-select" id="Gender" name="Gender" required>
+                                            <option value="">(Select Gender)</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Other">Other</option>
+                                            <option value="Prefer not to say">Prefer not to say</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="Country" class="form-label">Select Country</label>
+                                        <select class="form-select" id="Country" name="Country" required>
+                                            <option value="">(Select Country)</option>
+                                            <option value="India">India</option>
+                                            <option value="U.S.A">U.S.A</option>
+                                            <option value="Russia">Russia</option>
+                                            <option value="France">France</option>
+                                            <option value="Japan">Japan</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="Phone" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" id="Phone" name="Phone" placeholder="Enter phone number">
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label for="Email" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" id="Email" name="Email" placeholder="Enter email" required>
+                                        <div class="form-text">We'll never share your email with anyone else.</div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label for="Feedback" class="form-label">Your Feedback</label>
+                                        <textarea class="form-control" id="Feedback" name="Feedback" rows="5" placeholder="Share your thoughts, feedback, or any concerns you'd like to discuss..." required></textarea>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="privacy" required>
+                                            <label class="form-check-label" for="privacy">
+                                                I agree to the privacy policy and terms of service
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="fas fa-paper-plane me-2"></i>Submit Feedback
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <form action="/contact" method="POST" style="border: 1px dotted gray;" class="px-5 py-5">
- 
-      <div class="form-group">
-        <label for="Name">Your Name</label>
-        <input type="Name" class="form-control" id="Name" name="Name" placeholder="Enter Name">
-      </div>
+            <!-- Added additional support information -->
+            <div class="row mt-5">
+                <div class="col-lg-4">
+                    <div class="dashboard-card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                            <h5>Call Us</h5>
+                            <p class="text-muted">Available 24/7 for crisis support</p>
+                            <p><strong>+91 988-HELP-NOW</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="dashboard-card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-envelope fa-2x text-success mb-3"></i>
+                            <h5>Email Us</h5>
+                            <p class="text-muted">We'll respond within 24 hours</p>
+                            <p><strong>support@mindspace.com</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="dashboard-card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-comments fa-2x text-info mb-3"></i>
+                            <h5>Live Chat</h5>
+                            <p class="text-muted">Chat with our AI assistant</p>
+                            <button class="btn btn-info btn-sm">Start Chat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-      <br>
-      <div class="form-group">
-        <label for="exampleFormControlSelect2">Select Gender</label>
-        <select class="form-control" id="exampleFormControlSelect2" name="Gender">
-          <option>(Select Gender)</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <br>
+    <!-- Added footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 MindSpace. All rights reserved.</p>
+        </div>
+    </footer>
 
-      <div class="form-group">
-        <label for="exampleFormControlSelect2">Select Country</label>
-        <select class="form-control" id="exampleFormControlSelect2" name="Country">
-          <option>(Select Country)</option>
-          <option>India</option>
-          <option>U.S.A</option>
-          <option>Russia</option>
-          <option>France</option>
-          <option>Japan</option>
-        </select>
-      </div>
-      <br>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" name="Email" aria-describedby="emailHelp"
-          placeholder="Enter email">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
-      <br>
-      <div class="form-group">
-        <label for="Phone">Phone Number</label>
-        <input type="number" class="form-control" id="Phone" placeholder="Enter Phone Number" name="Phone">
-      </div>
-      <br>
-
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Your Feedback</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" name="Feedback" rows="3"></textarea>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
-
-{% include "components/footer.html" %}
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-
-
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
 </body>
-
 </html>

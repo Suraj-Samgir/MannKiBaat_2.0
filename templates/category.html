@@ -1,35 +1,198 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  </head>
-
-  <body>
+<head>
+    <!-- Updated meta tags and CSS links to match dashboard styling -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - MindSpace</title>
     
-    <h1 class="text-center">Choose From Following 8 Categories!</h1>
-    <hr>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Updated CSS reference to use Flask static folder -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
 
-<div class="d-flex justify-content-center">
-    <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center ">
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    </div>
-</div>
+<body>
+    <!-- Added navigation matching dashboard navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold text-primary" href="/dashboard">
+                <i class="fas fa-brain me-2"></i>MindSpace
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/community">
+                            <i class="fas fa-users me-1"></i>Community
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/category">
+                            <i class="fas fa-th-large me-1"></i>Categories
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">
+                            <i class="fas fa-envelope me-1"></i>Contact
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="/static/images/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Profile">
+                            <span>Alex</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <!-- Added main-content class and updated styling -->
+    <main class="main-content">
+        <div class="container-fluid px-4 py-4">
+            <div class="text-center mb-5">
+                <h1 class="display-4 text-primary mb-3">Choose From Following 8 Categories!</h1>
+                <p class="lead text-muted">Select the area you'd like to focus on for personalized support</p>
+            </div>
 
-    {% include "components/footer.html" %}
-  </body>
+            <!-- Updated category cards with dashboard card styling -->
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-graduation-cap fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Academic Stress</h5>
+                            <p class="card-text">Exams, assignments, and academic pressure</p>
+                            <button class="btn btn-outline-primary">Select</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-heart fa-3x text-danger"></i>
+                            </div>
+                            <h5 class="card-title">Relationships</h5>
+                            <p class="card-text">Family, friends, and romantic relationships</p>
+                            <button class="btn btn-outline-danger">Select</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-briefcase fa-3x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Career & Future</h5>
+                            <p class="card-text">Job prospects, career planning, and future goals</p>
+                            <button class="btn btn-outline-success">Select</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-user fa-3x text-warning"></i>
+                            </div>
+                            <h5 class="card-title">Self-Esteem</h5>
+                            <p class="card-text">Confidence, self-worth, and personal growth</p>
+                            <button class="btn btn-outline-warning">Select</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-home fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Family Issues</h5>
+                            <p class="card-text">Family conflicts, expectations, and dynamics</p>
+                            <button class="btn btn-outline-info">Select</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-heartbeat fa-3x text-pink"></i>
+                            </div>
+                            <h5 class="card-title">Health & Wellness</h5>
+                            <p class="card-text">Physical health, mental wellness, and lifestyle</p>
+                            <button class="btn btn-outline-secondary">Select</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-dollar-sign fa-3x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Financial Stress</h5>
+                            <p class="card-text">Money management, expenses, and financial planning</p>
+                            <button class="btn btn-outline-success">Select</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="dashboard-card category-card text-center h-100">
+                        <div class="card-body">
+                            <div class="category-icon mb-3">
+                                <i class="fas fa-users fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Social Anxiety</h5>
+                            <p class="card-text">Social situations, peer pressure, and interactions</p>
+                            <button class="btn btn-outline-primary">Select</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
+    <!-- Added footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 MindSpace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
 </html>
