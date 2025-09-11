@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mann Ki Baat 2.0 - From Stress to Smile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold text-primary" href="/dashboard">
+                <i class="fas fa-brain me-2"></i>Mann Ki Baat 2.0
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/dashboard">
+                            <i class="fas fa-home me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/community">
+                            <i class="fas fa-users me-1"></i>Community
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard#activities">
+                            <i class="fas fa-gamepad me-1"></i>Activities
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard#wellness">
+                            <i class="fas fa-heart me-1"></i>Wellness
+                        </a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                            <img src="/static/images/placeholder.svg?height=32&width=32" class="rounded-circle me-2" width="32" height="32" alt="Profile">
+                            <span>Alex</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container-fluid px-4 py-4">
+            <!-- Welcome Section -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="welcome-card">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h1 class="welcome-title">Good morning, Alex! 🌅</h1>
+                                <p class="welcome-subtitle">How are you feeling today? Remember, every small step counts towards your wellbeing.</p>
+                                <div class="mood-tracker">
+                                    <span class="me-3">Today's mood:</span>
+                                    <button class="mood-btn" data-mood="great">😊</button>
+                                    <button class="mood-btn" data-mood="good">🙂</button>
+                                    <button class="mood-btn" data-mood="okay">😐</button>
+                                    <button class="mood-btn" data-mood="low">😔</button>
+                                    <button class="mood-btn" data-mood="struggling">😢</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <div class="streak-counter">
+                                    <div class="streak-number">7</div>
+                                    <div class="streak-label">Day Streak</div>
+                                    <div class="streak-fire">🔥</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crisis Alert Banner (Hidden by default) -->
+            <div class="row mb-4 d-none" id="crisis-alert">
+                <div class="col-12">
+                    <div class="alert alert-danger crisis-alert" role="alert">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+                            <div class="flex-grow-1">
+                                <h5 class="alert-heading mb-1">We're here for you</h5>
+                                <p class="mb-2">It seems like you might be going through a tough time. You're not alone.</p>
+                                <div class="crisis-actions">
+                                    <button class="btn btn-light btn-sm me-2" onclick="callCrisisHotline()">
+                                        <i class="fas fa-phone me-1"></i>Call Crisis Hotline
+                                    </button>
+                                    <button class="btn btn-light btn-sm me-2" onclick="openCrisisChat()">
+                                        <i class="fas fa-comments me-1"></i>Chat with Counselor
+                                    </button>
+                                    <button class="btn btn-outline-light btn-sm" onclick="dismissCrisisAlert()">
+                                        <i class="fas fa-times me-1"></i>I'm okay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="row g-4">
+                <!-- Daily Affirmation -->
+                <div class="col-lg-6">
+                    <div class="dashboard-card affirmation-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-heart text-pink me-2"></i>Daily Affirmation
+                            </h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="affirmation-content">
+                                <p class="affirmation-text">"You are stronger than you think and braver than you feel. Every challenge you face is making you more resilient."</p>
+                                <div class="affirmation-actions mt-3">
+                                    <button class="btn btn-outline-primary btn-sm me-2">
+                                        <i class="fas fa-volume-up me-1"></i>Listen
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm me-2">
+                                        <i class="fas fa-video me-1"></i>Watch
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-refresh me-1"></i>New One
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Activities -->
+                <div class="col-lg-6">
+                    <div class="dashboard-card activities-card" id="activities">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-gamepad text-success me-2"></i>Quick Activities
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon">🧘</div>
+                                    <div class="activity-info">
+                                        <h6>5-Minute Meditation</h6>
+                                        <small class="text-muted">Calm your mind</small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success">Start</button>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">📝</div>
+                                    <div class="activity-info">
+                                        <h6>Gratitude Journal</h6>
+                                        <small class="text-muted">Write 3 things you're grateful for</small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success">Write</button>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon">🎨</div>
+                                    <div class="activity-info">
+                                        <h6>Creative Expression</h6>
+                                        <small class="text-muted">Draw, write, or create</small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Highlights -->
+                <div class="col-lg-4">
+                    <div class="dashboard-card community-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-users text-info me-2"></i>Community
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="community-stats mb-3">
+                                <div class="stat-item">
+                                    <span class="stat-number">1,247</span>
+                                    <span class="stat-label">Active Members</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">23</span>
+                                    <span class="stat-label">New Posts Today</span>
+                                </div>
+                            </div>
+                            <div class="recent-posts">
+                                <div class="post-item">
+                                    <div class="post-avatar">
+                                        <img src="/static/images/placeholder.svg?height=24&width=24" class="rounded-circle" width="24" height="24" alt="User">
+                                    </div>
+                                    <div class="post-content">
+                                        <small class="text-muted">Sarah shared a victory</small>
+                                        <p class="mb-0">"Completed my first week of morning walks! 🚶‍♀️"</p>
+                                    </div>
+                                </div>
+                                <div class="post-item">
+                                    <div class="post-avatar">
+                                        <img src="/static/images/placeholder.svg?height=24&width=24" class="rounded-circle" width="24" height="24" alt="User">
+                                    </div>
+                                    <div class="post-content">
+                                        <small class="text-muted">Mike asked for support</small>
+                                        <p class="mb-0">"Anyone have tips for managing anxiety before exams?"</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-info btn-sm w-100 mt-3" onclick="window.location.href='/community'">View All Posts</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wellness Insights -->
+                <div class="col-lg-4">
+                    <div class="dashboard-card wellness-card" id="wellness">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-chart-line text-warning me-2"></i>Wellness Insights
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="wellness-metric">
+                                <div class="metric-header">
+                                    <span class="metric-label">Sleep Quality</span>
+                                    <span class="metric-value">7.2/10</span>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-success" style="width: 72%"></div>
+                                </div>
+                                <small class="text-muted">Average 7.5 hours this week</small>
+                            </div>
+                            <div class="wellness-metric">
+                                <div class="metric-header">
+                                    <span class="metric-label">Activity Level</span>
+                                    <span class="metric-value">6.8/10</span>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-info" style="width: 68%"></div>
+                                </div>
+                                <small class="text-muted">4 active days this week</small>
+                            </div>
+                            <div class="wellness-metric">
+                                <div class="metric-header">
+                                    <span class="metric-label">Mood Trend</span>
+                                    <span class="metric-value">↗️ Improving</span>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-warning" style="width: 75%"></div>
+                                </div>
+                                <small class="text-muted">Positive trend this week</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="col-lg-4">
+                    <div class="dashboard-card achievements-card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                <i class="fas fa-trophy text-gold me-2"></i>Achievements
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="achievement-grid">
+                                <div class="achievement-item earned">
+                                    <div class="achievement-icon">🏆</div>
+                                    <div class="achievement-name">Week Warrior</div>
+                                </div>
+                                <div class="achievement-item earned">
+                                    <div class="achievement-icon">🌟</div>
+                                    <div class="achievement-name">Mood Tracker</div>
+                                </div>
+                                <div class="achievement-item earned">
+                                    <div class="achievement-icon">💬</div>
+                                    <div class="achievement-name">Community Helper</div>
+                                </div>
+                                <div class="achievement-item">
+                                    <div class="achievement-icon">🎯</div>
+                                    <div class="achievement-name">Goal Setter</div>
+                                </div>
+                                <div class="achievement-item">
+                                    <div class="achievement-icon">🧘</div>
+                                    <div class="achievement-name">Zen Master</div>
+                                </div>
+                                <div class="achievement-item">
+                                    <div class="achievement-icon">📚</div>
+                                    <div class="achievement-name">Knowledge Seeker</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Chat Button -->
+    <div class="floating-chat-btn" id="chatBtn">
+        <i class="fas fa-comments"></i>
+        <div class="chat-notification">3</div>
+    </div>
+
+    <!-- Floating Chat Window -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="chat-title">
+                    <h6>MindBot</h6>
+                    <small class="text-muted">Your AI companion</small>
+                </div>
+            </div>
+            <div class="chat-controls">
+                <button class="btn btn-sm btn-outline-light" id="minimizeChat">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-light" id="closeChat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="chat-body" id="chatBody">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome message -->
+                <div class="message bot-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-bubble">
+                            <p>Hi there! I'm MindBot, your AI companion for mental wellness. I'm here to listen, support, and help you navigate your feelings. How are you doing today?</p>
+                        </div>
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+                
+                <!-- Quick response suggestions -->
+                <div class="quick-responses">
+                    <button class="quick-response-btn" data-response="I'm feeling anxious">I'm feeling anxious</button>
+                    <button class="quick-response-btn" data-response="I had a good day">I had a good day</button>
+                    <button class="quick-response-btn" data-response="I need someone to talk to">I need someone to talk to</button>
+                    <button class="quick-response-btn" data-response="Can you help me relax?">Can you help me relax?</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-footer">
+            <div class="chat-input-container">
+                <div class="input-group">
+                    <input type="text" class="form-control chat-input" id="chatInput" placeholder="Type your message..." maxlength="500">
+                    <button class="btn btn-primary chat-send-btn" id="sendBtn" type="button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="chat-features">
+                    <button class="feature-btn" id="voiceBtn" title="Voice message">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="feature-btn" id="moodBtn" title="Share mood">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                    <button class="feature-btn" id="emergencyBtn" title="Emergency resources">
+                        <i class="fas fa-exclamation-triangle text-danger"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="typing-indicator d-none" id="typingIndicator">
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <span class="typing-text">MindBot is typing...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Overlay for mobile -->
+    <div class="chat-overlay" id="chatOverlay"></div>
+
+    <!-- Crisis Support Modal -->
+    <div class="modal fade" id="crisisModal" tabindex="-1" aria-labelledby="crisisModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content crisis-modal">
+                <div class="modal-header crisis-modal-header">
+                    <h5 class="modal-title text-white" id="crisisModalLabel">
+                        <i class="fas fa-heart me-2"></i>Crisis Support Resources
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="crisis-content">
+                        <div class="crisis-message mb-4">
+                            <h6 class="text-danger mb-3">
+                                <i class="fas fa-exclamation-circle me-2"></i>You are not alone
+                            </h6>
+                            <p class="mb-3">If you're having thoughts of suicide or self-harm, please reach out for help immediately. There are people who care about you and want to help.</p>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Immediate Help -->
+                            <div class="col-md-6">
+                                <div class="crisis-resource-card emergency">
+                                    <div class="resource-header">
+                                        <i class="fas fa-phone-alt"></i>
+                                        <h6>Immediate Help</h6>
+                                    </div>
+                                    <div class="resource-content">
+                                        <div class="resource-item">
+                                            <strong>Crisis Hotline</strong>
+                                            <p>988 - Available 24/7</p>
+                                            <button class="btn btn-danger btn-sm" onclick="callCrisisHotline()">
+                                                <i class="fas fa-phone me-1"></i>Call Now
+                                            </button>
+                                        </div>
+                                        <div class="resource-item">
+                                            <strong>Crisis Text Line</strong>
+                                            <p>Text HOME to 741741</p>
+                                            <button class="btn btn-warning btn-sm" onclick="openTextCrisis()">
+                                                <i class="fas fa-sms me-1"></i>Text Now
+                                            </button>
+                                        </div>
+                                        <div class="resource-item">
+                                            <strong>Emergency Services</strong>
+                                            <p>Call 911 for immediate danger</p>
+                                            <button class="btn btn-dark btn-sm" onclick="callEmergency()">
+                                                <i class="fas fa-ambulance me-1"></i>Call 911
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Online Support -->
+                            <div class="col-md-6">
+                                <div class="crisis-resource-card support">
+                                    <div class="resource-header">
+                                        <i class="fas fa-comments"></i>
+                                        <h6>Online Support</h6>
+                                    </div>
+                                    <div class="resource-content">
+                                        <div class="resource-item">
+                                            <strong>Crisis Chat</strong>
+                                            <p>Anonymous online counselor</p>
+                                            <button class="btn btn-info btn-sm" onclick="openCrisisChat()">
+                                                <i class="fas fa-comments me-1"></i>Start Chat
+                                            </button>
+                                        </div>
+                                        <div class="resource-item">
+                                            <strong>Peer Support</strong>
+                                            <p>Connect with others who understand</p>
+                                            <button class="btn btn-success btn-sm" onclick="openPeerSupport()">
+                                                <i class="fas fa-users me-1"></i>Join Group
+                                            </button>
+                                        </div>
+                                        <div class="resource-item">
+                                            <strong>Self-Care Tools</strong>
+                                            <p>Immediate coping strategies</p>
+                                            <button class="btn btn-primary btn-sm" onclick="openSelfCareTools()">
+                                                <i class="fas fa-heart me-1"></i>Get Tools
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Safety Planning -->
+                        <div class="safety-planning mt-4">
+                            <h6 class="mb-3">
+                                <i class="fas fa-shield-alt me-2 text-success"></i>Create a Safety Plan
+                            </h6>
+                            <div class="safety-plan-form">
+                                <div class="mb-3">
+                                    <label class="form-label">Trusted person to contact:</label>
+                                    <input type="text" class="form-control" id="trustedContact" placeholder="Name and phone number">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Safe place to go:</label>
+                                    <input type="text" class="form-control" id="safePlace" placeholder="Address or location">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Coping strategies that help:</label>
+                                    <textarea class="form-control" id="copingStrategies" rows="2" placeholder="What helps you feel better?"></textarea>
+                                </div>
+                                <button class="btn btn-success btn-sm" onclick="saveSafetyPlan()">
+                                    <i class="fas fa-save me-1"></i>Save Safety Plan
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Professional Resources -->
+                        <div class="professional-resources mt-4">
+                            <h6 class="mb-3">
+                                <i class="fas fa-user-md me-2 text-info"></i>Professional Resources
+                            </h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="resource-link">
+                                        <i class="fas fa-hospital me-2"></i>
+                                        <a href="#" onclick="findLocalResources()">Find Local Mental Health Services</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="resource-link">
+                                        <i class="fas fa-calendar-check me-2"></i>
+                                        <a href="#" onclick="scheduleAppointment()">Schedule Counseling Appointment</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="shareWithTrustedPerson()">
+                        <i class="fas fa-share me-1"></i>Share with Trusted Person
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
