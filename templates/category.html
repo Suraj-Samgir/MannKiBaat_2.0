@@ -3,33 +3,48 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Select Categories</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/categoryCard.css') }}">
   </head>
 
   <body>
-    
-    <h1 class="text-center">Choose From Following 8 Categories!</h1>
+    <h1 class="text-center mt-3">Choose From Following 8 Categories!</h1>
     <hr>
 
-<div class="d-flex justify-content-center">
-    <div class="row row-cols-1 row-cols-md-4 g-4 justify-content-center ">
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    {% include "components/categoryCard.html" %}
-    </div>
-</div>
+    {% from "components/categoryCardMacro.html" import categoryCard %}
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <div class="container mx-auto mt-2">
+      <div class="row row-cols-1 row-cols-md-4 g-4">
+
+        {{ categoryCard("Spirituality", "Find peace, clarity, and purpose in life.", "/static/img/spirituality.jpg", "modal1", "Spiritual Growth", categories) }}
+
+        {{ categoryCard("Mindset", "Overcome negative thoughts and build resilience.", "/static/img/mindset.jpg", "modal2", "Mindset Challenges", categories) }}
+
+        {{ categoryCard("Health", "Manage stress, sleep, and lifestyle habits.", "/static/img/health.jpg", "modal3", "Health Concerns", categories) }}
+
+        {{ categoryCard("Personality", "Boost confidence, communication, and self-image.", "/static/img/personality.jpg", "modal4", "Personality Development", categories) }}
+
+        {{ categoryCard("Relationships", "Handle breakups, rejections, and social struggles.", "/static/img/relationships.jpg", "modal5", "Relationship Issues", categories) }}
+
+        {{ categoryCard("Network", "Navigate friendships, peers, and social circles.", "/static/img/network.jpg", "modal6", "Social & Peer Support", categories) }}
+
+        {{ categoryCard("Career", "Get clarity on studies, jobs, and future goals.", "/static/img/career.jpg", "modal7", "Career Stress", categories) }}
+
+        {{ categoryCard("Money", "Learn to manage expenses and reduce money stress.", "/static/img/money.jpg", "modal8", "Financial Concerns", categories) }}
+
+      </div>
+    </div>
 
     {% include "components/footer.html" %}
-  </body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"></script>
+  </body>
 </html>
