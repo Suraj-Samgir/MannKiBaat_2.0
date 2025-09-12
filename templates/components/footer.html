@@ -1,0 +1,112 @@
+  <footer class="bg-dark text-center text-white position-relative mt-3">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!-- Section WT project -->
+      <h3 class="mx-auto mb-4">Mann Ki Baat 2.0 – Your Mind, Your Space, No Judgments.</h3>
+      <!-- Section: Links -->
+
+
+      <!-- Section: Text -->
+      <section class="mb-4">
+        <p>
+          It’s okay to not be okay. Every student goes through struggles, and you don’t have to fight them alone. Mann Ki Baat 2.0 is here to listen, guide, and remind you that your mental peace matters more than marks or expectations.
+        </p>
+      </section>
+      <!-- Section: Text -->
+
+      <!-- Section A Project By -->
+      <h3 class="mx-auto mb-4">Major Features :</h3>
+      <!-- Section: Links -->
+
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">24/7 AI Chatbot</h5>
+
+            <a class="btn btn-outline-light btn-floating m-1" role="button"
+              onmouseover="showMail('chatbot','Vent in Hinglish and get friendly replies.')" onmouseleave="hideMail('chatbot')"><i class="fa-regular fa-comment-dots"></i></a>
+            <span id="chatbot"><strong></strong></span>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Crisis Detection</h5>
+
+            <a class="btn btn-outline-light btn-floating m-1" role="button"
+              onmouseover="showMail('crisis','Spots stress and guides to support.')" onmouseleave="hideMail('crisis')"><i class="fa-regular fa-alarm-clock"></i></a>
+            <span id="crisis"><strong></strong></span>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Community Support</h5>
+
+            <a class="btn btn-outline-light btn-floating m-1" role="button"
+              onmouseover="showMail('community','Anonymous student groups to connect.')" onmouseleave="hideMail('community')"><i class="fa-solid fa-people-group"></i></a>
+            <span id="community"><strong></strong></span>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Activities & Challenges</h5>
+
+            <a class="btn btn-outline-light btn-floating m-1" role="button"
+              onmouseover="showMail('activities','Fun tasks and streaks to de-stress.')" onmouseleave="hideMail('activities')"><i class="fa-solid fa-puzzle-piece"></i></a>
+            <span id="activities"><strong></strong></span>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Daily Affirmations</h5>
+
+            <a class="btn btn-outline-light btn-floating m-1" role="button"
+              onmouseover="showMail('affirmations','Daily nudges to lift your mood.')" onmouseleave="hideMail('affirmations')"><i class="fa-regular fa-face-smile-beam"></i></a>
+            <span id="affirmations"><strong></strong></span>
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase">Lifestyle Suggestions</h5>
+
+            <a class="btn btn-outline-light btn-floating m-1" role="button"
+              onmouseover="showMail('lifestyle','Hacks for sleep, focus, and energy.')" onmouseleave="hideMail('lifestyle')"><i class="fa-regular fa-heart"></i></a>
+            <span id="lifestyle"><strong></strong></span>
+          </div>
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      <b>@ Quick Links :</b> <br>
+      <a class="text-white" href="/contact">Say Your Mann Ki Baat</a> | 
+      <a class="text-white" href="/">All About Us</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+    <script>
+    function showMail(a, b) {
+      document.getElementById(a).innerHTML = `<p style="white-space: nowrap; margin:0;">${b}</p>`;
+    }
+
+    function hideMail(a) {
+      document.getElementById(a).innerHTML = "";
+    }
+
+    function preview() {
+      alert(document.getElementById('fileupload').value)
+      document.getElementById('dispimg').src = document.getElementById('fileupload').value;
+    }
+  </script>
