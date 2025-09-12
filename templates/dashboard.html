@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MannKiBatt_2.0: Generative AI for Youth Mental Wellness</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bs-dark-bg: #0f172a;
+            --bs-dark-border: #334155;
+            --bs-dark-card: #1e293b;
+            
+            /* Color variables - same in both themes */
+            --bs-blue: #0a3d62;
+            --bs-teal: #38ada9;
+            --bs-green: #78e08f;
+            --bs-purple: #7e22ce;
+            --bs-pink: #db2777;
+            --bs-red: #dc2626;
+            --bs-orange: #ea580c;
+            
+            --bs-light-bg: #f8fafc;
+            --bs-light-border: #e2e8f0;
+            --bs-light-card: #ffffff;
+            
+            /* Gradient - same in both themes */
+            --bs-gradient: linear-gradient(135deg, var(--bs-blue) 0%, var(--bs-teal) 50%, var(--bs-green) 100%);
+            --bs-gradient-reverse: linear-gradient(135deg, var(--bs-green) 0%, var(--bs-teal) 50%, var(--bs-blue) 100%);
+            
+            /* Light theme specific colors */
+            --bs-light-blue: #7dd3fc;
+            --bs-light-teal: #5eead4;
+            --bs-light-green: #86efac;
+        }
+
+        [data-theme="dark"] {
+            --bs-bg: var(--bs-dark-bg);
+            --bs-border: var(--bs-dark-border);
+            --bs-card: var(--bs-dark-card);
+            --bs-text: #ffffff;
+            --bs-muted-text: #94a3b8;
+            
+            /* Circle colors for dark theme */
+            --bs-circle-1: var(--bs-blue);
+            --bs-circle-2: var(--bs-teal);
+            
+            /* Button and card colors for dark theme */
+            --bs-primary-btn: var(--bs-gradient);
+            --bs-primary-btn-hover: linear-gradient(135deg, #0c5288 0%, #44c4be 50%, #8ceba5 100%);
+            --bs-card-icon-bg: var(--bs-gradient);
+        }
+
+        [data-theme="light"] {
+            --bs-bg: var(--bs-light-bg);
+            --bs-border: var(--bs-light-border);
+            --bs-card: var(--bs-light-card);
+            --bs-text: #1e293b;
+            --bs-muted-text: #64748b;
+            
+            /* Circle colors for light theme */
+            --bs-circle-1: rgba(125, 211, 252, 0.8); /* Light blue with high opacity */
+            --bs-circle-2: rgba(94, 234, 212, 0.8); /* Light teal with high opacity */
+            
+            /* Light theme gradients */
+            --bs-gradient: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+            --bs-gradient-reverse: linear-gradient(135deg, var(--bs-light-green) 0%, var(--bs-light-teal) 50%, var(--bs-light-blue) 100%);
+            
+            /* Button and card colors for light theme */
+            --bs-primary-btn: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+            --bs-primary-btn-hover: linear-gradient(135deg, #a0e1ff 0%, #7aefdd 50%, #a5f5c0 100%);
+            --bs-card-icon-bg: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bs-bg);
+            color: var(--bs-text);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Theme Toggle Button - No gradient */
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1002;
+            background: var(--bs-card);
+            border: 1px solid var(--bs-border);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle i {
+            color: var(--bs-text);
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: var(--bs-card);
+            border-right: 1px solid var(--bs-border);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            padding-top: 60px;
+        }
+
+        .sidebar.collapsed {
+            width: 0;
+            padding: 60px 0 0 0;
+            overflow: hidden;
+        }
+
+        .sidebar .logo {
+            padding: 1.5rem 1rem;
+            border-bottom: 1px solid var(--bs-border);
+        }
+
+        .sidebar .nav-item {
+            padding: 0.75rem 1rem;
+            margin: 0.25rem 0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .nav-item:hover {
+            background-color: var(--bs-border);
+        }
+
+        .sidebar .nav-item.active {
+            background: var(--bs-primary-btn);
+            color: white;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 0;
+        }
+
+        /* Toggle Button */
+        .sidebar-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            background: var(--bs-primary-btn);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Hero Section - Updated to match page background */
+        .hero-section {
+            min-height: 100vh;
+            background-color: var(--bs-bg);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .hero-bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        .circle-1 {
+            top: 25%;
+            left: 25%;
+            width: 300px;
+            height: 300px;
+            background-color: var(--bs-circle-1);
+            animation-delay: -2s;
+        }
+
+        .circle-2 {
+            bottom: 25%;
+            right: 25%;
+            width: 400px;
+            height: 400px;
+            background-color: var(--bs-circle-2);
+            animation-delay: -4s;
+        }
+
+        /* Cards */
+        .feature-card {
+            background-color: var(--bs-card);
+            border: 1px solid var(--bs-border);
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(13, 148, 136, 0.15);
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: var(--bs-card-icon-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background-color: var(--bs-bg);
+        }
+
+        .chat-header {
+            background-color: var(--bs-card);
+            border-bottom: 1px solid var(--bs-border);
+            padding: 1rem;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            position: relative;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--bs-primary-btn);
+            color: white;
+            border-bottom-right-radius: 0.25rem;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background-color: var(--bs-border);
+            color: var(--bs-text);
+            border-bottom-left-radius: 0.25rem;
+        }
+
+        .message-input {
+            background-color: var(--bs-card);
+            border-top: 1px solid var(--bs-border);
+            padding: 1rem;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 0.25rem;
+            align-self: flex-start;
+            background-color: var(--bs-border);
+            color: var(--bs-text);
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            border-bottom-left-radius: 0.25rem;
+            max-width: fit-content;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--bs-muted-text);
+            border-radius: 50%;
+        }
+
+        /* Crisis Section Styles - Reduced color variety */
+        .crisis-section {
+            background-color: var(--bs-bg);
+        }
+
+        .emergency-card, .assessment-card, .safety-card, 
+        .calming-card, .resources-card {
+            background-color: var(--bs-card);
+            border: 1px solid var(--bs-border);
+        }
+
+        .emergency-btn {
+            background: var(--bs-primary-btn);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(13, 148, 136, 0.4);
+        }
+
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            transition: all 1s ease;
+            background: var(--bs-primary-btn);
+        }
+
+        .breathing-in {
+            transform: scale(1.2);
+            background: var(--bs-gradient-reverse);
+        }
+
+        .breathing-out {
+            transform: scale(0.8);
+            background: var(--bs-primary-btn);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .animate-pulse-glow {
+            animation: pulse 3s infinite ease-in-out;
+        }
+
+        .animate-bounce {
+            animation: bounce 1s infinite ease-in-out;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            background-color: var(--bs-card);
+            border: 1px solid var(--bs-border);
+            border-radius: 1rem;
+            color: var(--bs-text);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--bs-border);
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--bs-border);
+        }
+
+        /* Utilities */
+        .text-gradient {
+            background: var(--bs-primary-btn);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-gradient {
+            background: var(--bs-primary-btn);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.3);
+            color: white;
+        }
+
+        .d-none {
+            display: none;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 250px;
+            }
+            
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+            }
+            
+            .mobile-overlay.active {
+                display: block;
+            }
+
+            .message {
+                max-width: 85%;
+            }
+
+            .breathing-circle {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="bi bi-list text-white fs-5"></i>
+    </button>
+
+    <!-- Theme Toggle Button - More Visible -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="bi bi-sun fs-5"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <div class="d-flex align-items-center">
+                <div class="card-icon">
+                    <i class="bi bi-cpu text-white fs-4"></i>
+                </div>
+                <span class="ms-2 fw-bold fs-4">MannKiBatt_2.0</span>
+            </div>
+        </div>
+        
+        <div class="nav-items mt-4">
+            <div class="nav-item active" data-view="home">
+                <i class="bi bi-house"></i>
+                <span class="ms-2">Home</span>
+            </div>
+            <div class="nav-item" data-view="chatbot">
+                <i class="bi bi-chat"></i>
+                <span class="ms-2">Chat Bot</span>
+            </div>
+            <div class="nav-item" data-view="crisis">
+                <i class="bi bi-exclamation-triangle"></i>
+                <span class="ms-2">Crisis Detection</span>
+            </div>
+            <div class="nav-item" data-view="community">
+                <i class="bi bi-people"></i>
+                <span class="ms-2">Community</span>
+            </div>
+            <div class="nav-item" data-view="activities">
+                <i class="bi bi-controller"></i>
+                <span class="ms-2">Activities</span>
+            </div>
+            <div class="nav-item" data-view="affirmations">
+                <i class="bi bi-stars"></i>
+                <span class="ms-2">Affirmations</span>
+            </div>
+            <div class="nav-item" data-view="lifestyle">
+                <i class="bi bi-heart"></i>
+                <span class="ms-2">Lifestyle</span>
+            </div>
+        </div>
+
+        <div class="mt-auto p-3">
+            <button id="themeToggleSidebar" class="btn btn-outline-secondary w-100">
+                <i class="bi bi-moon me-2"></i> Toggle Theme
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Home View -->
+        <div id="homeView">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-bg-animation">
+                    <div class="hero-bg-circle circle-1"></div>
+                    <div class="hero-bg-circle circle-2"></div>
+                </div>
+                
+                <div class="container position-relative z-10">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 text-center">
+                            <h1 class="display-3 fw-bold mb-4 text-gradient">MannKiBatt_2.0 - AI for Mental Wellness</h1>
+                            <p class="lead mb-5">A safe space for chat, community, and personal growth.</p>
+                            <button class="btn btn-gradient btn-lg px-5 py-3 fw-semibold animate-pulse-glow" data-view="chatbot">
+                                Start Chatting <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="py-5">
+                <div class="container py-5">
+                    <h2 class="text-center mb-5 display-5 fw-bold">Our Features</h2>
+                    
+                    <div class="row g-4">
+                        <!-- Chat Bot Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card p-4 h-100" data-view="chatbot">
+                                <div class="card-icon mb-4">
+                                    <i class="bi bi-chat-text text-white fs-3"></i>
+                                </div>
+                                <h3 class="h4 text-center mb-3">AI Chat Bot</h3>
+                                <p class="text-center">Friendly conversations, storytelling, and creative poetry to support your mental wellness journey.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Crisis Detection Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card p-4 h-100" data-view="crisis">
+                                <div class="card-icon mb-4">
+                                    <i class="bi bi-exclamation-triangle text-white fs-3"></i>
+                                </div>
+                                <h3 class="h4 text-center mb-3">Crisis Support</h3>
+                                <p class="text-center">Immediate access to crisis resources and emergency support when you need it most.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Community Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#communityModal">
+                                <div class="card-icon mb-4">
+                                    <i class="bi bi-people text-white fs-3"></i>
+                                </div>
+                                <h3 class="h4 text-center mb-3">Community Hub</h3>
+                                <p class="text-center">Connect with peers, share stories, and join supportive group activities.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Activities Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#activitiesModal">
+                                <div class="card-icon mb-4">
+                                    <i class="bi bi-controller text-white fs-3"></i>
+                                </div>
+                                <h3 class="h4 text-center mb-3">Wellness Activities</h3>
+                                <p class="text-center">Personalized and community activities designed to boost your mental health.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Affirmations Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#affirmationsModal">
+                                <div class="card-icon mb-4">
+                                    <i class="bi bi-stars text-white fs-3"></i>
+                                </div>
+                                <h3 class="h4 text-center mb-3">Daily Affirmations</h3>
+                                <p class="text-center">Uplifting messages delivered through text, voice, and video formats.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Lifestyle Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#lifestyleModal">
+                                <div class="card-icon mb-4">
+                                    <i class="bi bi-heart text-white fs-3"></i>
+                                </div>
+                                <h3 class="h4 text-center mb-3">Lifestyle Tracking</h3>
+                                <p class="text-center">Monitor your sleep, diet, and exercise with personalized wellness suggestions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="border-top py-5 mt-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 text-center text-md-start">
+                            <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                                <div class="card-icon me-3">
+                                    <i class="bi bi-cpu text-white"></i>
+                                </div>
+                                <h3 class="m-0">MannKiBatt_2.0</h3>
+                            </div>
+                            <p class="mt-3">Generative AI for Youth Mental Wellness</p>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex justify-content-center justify-content-md-end">
+                                <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm"><i class="bi bi-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <p class="text-center mb-0">&copy; 2023 MannKiBatt_2.0. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Chatbot View -->
+        <div id="chatbotView" class="d-none">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-outline-secondary me-3" id="backToHome">
+                            <i class="bi bi-arrow-left"></i>
+                        </button>
+                        <div class="d-flex align-items-center">
+                            <div class="card-icon me-3" style="width: 40px; height: 40px;">
+                                <i class="bi bi-chat-text text-white"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">MindfulChat</h5>
+                                <small class="text-muted">Your AI wellness companion</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages-container" id="messagesContainer">
+                    <div class="message bot animate-fade-in">
+                        <p class="mb-1">Hello! I'm MindfulChat, your AI companion. How are you feeling today?</p>
+                        <small class="opacity-75">10:00 AM</small>
+                    </div>
+                </div>
+
+                <div class="message-input">
+                    <div class="d-flex gap-2 mb-3">
+                        <button class="btn btn-outline-secondary btn-sm quick-action" data-action="I need to talk">
+                            <i class="bi bi-chat me-1"></i> I need to talk
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm quick-action" data-action="Tell me a story">
+                            <i class="bi bi-book me-1"></i> Tell me a story
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm quick-action" data-action="I'm feeling anxious">
+                            <i class="bi bi-heart me-1"></i> I'm feeling anxious
+                        </button>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-transparent text-light border-secondary" placeholder="Type your message..." id="messageInput">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="bi bi-mic"></i>
+                        </button>
+                        <button class="btn btn-gradient" type="button" id="sendMessage">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crisis Detection View -->
+        <div id="crisisView" class="d-none crisis-section">
+            <div class="border-bottom p-4">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-secondary me-3" id="backToHomeCrisis">
+                        <i class="bi bi-arrow-left"></i>
+                    </button>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon me-3" style="width: 40px; height: 40px;">
+                            <i class="bi bi-exclamation-triangle text-white"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-0">Crisis Support</h5>
+                            <small class="text-muted">Immediate help is available 24/7</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container py-5">
+                <!-- Emergency Contacts Section -->
+                <div class="card emergency-card border-0 shadow-lg mb-5">
+                    <div class="card-body p-5">
+                        <h2 class="card-title mb-4"><i class="bi bi-exclamation-triangle-fill me-2"></i> Emergency Resources</h2>
+                        <p class="card-text mb-4">If you're in immediate danger or having thoughts of self-harm, reach out now.</p>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="text-center p-4 rounded-lg h-100" style="background-color: rgba(220, 38, 38, 0.1);">
+                                    <i class="bi bi-telephone-fill display-4 mb-3" style="color: var(--bs-red);"></i>
+                                    <h3 class="h5 mb-3">988 Lifeline</h3>
+                                    <p class="mb-3">Suicide & Crisis Lifeline</p>
+                                    <button class="btn emergency-btn w-100" data-action="988">
+                                        Call Now
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="text-center p-4 rounded-lg h-100" style="background-color: rgba(234, 88, 12, 0.1);">
+                                    <i class="bi bi-chat-dots-fill display-4 mb-3" style="color: var(--bs-orange);"></i>
+                                    <h3 class="h5 mb-3">Crisis Text Line</h3>
+                                    <p class="mb-3">Text HOME to 741741</p>
+                                    <button class="btn emergency-btn w-100" data-action="741741">
+                                        Text Now
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="text-center p-4 rounded-lg h-100" style="background-color: rgba(220, 38, 38, 0.1);">
+                                    <i class="bi bi-ambulance display-4 mb-3" style="color: var(--bs-red);"></i>
+                                    <h3 class="h5 mb-3">Emergency Services</h3>
+                                    <p class="mb-3">For immediate danger</p>
+                                    <button class="btn emergency-btn w-100" data-action="911">
+                                        Call 911
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Assessment Section -->
+                <div class="card assessment-card border-0 shadow-lg mb-5">
+                    <div class="card-body p-5">
+                        <h2 class="card-title mb-4"><i class="bi bi-clipboard-heart me-2"></i> Risk Assessment</h2>
+                        <p class="card-text mb-4">Help us understand how you're feeling right now.</p>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Are you having thoughts of hurting yourself?</label>
+                            <textarea class="form-control bg-transparent border-secondary" rows="3" placeholder="You can share as much or as little as you're comfortable with..."></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Do you have a plan to hurt yourself?</label>
+                            <textarea class="form-control bg-transparent border-secondary" rows="3" placeholder="This helps us understand the urgency of your situation..."></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Who can you reach out to for support right now?</label>
+                            <textarea class="form-control bg-transparent border-secondary" rows="3" placeholder="Friends, family, counselors, or other support people..."></textarea>
+                        </div>
+                        
+                        <button class="btn btn-gradient w-100">
+                            <i class="bi bi-send me-2"></i> Submit Assessment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Safety Planning Section -->
+                <div class="card safety-card border-0 shadow-lg mb-5">
+                    <div class="card-body p-5">
+                        <h2 class="card-title mb-4"><i class="bi bi-shield-check me-2"></i> Safety Planning</h2>
+                        <p class="card-text mb-4">Create your personalized safety plan for difficult moments.</p>
+                        
+                        <div class="mb-4">
+                            <h4 class="mb-3"><i class="bi bi-telephone me-2"></i> Support Contacts</h4>
+                            <div class="support-contacts">
+                                <div class="mb-2">
+                                    <input type="text" class="form-control bg-transparent border-secondary mb-2" placeholder="Contact name and phone">
+                                </div>
+                                <div class="mb-2">
+                                    <input type="text" class="form-control bg-transparent border-secondary mb-2" placeholder="Contact name and phone">
+                                </div>
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-plus-circle me-1"></i> Add Another Contact
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="mb-3"><i class="bi bi-lightbulb me-2"></i> Coping Strategies</h4>
+                            <div class="coping-strategies">
+                                <div class="mb-2">
+                                    <input type="text" class="form-control bg-transparent border-secondary mb-2" placeholder="Coping strategy">
+                                </div>
+                                <div class="mb-2">
+                                    <input type="text" class="form-control bg-transparent border-secondary mb-2" placeholder="Coping strategy">
+                                </div>
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-plus-circle me-1"></i> Add Another Strategy
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="mb-3"><i class="bi bi-geo-alt me-2"></i> Safe Environments</h4>
+                            <div class="safe-environments">
+                                <div class="mb-2">
+                                    <input type="text" class="form-control bg-transparent border-secondary mb-2" placeholder="Safe place">
+                                </div>
+                                <div class="mb-2">
+                                    <input type="text" class="form-control bg-transparent border-secondary mb-2" placeholder="Safe place">
+                                </div>
+                                <button class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-plus-circle me-1"></i> Add Another Place
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded-lg mb-3" style="background-color: rgba(0,0,0,0.05);">
+                            <div>
+                                <h5 class="mb-1">Enable Warning Signs Alerts</h5>
+                                <p class="mb-0 small">Get reminders about your personal warning signs</p>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" checked>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded-lg">
+                            <div>
+                                <h5 class="mb-1">Professional Help Reminders</h5>
+                                <p class="mb-0 small">Regular check-ins about professional support</p>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" role="switch" checked>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calming Exercises Section -->
+                <div class="card calming-card border-0 shadow-lg mb-5">
+                    <div class="card-body p-5">
+                        <h2 class="card-title mb-4"><i class="bi bi-wind me-2"></i> Calming Exercises</h2>
+                        <p class="card-text mb-4">Quick techniques to help you feel more grounded and calm.</p>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="rounded-lg p-4 h-100" style="background-color: rgba(0,0,0,0.05);">
+                                    <h4 class="mb-3"><i class="bi bi-wind me-2"></i> Breathing Exercise</h4>
+                                    <div class="breathing-circle" id="breathingCircle">
+                                        <div class="text-center">
+                                            <div class="display-3 fw-bold" id="breathCount">4</div>
+                                            <div class="text-uppercase fw-bold" id="breathPhase">Inhale</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <button class="btn btn-gradient" id="startBreathing">
+                                            <i class="bi bi-play-circle me-2"></i> Start Exercise
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <div class="rounded-lg p-4 h-100" style="background-color: rgba(0,0,0,0.05);">
+                                    <h4 class="mb-3"><i class="bi bi-eye me-2"></i> Grounding Technique</h4>
+                                    <p>Follow the 5-4-3-2-1 method to center yourself:</p>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item bg-transparent border-secondary">5 things you can see</li>
+                                        <li class="list-group-item bg-transparent border-secondary">4 things you can touch</li>
+                                        <li class="list-group-item bg-transparent border-secondary">3 things you can hear</li>
+                                        <li class="list-group-item bg-transparent border-secondary">2 things you can smell</li>
+                                        <li class="list-group-item bg-transparent border-secondary">1 thing you can taste</li>
+                                    </ul>
+                                    <button class="btn btn-outline-secondary mt-3 w-100">
+                                        <i class="bi bi-clock me-2"></i> Start 5-Minute Exercise
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources Section -->
+                <div class="card resources-card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <h2 class="card-title mb-4"><i class="bi bi-book me-2"></i> Additional Resources</h2>
+                        <p class="card-text mb-4">Links to additional mental health support services and information.</p>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="rounded-lg p-4 h-100" style="background-color: rgba(0,0,0,0.05);">
+                                    <h5><i class="bi bi-link-45deg me-2"></i> NAMI</h5>
+                                    <p class="small">National Alliance on Mental Illness - Support groups and educational resources</p>
+                                    <button class="btn btn-sm btn-gradient">Visit Website</button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="rounded-lg p-4 h-100" style="background-color: rgba(0,0,0,0.05);">
+                                    <h5><i class="bi bi-link-45deg me-2"></i> Mental Health America</h5>
+                                    <p class="small">Screening tools and local resources for mental health support</p>
+                                    <button class="btn btn-sm btn-gradient">Visit Website</button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="rounded-lg p-4 h-100" style="background-color: rgba(0,0,0,0.05);">
+                                    <h5><i class="bi bi-link-45deg me-2"></i> Crisis Text Line</h5>
+                                    <p class="small">24/7 text-based crisis support for any kind of crisis</p>
+                                    <button class="btn btn-sm btn-gradient">Visit Website</button>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="rounded-lg p-4 h-100" style="background-color: rgba(0,0,0,0.05);">
+                                    <h5><i class="bi bi-link-45deg me-2"></i> SAMHSA</h5>
+                                    <p class="small">Substance Abuse and Mental Health Services Administration - Treatment locator</p>
+                                    <button class="btn btn-sm btn-gradient">Visit Website</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            const homeView = document.getElementById('homeView');
+            const chatbotView = document.getElementById('chatbotView');
+            const crisisView = document.getElementById('crisisView');
+            const backToHome = document.getElementById('backToHome');
+            const backToHomeCrisis = document.getElementById('backToHomeCrisis');
+            const messageInput = document.getElementById('messageInput');
+            const sendMessageBtn = document.getElementById('sendMessage');
+            const messagesContainer = document.getElementById('messagesContainer');
+            const navItems = document.querySelectorAll('.nav-item');
+            const quickActions = document.querySelectorAll('.quick-action');
+            const featureCards = document.querySelectorAll('.feature-card');
+            const startBreathingBtn = document.getElementById('startBreathing');
+            const breathingCircle = document.getElementById('breathingCircle');
+            const breathCount = document.getElementById('breathCount');
+            const breathPhase = document.getElementById('breathPhase');
+            const themeToggle = document.getElementById('themeToggle');
+            const themeToggleSidebar = document.getElementById('themeToggleSidebar');
+
+            // State
+            let currentView = 'home';
+            let messages = [
+                {
+                    id: 1,
+                    text: "Hello! I'm MindfulChat, your AI companion. How are you feeling today?",
+                    sender: "bot",
+                    timestamp: new Date(),
+                }
+            ];
+            let isTyping = false;
+            let breathingActive = false;
+            let breathingPhaseState = 'inhale';
+            let breathingCountState = 4;
+            let breathingInterval = null;
+
+            // Theme toggle functionality
+            function toggleTheme() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                
+                // Update icons
+                const icon = themeToggle.querySelector('i');
+                const sidebarIcon = themeToggleSidebar.querySelector('i');
+                
+                if (newTheme === 'dark') {
+                    icon.className = 'bi bi-sun fs-5';
+                    sidebarIcon.className = 'bi bi-moon me-2';
+                    themeToggleSidebar.querySelector('span').textContent = 'Toggle Theme';
+                } else {
+                    icon.className = 'bi bi-moon fs-5';
+                    sidebarIcon.className = 'bi bi-sun me-2';
+                    themeToggleSidebar.querySelector('span').textContent = 'Toggle Theme';
+                }
+                
+                // Update the theme in localStorage
+                localStorage.setItem('theme', newTheme);
+            }
+
+            // Add event listeners to both theme toggle buttons
+            themeToggle.addEventListener('click', toggleTheme);
+            themeToggleSidebar.addEventListener('click', toggleTheme);
+
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                // Update icons based on saved theme
+                const icon = themeToggle.querySelector('i');
+                const sidebarIcon = themeToggleSidebar.querySelector('i');
+                
+                if (savedTheme === 'dark') {
+                    icon.className = 'bi bi-sun fs-5';
+                    sidebarIcon.className = 'bi bi-moon me-2';
+                } else {
+                    icon.className = 'bi bi-moon fs-5';
+                    sidebarIcon.className = 'bi bi-sun me-2';
+                }
+            }
+
+            // Sidebar toggle functionality
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                mobileOverlay.classList.toggle('active');
+            });
+
+            // Navigation
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const view = this.getAttribute('data-view');
+                    setCurrentView(view);
+                    
+                    // Update active state
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Feature cards navigation
+            featureCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const view = this.getAttribute('data-view');
+                    if (view) {
+                        setCurrentView(view);
+                        navItems.forEach(nav => {
+                            nav.classList.remove('active');
+                            if (nav.getAttribute('data-view') === view) {
+                                nav.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Back to home buttons
+            if (backToHome) {
+                backToHome.addEventListener('click', function() {
+                    setCurrentView('home');
+                    navItems.forEach(nav => {
+                        nav.classList.remove('active');
+                        if (nav.getAttribute('data-view') === 'home') {
+                            nav.classList.add('active');
+                        }
+                    });
+                });
+            }
+
+            if (backToHomeCrisis) {
+                backToHomeCrisis.addEventListener('click', function() {
+                    setCurrentView('home');
+                    navItems.forEach(nav => {
+                        nav.classList.remove('active');
+                        if (nav.getAttribute('data-view') === 'home') {
+                            nav.classList.add('active');
+                        }
+                    });
+                });
+            }
+
+            // Quick actions
+            if (quickActions) {
+                quickActions.forEach(action => {
+                    action.addEventListener('click', function() {
+                        const actionText = this.getAttribute('data-action');
+                        const quickMessages = {
+                            "I need to talk": "I need someone to talk to right now.",
+                            "Tell me a story": "Could you tell me an uplifting story?",
+                            "I'm feeling anxious": "I'm feeling anxious and could use some support."
+                        };
+                        sendMessage(quickMessages[actionText]);
+                    });
+                });
+            }
+
+            // Send message
+            if (sendMessageBtn && messageInput) {
+                sendMessageBtn.addEventListener('click', function() {
+                    if (messageInput.value.trim()) {
+                        sendMessage(messageInput.value);
+                        messageInput.value = '';
+                    }
+                });
+
+                messageInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && messageInput.value.trim()) {
+                        sendMessage(messageInput.value);
+                        messageInput.value = '';
+                    }
+                });
+            }
+
+            // Breathing exercise
+            if (startBreathingBtn) {
+                startBreathingBtn.addEventListener('click', function() {
+                    breathingActive = !breathingActive;
+                    
+                    if (breathingActive) {
+                        this.innerHTML = '<i class="bi bi-pause-circle me-2"></i> Pause Exercise';
+                        startBreathingExercise();
+                    } else {
+                        this.innerHTML = '<i class="bi bi-play-circle me-2"></i> Start Exercise';
+                        stopBreathingExercise();
+                    }
+                });
+            }
+
+            function startBreathingExercise() {
+                breathingPhaseState = 'inhale';
+                breathingCountState = 4;
+                updateBreathingUI();
+                
+                breathingInterval = setInterval(function() {
+                    breathingCountState--;
+                    
+                    if (breathingCountState <= 0) {
+                        breathingPhaseState = breathingPhaseState === 'inhale' ? 'hold' : breathingPhaseState === 'hold' ? 'exhale' : 'inhale';
+                        
+                        if (breathingPhaseState === 'inhale') breathingCountState = 4;
+                        else if (breathingPhaseState === 'hold') breathingCountState = 7;
+                        else if (breathingPhaseState === 'exhale') breathingCountState = 8;
+                    }
+                    
+                    updateBreathingUI();
+                }, 1000);
+            }
+
+            function stopBreathingExercise() {
+                if (breathingInterval) {
+                    clearInterval(breathingInterval);
+                }
+                if (breathingCircle && breathCount && breathPhase) {
+                    breathingCircle.classList.remove('breathing-in', 'breathing-out');
+                    breathCount.textContent = '4';
+                    breathPhase.textContent = 'Inhale';
+                }
+            }
+
+            function updateBreathingUI() {
+                if (breathCount && breathPhase && breathingCircle) {
+                    breathCount.textContent = breathingCountState;
+                    
+                    if (breathingPhaseState === 'inhale') {
+                        breathPhase.textContent = 'Inhale';
+                        breathingCircle.classList.add('breathing-in');
+                        breathingCircle.classList.remove('breathing-out');
+                    } else if (breathingPhaseState === 'hold') {
+                        breathPhase.textContent = 'Hold';
+                        breathingCircle.classList.remove('breathing-in', 'breathing-out');
+                    } else if (breathingPhaseState === 'exhale') {
+                        breathPhase.textContent = 'Exhale';
+                        breathingCircle.classList.remove('breathing-in');
+                        breathingCircle.classList.add('breathing-out');
+                    }
+                }
+            }
+
+            // Send message function
+            function sendMessage(text) {
+                if (!text || !text.trim()) return;
+                
+                const userMessage = {
+                    id: messages.length + 1,
+                    text: text.trim(),
+                    sender: "user",
+                    timestamp: new Date(),
+                };
+                
+                messages.push(userMessage);
+                renderMessage(userMessage);
+                
+                // Simulate bot typing
+                isTyping = true;
+                renderTypingIndicator();
+                
+                setTimeout(() => {
+                    isTyping = false;
+                    removeTypingIndicator();
+                    
+                    const botResponses = [
+                        "I understand how you're feeling. Would you like to try a breathing exercise or talk more about what's on your mind?",
+                        "That sounds challenging. Remember, it's okay to feel this way. What would help you feel more supported right now?",
+                        "Thank you for sharing that with me. Your feelings are valid. Would you like me to suggest some coping strategies?",
+                        "I'm here to listen. Sometimes talking through our thoughts can help us process them better. What's been weighing on you?",
+                        "It takes courage to reach out. I'm proud of you for taking this step. How can I best support you today?",
+                    ];
+                    
+                    const botMessage = {
+                        id: messages.length + 1,
+                        text: botResponses[Math.floor(Math.random() * botResponses.length)],
+                        sender: "bot",
+                        timestamp: new Date(),
+                    };
+                    
+                    messages.push(botMessage);
+                    renderMessage(botMessage);
+                }, 1500);
+            }
+
+            // Render message
+            function renderMessage(message) {
+                if (!messagesContainer) return;
+                
+                const messageEl = document.createElement('div');
+                messageEl.className = `message ${message.sender} animate-fade-in`;
+                
+                const messageText = document.createElement('p');
+                messageText.className = 'mb-1';
+                messageText.textContent = message.text;
+                
+                const timestamp = document.createElement('small');
+                timestamp.className = 'opacity-75';
+                timestamp.textContent = message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                messageEl.appendChild(messageText);
+                messageEl.appendChild(timestamp);
+                
+                messagesContainer.appendChild(messageEl);
+                scrollToBottom();
+            }
+
+            // Render typing indicator
+            function renderTypingIndicator() {
+                if (!messagesContainer) return;
+                
+                const typingEl = document.createElement('div');
+                typingEl.className = 'typing-indicator';
+                typingEl.id = 'typingIndicator';
+                
+                for (let i = 0; i < 3; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'typing-dot animate-bounce';
+                    dot.style.animationDelay = `${i * 0.2}s`;
+                    typingEl.appendChild(dot);
+                }
+                
+                messagesContainer.appendChild(typingEl);
+                scrollToBottom();
+            }
+
+            // Remove typing indicator
+            function removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            }
+
+            // Scroll to bottom of messages
+            function scrollToBottom() {
+                if (messagesContainer) {
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+
+            // Set current view
+            function setCurrentView(view) {
+                currentView = view;
+                
+                // Hide all views
+                document.querySelectorAll('[id$="View"]').forEach(view => {
+                    view.classList.add('d-none');
+                });
+                
+                // Show current view
+                const targetView = document.getElementById(view + 'View');
+                if (targetView) {
+                    targetView.classList.remove('d-none');
+                }
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+                
+                // If it's the chatbot view, scroll to bottom of messages
+                if (view === 'chatbot') {
+                    setTimeout(() => {
+                        scrollToBottom();
+                    }, 100);
+                }
+            }
+
+            // Add animation to feature cards
+            if (featureCards) {
+                featureCards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.classList.add('animate-fade-in');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

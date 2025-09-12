@@ -34,6 +34,10 @@
         <li class="nav-item">
           <a class="nav-link" href="/contact">Contact Us</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard">Dashboard</a>
+        </li>
       </ul>
       <a href="/info">
         <button class="btn btn-outline-danger bg-danger text-white my-2 my-sm-0" type="submit">See Info --></button>
@@ -86,7 +90,6 @@
       <p class="lead"><big>The best time to plant a tree was 20 years ago. The second best time is now.</big>
       </p>
 
-
       <div class="row mt-4 mb-0">
         <div class="col"></div>
         <div class="col">
@@ -111,7 +114,6 @@
     <p class="fs-5 text-body-secondary font-weight-normal"><big>Click on the Upload button to upload the desired image of the medicinal plant. Confirm your uploaded image by seeing it in the preview image section below. Then click on the Submit button to get the name and confidence of the medicinal plant.</big></p>
   </div>
 
-
   <img class="container my-2" src="static/images/img_icon.jpg" id="dispimg"
     style="display: flex; justify-content: center; align-items: center;height: 300px; width: 300px; border: 2px dashed gray;">
 
@@ -129,22 +131,19 @@
       <div class="container" style="display: flex; justify-content: center; align-items: center;">
         <button class="btn btn-success" style="width: 100px;"><strong>Submit</strong></button>
       </div>
-
     </form>
   </div>
 
-
-  <div class="contianer mt-0 mx-auto" style="width: 18rem;">
+  <div class="container mt-0 mx-auto" style="width: 18rem;">
     <ul class="list-group list-group-flush">
       <hr>
       <li class="list-group-item"><strong>Plant Name :{{result}}</strong></li>
       <li class="list-group-item"><strong>Confidence :{{accuracy}}%</strong></li>
       <hr>
     </ul>
-
   </div>
 
-  <!-- Diplay the information and causes here -->
+  <!-- Display the information and causes here -->
   <div class="container">
     <hr>
     <h3>{{result}}</h3><br>
@@ -166,24 +165,21 @@
   </div>
   <hr>
   <h1 class="text-center"><u> Visit Us Once!</u></h1>
-<div class="container" style="display: flex; justify-content:center; align-items:center;">
-  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.4420166839777!2d73.8656287742359!3d18.463626970913108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2ea950f616219%3A0x321bdae2cea9f064!2sVishwakarma%20Institute%20of%20Technology!5e0!3m2!1sen!2sin!4v1703085134408!5m2!1sen!2sin" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
+  <div class="container" style="display: flex; justify-content:center; align-items:center;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.4420166839777!2d73.8656287742359!3d18.463626970913108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2ea950f616219%3A0x321bdae2cea9f064!2sVishwakarma%20Institute%20of%20Technology!5e0!3m2!1sen!2sin!4v1703085134408!5m2!1sen!2sin" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
 
   <footer class="bg-dark text-center text-white position-relative mt-3">
     <!-- Grid container -->
     <div class="container p-4">
       <!-- Section WT project -->
-      <h3 class="mx-auto mb-4">A Course Project for Web Technnology</h3>
-      <!-- Section: Links -->
-
-
+      <h3 class="mx-auto mb-4">A Course Project for Web Technology</h3>
       <!-- Section: Text -->
       <section class="mb-4">
         <p>
           A web based platform that uses images or photographs to automate the process of medicinal plant
           identification. Users are able to input images of medicinal plant, and the algorithm will correctly identify
-          the type of the medicinal plant.The sytem returns the desired results to the user which includes the name of
+          the type of the medicinal plant. The system returns the desired results to the user which includes the name of
           the respective medicinal plant and the confidence associated with it, that signifies the matching percentage
           with the actual plant.
         </p>
@@ -296,17 +292,13 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2023 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/">Vishwakarma Institute of Technnology, Pune</a>
+      <a class="text-white" href="https://mdbootstrap.com/">Vishwakarma Institute of Technology, Pune</a>
     </div>
     <!-- Copyright -->
   </footer>
 
-
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
-
-
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
@@ -317,7 +309,7 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
 
-  <!--E mail Function Script-->
+  <!-- Email Function Script -->
   <script>
     function showMail(a, b) {
       document.getElementById(a).innerHTML = b;
@@ -328,7 +320,6 @@
     }
 
     // JS code for uploading pic...
-
     let LogoPic = document.getElementById("dispimg");
     let InputPic = document.getElementById("fileupload");
 
@@ -336,7 +327,6 @@
       LogoPic.src = URL.createObjectURL(InputPic.files[0]); //creating the url of the input file and then updating it
     }
   </script>
-
 </body>
 
 </html>
