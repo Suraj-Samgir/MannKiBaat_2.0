@@ -80,6 +80,18 @@ def index():
 # Route for Login Page...
 @app.route('/login', methods = ['GET','POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        user = Userdb.query.filter_by(email=email).first()
+
+        if user and user.check_password(password):
+            session['email'] = user.email
+            return redirect('/dashboard')
+        else:
+            return render_template("login.html", errorMsg = "* Invalid Username or Password *")
+        
     return render_template('login.html', show_quickLinks=True)
 
 
@@ -168,7 +180,29 @@ def category():
 # Route after login successful, showing AI Dashboard...
 @app.route('/dashboard')
 def dashboard():
-    pass
+    email = session.get('email')  # safer than session['email']
+    if email:
+        user = Userdb.query.filter_by(email=email).first()
+        if not user:
+            return redirect('/login')  # fallback if no user found
+
+        lifestyle = Lifestyle.query.filter_by(user_id=user.id).first()
+        categories = UserCategorySelection.query.filter_by(user_id=user.id).all()
+
+        return render_template(
+            "dashboard.html",
+            user=user,
+            lifestyle=lifestyle,
+            categories=categories
+        )
+    else:
+        return redirect('/login')
+    
+# Route for logout ....
+@app.route('/logout')
+def logout():
+    session.pop('email',None)
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run(debug=True)

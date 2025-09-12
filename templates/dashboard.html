@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Successed Login!</title>
+
+</head>
+
+<body>
+    <h2>Welcome, {{ user.firstName }}!</h2>
+
+    <h3>Lifestyle Details:</h3>
+    <p>Diet: {{ lifestyle.diet }}</p>
+    <p>Activity: {{ lifestyle.physicalActivity }}</p>
+    <p>Sleep Hours: {{ lifestyle.sleepHrs }}</p>
+
+    <h3>Selected Categories:</h3>
+    <ul>
+        {% for c in categories %}
+        <li><b>{{ c.category }}:</b> {{ c.subcategory }} <br> {{ c.description }}</li>
+        {% endfor %}
+    </ul>
+
+
+    <div id="logout-btn">
+        <a href="/logout">
+            <button>Logout</button>
+        </a>
+    </div>
+
+
+</body>
+
+</html>
