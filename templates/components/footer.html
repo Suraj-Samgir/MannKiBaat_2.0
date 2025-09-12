@@ -23,7 +23,7 @@
         <div class="row">
           <!--Grid column-->
           <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">24/7 AI Chatbot</h5>
+            <h5 class="text-uppercase">24 / 7 AI Chatbot</h5>
 
             <a class="btn btn-outline-light btn-floating m-1" role="button"
               onmouseover="showMail('chatbot','Vent in Hinglish and get friendly replies.')" onmouseleave="hideMail('chatbot')"><i class="fa-regular fa-comment-dots"></i></a>
@@ -87,13 +87,15 @@
     </div>
     <!-- Grid container -->
 
-    <!-- Copyright -->
+    {% if show_quickLinks %}
+      <!-- Quick Links -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       <b>@ Quick Links :</b> <br>
-      <a class="text-white" href="/contact">Say Your Mann Ki Baat</a> | 
-      <a class="text-white" href="/">All About Us</a>
+      <a class="text-white" href="/login"><u>Say Your Mann Ki Baat</u></a> | 
+      <a class="text-white" href="/"><u>All About Us</u></a>
     </div>
-    <!-- Copyright -->
+    <!-- Quick Links -->
+    {% endif %}
   </footer>
 
     <script>

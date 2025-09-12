@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <title>Contact Us</title>
+</head>
+
+<body>
+  {% include "components/navbar.html" %}
+
+  <div class="container my-4" style="display: flex; justify-content: center; align-items: center;">
+    <h2 class="fw-normal text-body-emphasis font-weight-bold">Tell Us a Little About You – Your Mind Will Thank You
+      Later</h2>
+  </div>
+
+  <div class="container mx-auto mt-2">
+
+<form action="/register" method="POST" style="border: 1px dotted gray;" class="px-5 py-5">
+
+  <div class="row">
+    <div class="col">
+      <label for="firstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" placeholder="Enter First Name" id="firstName" name="firstName" required>
+    </div>
+    <div class="col">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" placeholder="Enter Last Name" id="lastName" name="lastName" required>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col">
+      <label for="exampleInputEmail1" class="form-label">Email Address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter Email" required>
+    </div>
+    <div class="col">
+      <label for="phone" class="form-label">Phone Number</label>
+      <input type="tel" class="form-control" id="phone" placeholder="Enter Phone Number" name="phone" pattern="[0-9]{10}" required>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" placeholder="Enter Password" id="password" name="password" minlength="6" required>
+    </div>
+
+    <div class="col">
+      <label for="confirmPass" class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPass" required>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col">
+      <label for="gender" class="form-label">Select Gender</label>
+      <select class="form-control" id="gender" name="gender" required>
+        <option value="">(Select Gender)</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="birthDate" class="form-label">Select Birth Date</label>
+      <input class="form-control" type="date" name="birthDate" id="birthDate" required>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col">
+      <label for="educationLevel" class="form-label">Educational Level</label>
+      <select class="form-control" id="educationLevel" name="eduLevel" required>
+        <option value="">(Select Educational Level)</option>
+        <option value="School">School (Class till 12th)</option>
+        <option value="College">College (UG/PG)</option>
+        <option value="Coaching">Coaching / Competitive Prep</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="col">
+      <label for="fieldOfStudy" class="form-label">Field of Study</label>
+      <select class="form-control" id="fieldOfStudy" name="fieldOfStudy" required>
+        <option value="">(Select Field of Study)</option>
+        <option value="Engineering">Engineering / Tech</option>
+        <option value="Medical">Medical / Life Sciences</option>
+        <option value="Commerce">Commerce / Business</option>
+        <option value="Arts">Arts / Humanities</option>
+        <option value="Law">Law</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <br>
+  <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+  </div>
+
+{% include "components/footer.html" %}
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+
+    <script>
+document.querySelector("form").addEventListener("submit", function(event) {
+  const password = document.getElementById("password").value;
+  const confirmPass = document.getElementById("confirmPass").value;
+
+  if (password !== confirmPass) {
+    event.preventDefault();
+    alert("Passwords do not match!");
+  }
+});
+</script>
+
+
+</body>
+
+</html>
