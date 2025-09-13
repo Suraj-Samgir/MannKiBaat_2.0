@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,13 +10,354 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <title>Mann Ki Baat 2.0</title>
+  
+  <style>
+    :root {
+      --bs-dark-bg: #1a1f2e;
+      --bs-dark-border: #3b4a6b;
+      --bs-dark-card: #252d44;
+      --bs-blue: #1e40af;
+      --bs-teal: #2dd4bf;
+      --bs-green: #34d399;
+      --bs-purple: #9333ea;
+      --bs-pink: #ec4899;
+      --bs-red: #ef4444;
+      --bs-orange: #f97316;
+      --bs-light-bg: #f9fafb;
+      --bs-light-border: #d1d5db;
+      --bs-light-card: #ffffff;
+      --bs-gradient: linear-gradient(135deg, var(--bs-blue) 0%, var(--bs-teal) 50%, var(--bs-green) 100%);
+      --bs-gradient-reverse: linear-gradient(135deg, var(--bs-green) 0%, var(--bs-teal) 50%, var(--bs-blue) 100%);
+      --bs-light-blue: #60a5fa;
+      --bs-light-teal: #5eead4;
+      --bs-light-green: #6ee7b7;
+      --bs-footer-bg: #2a3143;
+    }
+
+    [data-theme="dark"] {
+      --bs-bg: var(--bs-dark-bg);
+      --bs-border: var(--bs-dark-border);
+      --bs-card: var(--bs-dark-card);
+      --bs-text: #f3f4f6;
+      --bs-muted-text: #9ca3af;
+      --bs-circle-1: rgba(30, 64, 175, 0.6);
+      --bs-circle-2: rgba(45, 212, 191, 0.6);
+      --bs-primary-btn: var(--bs-gradient);
+      --bs-primary-btn-hover: linear-gradient(135deg, #3b82f6 0%, #4ade80 50%, #6ee7b7 100%);
+      --bs-card-icon-bg: var(--bs-gradient);
+      --bs-footer-bg: #2a3143;
+      --bs-navbar-bg: #1a1f2e;
+    }
+
+    [data-theme="light"] {
+      --bs-bg: var(--bs-light-bg);
+      --bs-border: var(--bs-light-border);
+      --bs-card: var(--bs-light-card);
+      --bs-text: #111827;
+      --bs-muted-text: #6b7280;
+      --bs-circle-1: rgba(96, 165, 250, 0.7);
+      --bs-circle-2: rgba(94, 234, 212, 0.7);
+      --bs-gradient: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+      --bs-gradient-reverse: linear-gradient(135deg, var(--bs-light-green) 0%, var(--bs-light-teal) 50%, var(--bs-light-blue) 100%);
+      --bs-primary-btn: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+      --bs-primary-btn-hover: linear-gradient(135deg, #93c5fd 0%, #99f6e4 50%, #86efac 100%);
+      --bs-card-icon-bg: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+      --bs-footer-bg: #e9ecef;
+      --bs-navbar-bg: #343a40;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bs-bg);
+      color: var(--bs-text);
+      overflow-x: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      min-height: 100vh;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1002;
+      background: var(--bs-card);
+      border: 1px solid var(--bs-border);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-toggle i {
+      color: var(--bs-text);
+      font-size: 1.2rem;
+    }
+
+    .navbar {
+      background-color: var(--bs-navbar-bg) !important;
+      padding: 0.8rem 1rem;
+    }
+
+    .navbar-brand, .nav-link {
+      color: var(--bs-text) !important;
+    }
+
+    .btn-outline-danger {
+      border-color: var(--bs-red);
+      color: var(--bs-red);
+    }
+
+    .btn-outline-danger:hover {
+      background-color: var(--bs-red);
+      color: white;
+    }
+
+    .carousel-item img {
+      height: 500px;
+      object-fit: cover;
+    }
+
+    .carousel-caption {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    .pricing-header {
+      padding: 3rem 0;
+    }
+
+    .display-5, .display-4 {
+      background: var(--bs-primary-btn);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .jumbotron {
+      background-color: var(--bs-card) !important;
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid var(--bs-border);
+    }
+
+    .lead {
+      color: var(--bs-muted-text);
+    }
+
+    .btn-success {
+      background: var(--bs-primary-btn);
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      color: white;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-success:hover {
+      background: var(--bs-primary-btn-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+      color: white;
+    }
+
+    #dispimg {
+      border: 2px dashed var(--bs-border);
+      border-radius: 1.25rem;
+      padding: 1rem;
+      background-color: var(--bs-card);
+    }
+
+    form {
+      background-color: var(--bs-card);
+      padding: 1.5rem;
+      border-radius: 1.25rem;
+      border: 1px solid var(--bs-border);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label[for="fileupload"] {
+      background: var(--bs-primary-btn);
+      border: none;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    label[for="fileupload"]:hover {
+      background: var(--bs-primary-btn-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .list-group-item {
+      background-color: var(--bs-card);
+      color: var(--bs-text);
+      border: 1px solid var(--bs-border);
+    }
+
+    .container h3, .container h5 {
+      color: var(--bs-text);
+    }
+
+    .featurette-divider {
+      border-color: var(--bs-border);
+    }
+
+    iframe {
+      border-radius: 1.25rem;
+      border: 1px solid var(--bs-border);
+    }
+
+    footer {
+      background-color: var(--bs-footer-bg) !important;
+      color: var(--bs-text) !important;
+      border-top: 1px solid var(--bs-border);
+    }
+
+    footer h3 {
+      background: var(--bs-primary-btn);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    footer p {
+      color: var(--bs-muted-text);
+    }
+
+    .btn-floating {
+      background: var(--bs-primary-btn);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    .btn-floating:hover {
+      background: var(--bs-primary-btn-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-bg-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.25;
+      z-index: -1;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: pulse 10s infinite ease-in-out;
+    }
+
+    .circle-1 {
+      top: 20%;
+      left: 20%;
+      width: 350px;
+      height: 350px;
+      background-color: var(--bs-circle-1);
+      animation-delay: -3s;
+    }
+
+    .circle-2 {
+      bottom: 20%;
+      right: 20%;
+      width: 450px;
+      height: 450px;
+      background-color: var(--bs-circle-2);
+      animation-delay: -6s;
+    }
+
+    @keyframes fadeIn {
+      from {
+          opacity: 0;
+          transform: translateY(25px);
+      }
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+          transform: scale(1);
+          opacity: 0.25;
+      }
+      50% {
+          transform: scale(1.15);
+          opacity: 0.45;
+      }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 0.7s ease-out forwards;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-item img {
+        height: 300px;
+      }
+      
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+      }
+      
+      .display-5, .display-4 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body data-theme="light">
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-moon"></i>
+  </div>
+
+  <!-- Background Animation -->
+  <div class="hero-bg-animation">
+    <div class="hero-bg-circle circle-1"></div>
+    <div class="hero-bg-circle circle-2"></div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="/">MedPlant</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +383,7 @@
         </li>
       </ul>
       <a href="/info">
-        <button class="btn btn-outline-danger bg-danger text-white my-2 my-sm-0" type="submit">See Info --></button>
+        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">See Info →</button>
       </a>
     </div>
   </nav>
@@ -55,21 +396,21 @@
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="static/images/img1.jpg" class="d-block w-100 img-fluid" alt="...">
+        <img src="https://via.placeholder.com/1200x500/9333ea/ffffff?text=From+Stress+to+Smile" class="d-block w-100 img-fluid" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>From Stress to Smile</h5>
           <p>Turning late-night worries into calm, one chat at a time.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="static/images/img2.png" class="d-block w-100 img-fluid" alt="...">
+        <img src="https://via.placeholder.com/1200x500/1e40af/ffffff?text=Student+Life+is+Tough" class="d-block w-100 img-fluid" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>Student Life is Tough</h5>
-          <p>That’s why we made it a little easier for you.</p>
+          <p>That's why we made it a little easier for you.</p>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="static/images/img3.jpg" class="d-block w-100 img-fluid" alt="...">
+        <img src="https://via.placeholder.com/1200x500/34d399/ffffff?text=Talk+Freely.+Think+Clearly." class="d-block w-100 img-fluid" alt="...">
         <div class="carousel-caption d-none d-md-block">
           <h5>Talk Freely. Think Clearly.</h5>
           <p>Because your peace of mind matters more than marks.</p>
@@ -86,59 +427,49 @@
     </a>
   </div>
 
-<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-    <h1 class="display-5 fw-normal text-body-emphasis font-weight-bold">Mann Ki Baat 2.0 – Because Doston Ko Bhi Kabhi Sunna Chahiye!</h1>
-    <p class="fs-3 text-body-secondary font-weight-normal"><big><big> Safe, confidential, and fun space for students to share thoughts, beat stress, and find balance in life.</big></big></p>
+  <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h1 class="display-5 fw-normal font-weight-bold">Mann Ki Baat 2.0 – Because Doston Ko Bhi Kabhi Sunna Chahiye!</h1>
+    <p class="fs-3 font-weight-normal">Safe, confidential, and fun space for students to share thoughts, beat stress, and find balance in life.</p>
   </div>
 
-
-  <div class="jumbotron jumbotron-fluid my-2 bg-muted text-center py-5">
+  <div class="jumbotron jumbotron-fluid my-2 text-center py-5">
     <div class="container text-center">
       <h1 class="display-4">How it Works ? </h1> <br>
 
-      <p class="lead"><b>1. Sign Up (or Stay Anonymous 🤫) :</b> Just share a few basic details (or none at all). We respect your privacy – no roll numbers here!
+      <p class="lead"><b>1. Sign Up (or Stay Anonymous 🤫) :</b> Just share a few basic details (or none at all). We respect your privacy – no roll numbers here!</p>
 
-      <p class="lead"><b>2. Pick What’s on Your Mind 🎯 : </b>Select from 8 life areas – career, relationships, health, etc. This helps us understand you better.
+      <p class="lead"><b>2. Pick What's on Your Mind 🎯 : </b>Select from 8 life areas – career, relationships, health, etc. This helps us understand you better.</p>
 
-      <p class="lead"><b>3. Share Your Mann Ki Baat 🗣️ :</b> Write it out, say it out loud, or even vent in Hinglish. Our AI buddy listens without judgment.
+      <p class="lead"><b>3. Share Your Mann Ki Baat 🗣️ :</b> Write it out, say it out loud, or even vent in Hinglish. Our AI buddy listens without judgment.</p>
 
-      <p class="lead"><b>4. Get Instant Support 🤖✨ : </b>Get empathetic responses, personalized suggestions, and daily affirmations to feel lighter.
+      <p class="lead"><b>4. Get Instant Support 🤖✨ : </b>Get empathetic responses, personalized suggestions, and daily affirmations to feel lighter.</p>
 
-      <p class="lead"><b>5. Grow With It 🌱 : </b>Track your mood, perform fun activities, and slowly build a healthier, calmer, and happier YOU.
-      </p> <br>
+      <p class="lead"><b>5. Grow With It 🌱 : </b>Track your mood, perform fun activities, and slowly build a healthier, calmer, and happier YOU.</p> <br>
         
-   
-          <a href="/login">
-            <button class="btn btn-outline-success bg-success text-white my-2 my-sm-0" type="submit">Get Started
-              </button>
-          </a>
-
-
+      <a href="/login">
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Get Started</button>
+      </a>
     </div>
   </div>
 
   <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-    <h1 class="display-4 fw-normal text-body-emphasis font-weight-bold">Medicinal Plant Recognition System</h1>
-    <p class="fs-5 text-body-secondary font-weight-normal"><big>Click on the Upload button to upload the desired image of the medicinal plant. Confirm your uploaded image by seeing it in the preview image section below. Then click on the Submit button to get the name and confidence of the medicinal plant.</big></p>
+    <h1 class="display-4 fw-normal font-weight-bold">Medicinal Plant Recognition System</h1>
+    <p class="fs-5 font-weight-normal">Click on the Upload button to upload the desired image of the medicinal plant. Confirm your uploaded image by seeing it in the preview image section below. Then click on the Submit button to get the name and confidence of the medicinal plant.</p>
   </div>
 
-  <img class="container my-2" src="static/images/img_icon.jpg" id="dispimg"
-    style="display: flex; justify-content: center; align-items: center;height: 300px; width: 300px; border: 2px dashed gray;">
-
+  <div class="container d-flex justify-content-center my-4">
+    <img src="https://via.placeholder.com/300/cccccc/999999?text=Plant+Image" id="dispimg" class="img-fluid">
   </div>
 
-  <div class="container my-2" style="display: flex; justify-content: center; align-items: center;">
-    <form action="/submit" method="post" enctype="multipart/form-data">
-      <label for="fileupload"
-        style="display: block; width: 130px; background: #e3362c; color: #fff; padding: 12px; margin: 10px; border-radius: 5px; cursor:pointer; text-align: center;"><strong>Upload
-          Image</strong></label>
+  <div class="container my-4 d-flex justify-content-center">
+    <form action="/submit" method="post" enctype="multipart/form-data" class="text-center">
+      <label for="fileupload" class="d-block mb-3" style="width: 130px; padding: 12px; border-radius: 5px; cursor:pointer;">
+        <strong>Upload Image</strong>
+      </label>
 
-      <input type="file" name="inputfile" id="fileupload" accept="image/jpeg, image/jpg, image/png"
-        style="display: none;">
+      <input type="file" name="inputfile" id="fileupload" accept="image/jpeg, image/jpg, image/png" style="display: none;">
 
-      <div class="container" style="display: flex; justify-content: center; align-items: center;">
-        <button class="btn btn-success" style="width: 100px;"><strong>Submit</strong></button>
-      </div>
+      <button class="btn btn-success mt-3" style="width: 100px;"><strong>Submit</strong></button>
     </form>
   </div>
 
@@ -158,29 +489,28 @@
     <h5 style="text-align: justify;">{{info}}</h5>
     <hr>
   </div>
-</div>
 
-<hr class="featurette-divider">
+  <hr class="featurette-divider">
 
   <div class="jumbotron py-4">
     <h1 class="display-4 text-center">Aim of Mann Ki Baat 2.0</h1>
-    <p class="lead text-center"><big><big>To transform student stress into calmness by providing a safe, confidential, and empathetic space where every student can share their thoughts freely, find support, and walk away lighter, happier, and more confident.</big></big></p>
+    <p class="lead text-center">To transform student stress into calmness by providing a safe, confidential, and empathetic space where every student can share their thoughts freely, find support, and walk away lighter, happier, and more confident.</p>
     <hr class="my-4">
-    <p class="text-center"><big><strong>Because not everything needs to be solved with Maggi and chai ☕🍜</strong></big></p>
+    <p class="text-center"><strong>Because not everything needs to be solved with Maggi and chai ☕🍜</strong></p>
     <p class="lead">
-    <div class="container" style="display: flex; justify-content:center;align-items:center;">
-      <a class="btn btn-success btn-lg mt-2" href="/login" role="button">Start Now – It’s Just Between You & Us
-      </a>
-    </div>
+      <div class="container d-flex justify-content-center">
+        <a class="btn btn-success btn-lg mt-2" href="/login" role="button">Start Now – It's Just Between You & Us</a>
+      </div>
     </p>
   </div>
+  
   <hr>
   <h1 class="text-center"><u> Visit Us Once!</u></h1>
-  <div class="container" style="display: flex; justify-content:center; align-items:center;">
+  <div class="container my-4">
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.4420166839777!2d73.8656287742359!3d18.463626970913108!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2ea950f616219%3A0x321bdae2cea9f064!2sVishwakarma%20Institute%20of%20Technology!5e0!3m2!1sen!2sin!4v1703085134408!5m2!1sen!2sin" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </div>
 
-  <footer class="bg-dark text-center text-white position-relative mt-3">
+  <footer class="text-center position-relative mt-5">
     <!-- Grid container -->
     <div class="container p-4">
       <!-- Section WT project -->
@@ -208,13 +538,10 @@
           <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Dr. Kuldeep Vayadande</h5>
 
-            <a class="btn btn-outline-light btn-floating m-1" role="button"
-              onmouseover="showMail('sir','kuldeep.vayadande1@gmail.com')" onmouseleave="hideMail('sir')"><svg
-                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope"
-                viewBox="0 0 16 16">
-                <path
-                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-              </svg></a>
+            <a class="btn btn-floating m-1" role="button"
+              onmouseover="showMail('sir','kuldeep.vayadande1@gmail.com')" onmouseleave="hideMail('sir')">
+              <i class="fas fa-envelope"></i>
+            </a>
             <span id="sir"><strong></strong></span>
           </div>
           <!--Grid column-->
@@ -223,13 +550,10 @@
           <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Suraj N. Samgir</h5>
 
-            <a class="btn btn-outline-light btn-floating m-1" role="button"
-              onmouseover="showMail('suraj','suraj.samgir23@vit.edu')" onmouseleave="hideMail('suraj')"><svg
-                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope"
-                viewBox="0 0 16 16">
-                <path
-                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-              </svg></a>
+            <a class="btn btn-floating m-1" role="button"
+              onmouseover="showMail('suraj','suraj.samgir23@vit.edu')" onmouseleave="hideMail('suraj')">
+              <i class="fas fa-envelope"></i>
+            </a>
             <span id="suraj"><strong></strong></span>
           </div>
           <!--Grid column-->
@@ -238,13 +562,10 @@
           <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Harshada A. Sawai</h5>
 
-            <a class="btn btn-outline-light btn-floating m-1" role="button"
-              onmouseover="showMail('harshada','harshada.sawai23@vit.edu')" onmouseleave="hideMail('harshada')"><svg
-                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope"
-                viewBox="0 0 16 16">
-                <path
-                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-              </svg></a>
+            <a class="btn btn-floating m-1" role="button"
+              onmouseover="showMail('harshada','harshada.sawai23@vit.edu')" onmouseleave="hideMail('harshada')">
+              <i class="fas fa-envelope"></i>
+            </a>
             <span id="harshada"><strong></strong></span>
           </div>
           <!--Grid column-->
@@ -253,13 +574,10 @@
           <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Bhairavi Shirsath</h5>
 
-            <a class="btn btn-outline-light btn-floating m-1" role="button"
-              onmouseover="showMail('bhairavi','bhairavi.shirsath23@vit.edu')" onmouseleave="hideMail('bhairavi')"><svg
-                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope"
-                viewBox="0 0 16 16">
-                <path
-                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-              </svg></a>
+            <a class="btn btn-floating m-1" role="button"
+              onmouseover="showMail('bhairavi','bhairavi.shirsath23@vit.edu')" onmouseleave="hideMail('bhairavi')">
+              <i class="fas fa-envelope"></i>
+            </a>
             <span id="bhairavi"><strong></strong></span>
           </div>
           <!--Grid column-->
@@ -268,13 +586,10 @@
           <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Bhakti S. Bhande</h5>
 
-            <a class="btn btn-outline-light btn-floating m-1" role="button"
-              onmouseover="showMail('bhakti','bhakti.bhande23@vit.edu')" onmouseleave="hideMail('bhakti')"><svg
-                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope"
-                viewBox="0 0 16 16">
-                <path
-                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-              </svg></a>
+            <a class="btn btn-floating m-1" role="button"
+              onmouseover="showMail('bhakti','bhakti.bhande23@vit.edu')" onmouseleave="hideMail('bhakti')">
+              <i class="fas fa-envelope"></i>
+            </a>
             <span id="bhakti"><strong></strong></span>
           </div>
           <!--Grid column-->
@@ -283,13 +598,10 @@
           <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
             <h5 class="text-uppercase">Srushti M. Gawade</h5>
 
-            <a class="btn btn-outline-light btn-floating m-1" role="button"
-              onmouseover="showMail('srushti','srushti.gawade23@vit.edu')" onmouseleave="hideMail('srushti')"><svg
-                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope"
-                viewBox="0 0 16 16">
-                <path
-                  d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z" />
-              </svg></a>
+            <a class="btn btn-floating m-1" role="button"
+              onmouseover="showMail('srushti','srushti.gawade23@vit.edu')" onmouseleave="hideMail('srushti')">
+              <i class="fas fa-envelope"></i>
+            </a>
             <span id="srushti"><strong></strong></span>
           </div>
           <!--Grid column-->
@@ -319,6 +631,34 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const themeToggle = document.querySelector('.theme-toggle i');
+      if (body.getAttribute('data-theme') === 'light') {
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.setAttribute('data-theme', 'light');
+        themeToggle.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.body.setAttribute('data-theme', savedTheme);
+      const themeToggle = document.querySelector('.theme-toggle i');
+      if (savedTheme === 'dark') {
+        themeToggle.className = 'fas fa-sun';
+      } else {
+        themeToggle.className = 'fas fa-moon';
+      }
+    });
+  </script>
 
   <!-- Email Function Script -->
   <script>

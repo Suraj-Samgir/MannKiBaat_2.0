@@ -1,7 +1,8 @@
+
 {% macro categoryCard(title, description, image, modal_id, modal_title, categories) %}
 <div class="col">
-  <div class="card h-100 shadow-sm" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}" style="cursor:pointer;">
-    <img src="{{ image }}" class="card-img-top" alt="{{ title }}">
+  <div class="card h-100 shadow-sm feature-card" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}" style="cursor:pointer;">
+    <img src="{{ image }}" class="card-img-top" alt="{{ title }}" style="height: 180px; object-fit: cover;">
     <div class="card-body">
       <h5 class="card-title">{{ title }}</h5>
       <p class="card-text">{{ description }}</p>
@@ -26,7 +27,7 @@
           <!-- Subcategory Selection -->
           <div class="mb-3">
             <label for="{{ modal_id }}_problem" class="form-label">Choose the problem you are facing</label>
-            <select class="form-control" id="{{ modal_id }}_problem" name="subcategory" required>
+            <select class="form-select" id="{{ modal_id }}_problem" name="subcategory" required>
               <option value="">(Select the problem)</option>
               {% for problem in categories[title] %}
                 <option value="{{ problem }}">{{ problem }}</option>
@@ -45,7 +46,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-gradient">Submit</button>
         </div>
       </form>
     </div>

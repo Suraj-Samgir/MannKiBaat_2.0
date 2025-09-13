@@ -4,79 +4,602 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Login Form - Mann Ki Baat 2.0</title>
 
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='CSS/login.css')}}">
-
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bs-dark-bg: #1a1f2e;
+            --bs-dark-border: #3b4a6b;
+            --bs-dark-card: #252d44;
+            --bs-blue: #1e40af;
+            --bs-teal: #2dd4bf;
+            --bs-green: #34d399;
+            --bs-purple: #9333ea;
+            --bs-pink: #ec4899;
+            --bs-red: #ef4444;
+            --bs-orange: #f97316;
+            --bs-light-bg: #f9fafb;
+            --bs-light-border: #d1d5db;
+            --bs-light-card: #ffffff;
+            --bs-gradient: linear-gradient(135deg, var(--bs-blue) 0%, var(--bs-teal) 50%, var(--bs-green) 100%);
+            --bs-gradient-reverse: linear-gradient(135deg, var(--bs-green) 0%, var(--bs-teal) 50%, var(--bs-blue) 100%);
+            --bs-light-blue: #60a5fa;
+            --bs-light-teal: #5eead4;
+            --bs-light-green: #6ee7b7;
+            --bs-footer-bg: #2a3143;
+        }
+
+        [data-theme="dark"] {
+            --bs-bg: var(--bs-dark-bg);
+            --bs-border: var(--bs-dark-border);
+            --bs-card: var(--bs-dark-card);
+            --bs-text: #f3f4f6;
+            --bs-muted-text: #9ca3af;
+            --bs-circle-1: rgba(30, 64, 175, 0.6);
+            --bs-circle-2: rgba(45, 212, 191, 0.6);
+            --bs-primary-btn: var(--bs-gradient);
+            --bs-primary-btn-hover: linear-gradient(135deg, #3b82f6 0%, #4ade80 50%, #6ee7b7 100%);
+            --bs-card-icon-bg: var(--bs-gradient);
+            --bs-footer-bg: #2a3143;
+            --bs-navbar-bg: #1a1f2e;
+            --bs-form-bg: #252d44;
+            --bs-error-color: #f8d7da;
+        }
+
+        [data-theme="light"] {
+            --bs-bg: var(--bs-light-bg);
+            --bs-border: var(--bs-light-border);
+            --bs-card: var(--bs-light-card);
+            --bs-text: #111827;
+            --bs-muted-text: #6b7280;
+            --bs-circle-1: rgba(96, 165, 250, 0.7);
+            --bs-circle-2: rgba(94, 234, 212, 0.7);
+            --bs-gradient: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+            --bs-gradient-reverse: linear-gradient(135deg, var(--bs-light-green) 0%, var(--bs-light-teal) 50%, var(--bs-light-blue) 100%);
+            --bs-primary-btn: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+            --bs-primary-btn-hover: linear-gradient(135deg, #93c5fd 0%, #99f6e4 50%, #86efac 100%);
+            --bs-card-icon-bg: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
+            --bs-footer-bg: #e9ecef;
+            --bs-navbar-bg: #343a40;
+            --bs-form-bg: #ffffff;
+            --bs-error-color: #dc3545;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bs-bg);
+            color: var(--bs-text);
+            overflow-x: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+            background: var(--bs-card);
+            border: 1px solid var(--bs-border);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle i {
+            color: var(--bs-text);
+            font-size: 1.2rem;
+        }
+
+        .navbar {
+            background-color: var(--bs-navbar-bg) !important;
+            padding: 0.8rem 1rem;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--bs-text) !important;
+        }
+
+        .btn-outline-danger {
+            border-color: var(--bs-red);
+            color: var(--bs-red);
+        }
+
+        .btn-outline-danger:hover {
+            background-color: var(--bs-red);
+            color: white;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .login-form {
+            background-color: var(--bs-form-bg);
+            border-radius: 1.25rem;
+            border: 1px solid var(--bs-border);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-form:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            background: var(--bs-primary-btn);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            color: var(--bs-text);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            background-color: var(--bs-card);
+            border: 1px solid var(--bs-border);
+            color: var(--bs-text);
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background-color: var(--bs-card);
+            color: var(--bs-text);
+            border-color: var(--bs-teal);
+            box-shadow: 0 0 0 0.2rem rgba(45, 212, 191, 0.25);
+        }
+
+        .error-msg {
+            color: var(--bs-error-color);
+            background-color: rgba(220, 53, 69, 0.1);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-forgot a {
+            color: var(--bs-teal);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .remember-forgot a:hover {
+            color: var(--bs-blue);
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            background: var(--bs-primary-btn);
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-login:hover {
+            background: var(--bs-primary-btn-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .registration-link {
+            text-align: center;
+            color: var(--bs-muted-text);
+        }
+
+        .registration-link a {
+            color: var(--bs-teal);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .registration-link a:hover {
+            color: var(--bs-blue);
+            text-decoration: underline;
+        }
+
+        .hero-bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: pulse 15s infinite ease-in-out;
+        }
+
+        .circle-1 {
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background-color: var(--bs-circle-1);
+            animation-delay: -3s;
+        }
+
+        .circle-2 {
+            bottom: 10%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background-color: var(--bs-circle-2);
+            animation-delay: -6s;
+        }
+
+        footer {
+            background-color: var(--bs-footer-bg) !important;
+            color: var(--bs-text) !important;
+            border-top: 1px solid var(--bs-border);
+        }
+
+        footer h3 {
+            background: var(--bs-primary-btn);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        footer p {
+            color: var(--bs-muted-text);
+        }
+
+        .btn-floating {
+            background: var(--bs-primary-btn);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .btn-floating:hover {
+            background: var(--bs-primary-btn-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.15;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.25;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.7s ease-out forwards;
+        }
+
+        @media (max-width: 768px) {
+            .login-form {
+                padding: 1.5rem;
+                margin: 0 1rem;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .hero-bg-circle {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .remember-forgot {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 
-<body>
-  {% include "components/navbar.html" %}
+<body data-theme="light">
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+    </div>
 
-      <div class="container mx-auto mt-5 mb-5">
+    <!-- Background Animation -->
+    <div class="hero-bg-animation">
+        <div class="hero-bg-circle circle-1"></div>
+        <div class="hero-bg-circle circle-2"></div>
+    </div>
 
-          <form action="/login" method="POST" style="border: 1px dotted gray;" class="px-5 py-3">
-        <h2 class="text-center"><u>Login to the Dashboard</u></h2>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">MannKiBaat 2.0</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-
-                <p>{{errorMsg}}</p>
-    
-        <div class="mb-3">
-
-            <div class="form-group">
-          
-                   <label for="exampleInputEmail1">Email address</label>
-                   <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
-                     placeholder="Enter email">
-                 </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home </a>
+                </li>
+            </ul>
+            <a href="/login">
+                <button style="border-radius: 2rem;" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Sign In</button>
+            </a>
         </div>
+    </nav>
 
-        <div class="mb-3">
+    <div class="main-content">
+        <div class="login-container animate-fade-in">
+            <form action="/login" method="POST" class="login-form">
+                <div class="login-header">
+                    <h2>Login to Your Dashboard</h2>
+                    <p class="text-muted">Access your personalized AI dashboard</p>
+                </div>
 
-            <div class="form-group">
-            
-                <label for="password">Password</label>
-                <input type="password" class="form-control" placeholder="Enter Password" aria-label="password" id="password" name="password">
-              </div>
-        </div>
+                {% if errorMsg %}
+                <div class="error-msg">
+                    {{ errorMsg }}
+                </div>
+                {% endif %}
 
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp"
+                        placeholder="Enter your email" required>
+                </div>
 
-      <div class="remember-forgot">
-                    <!-- <label><input type="checkbox"> Remember Me</label> -->
-                    <a href="#">Forget Password?</a>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" placeholder="Enter your password" aria-label="password" id="password" name="password" required>
+                </div>
+
+                <div class="remember-forgot">
+                    <a href="#">Forgot Password?</a>
                 </div>
                 
-                <button type="submit" class="btn btn-success">Login to Your AI Dashboard</button>
+                <button type="submit" class="btn btn-login">Login to Your AI Dashboard</button>
                 
-        <div class="registration-link">
-                   <big> <p>Don't have an account? <a href="/register">Register</a></p></big>
+                <div class="registration-link">
+                    <p>Don't have an account? <a href="/register">Register</a></p>
                 </div>
-    </form>
-  </div>
-{% include "components/footer.html" %}
+            </form>
+        </div>
+    </div>
 
+    <!-- Footer -->
+    <footer class="text-center position-relative">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!-- Section WT project -->
+            <h3 class="mx-auto mb-4">Mann Ki Baat 2.0 – Your Mind, Your Space, No Judgments.</h3>
+            <!-- Section: Text -->
+            <section class="mb-4">
+                <p>
+                    It's okay to not be okay. Every student goes through struggles, and you don't have to fight them alone. Mann Ki Baat 2.0 is here to listen, guide, and remind you that your mental peace matters more than marks or expectations.
+                </p>
+            </section>
+            <!-- Section: Text -->
 
-    <!--Following is the js from ionic.io/ionicons/usage website for adding icons-->
+            <!-- Section A Project By -->
+            <h3 class="mx-auto mb-4">Major Features :</h3>
+            <!-- Section: Links -->
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <section class="">
+                <!--Grid row-->
+                <div class="row">
+                    <!--Grid column-->
+                    <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">24 / 7 AI Chatbot</h5>
+                        <a class="btn btn-floating m-1" role="button"
+                            onmouseover="showMail('chatbot','Vent in Hinglish and get friendly replies.')" onmouseleave="hideMail('chatbot')"><i class="fa-regular fa-comment-dots"></i></a>
+                        <span id="chatbot"><strong></strong></span>
+                    </div>
+                    <!--Grid column-->
 
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+                    <!--Grid column-->
+                    <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Crisis Detection</h5>
+                        <a class="btn btn-floating m-1" role="button"
+                            onmouseover="showMail('crisis','Spots stress and guides to support.')" onmouseleave="hideMail('crisis')"><i class="fa-regular fa-alarm-clock"></i></a>
+                        <span id="crisis"><strong></strong></span>
+                    </div>
+                    <!--Grid column-->
 
-      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+                    <!--Grid column-->
+                    <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Community Support</h5>
+                        <a class="btn btn-floating m-1" role="button"
+                            onmouseover="showMail('community','Anonymous student groups to connect.')" onmouseleave="hideMail('community')"><i class="fa-solid fa-people-group"></i></a>
+                        <span id="community"><strong></strong></span>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Activities & Challenges</h5>
+                        <a class="btn btn-floating m-1" role="button"
+                            onmouseover="showMail('activities','Fun tasks and streaks to de-stress.')" onmouseleave="hideMail('activities')"><i class="fa-solid fa-puzzle-piece"></i></a>
+                        <span id="activities"><strong></strong></span>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Daily Affirmations</h5>
+                        <a class="btn btn-floating m-1" role="button"
+                            onmouseover="showMail('affirmations','Daily nudges to lift your mood.')" onmouseleave="hideMail('affirmations')"><i class="fa-regular fa-face-smile-beam"></i></a>
+                        <span id="affirmations"><strong></strong></span>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                        <h5 class="text-uppercase">Lifestyle Suggestions</h5>
+                        <a class="btn btn-floating m-1" role="button"
+                            onmouseover="showMail('lifestyle','Hacks for sleep, focus, and energy.')" onmouseleave="hideMail('lifestyle')"><i class="fa-regular fa-heart"></i></a>
+                        <span id="lifestyle"><strong></strong></span>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </section>
+            <!-- Section: Links -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Quick Links -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <b>@ Quick Links :</b> <br>
+            <a class="text-white" href="/login"><u>Say Your Mann Ki Baat</u></a> | 
+            <a class="text-white" href="/"><u>All About Us</u></a>
+        </div>
+        <!-- Quick Links -->
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle i');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeToggle.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            const themeToggle = document.querySelector('.theme-toggle i');
+            if (savedTheme === 'dark') {
+                themeToggle.className = 'fas fa-sun';
+            } else {
+                themeToggle.className = 'fas fa-moon';
+            }
+        });
+
+        function showMail(a, b) {
+            document.getElementById(a).innerHTML = `<p style="white-space: nowrap; margin:0;">${b}</p>`;
+        }
+
+        function hideMail(a) {
+            document.getElementById(a).innerHTML = "";
+        }
+    </script>
 </body>
 
 </html>
