@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,535 +13,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-:root {
-    --bs-dark-bg: #1a1f2e;
-    --bs-dark-border: #3b4a6b;
-    --bs-dark-card: #252d44;
-    
-    /* Updated color variables - more vibrant and cohesive */
-    --bs-blue: #1e40af;
-    --bs-teal: #2dd4bf;
-    --bs-green: #34d399;
-    --bs-purple: #9333ea;
-    --bs-pink: #ec4899;
-    --bs-red: #ef4444;
-    --bs-orange: #f97316;
-    
-    --bs-light-bg: #f9fafb;
-    --bs-light-border: #d1d5db;
-    --bs-light-card: #ffffff;
-    
-    /* Updated gradients with better transitions */
-    --bs-gradient: linear-gradient(135deg, var(--bs-blue) 0%, var(--bs-teal) 50%, var(--bs-green) 100%);
-    --bs-gradient-reverse: linear-gradient(135deg, var(--bs-green) 0%, var(--bs-teal) 50%, var(--bs-blue) 100%);
-    
-    /* Light theme specific colors */
-    --bs-light-blue: #60a5fa;
-    --bs-light-teal: #5eead4;
-    --bs-light-green: #6ee7b7;
-}
-
-[data-theme="dark"] {
-    --bs-bg: var(--bs-dark-bg);
-    --bs-border: var(--bs-dark-border);
-    --bs-card: var(--bs-dark-card);
-    --bs-text: #f3f4f6;
-    --bs-muted-text: #9ca3af;
-    
-    /* Updated circle colors for dark theme */
-    --bs-circle-1: rgba(30, 64, 175, 0.6);
-    --bs-circle-2: rgba(45, 212, 191, 0.6);
-    
-    /* Updated button and card colors for dark theme */
-    --bs-primary-btn: var(--bs-gradient);
-    --bs-primary-btn-hover: linear-gradient(135deg, #3b82f6 0%, #4ade80 50%, #6ee7b7 100%);
-    --bs-card-icon-bg: var(--bs-gradient);
-}
-
-[data-theme="light"] {
-    --bs-bg: var(--bs-light-bg);
-    --bs-border: var(--bs-light-border);
-    --bs-card: var(--bs-light-card);
-    --bs-text: #111827;
-    --bs-muted-text: #6b7280;
-    
-    /* Updated circle colors for light theme */
-    --bs-circle-1: rgba(96, 165, 250, 0.7);
-    --bs-circle-2: rgba(94, 234, 212, 0.7);
-    
-    /* Updated light theme gradients */
-    --bs-gradient: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
-    --bs-gradient-reverse: linear-gradient(135deg, var(--bs-light-green) 0%, var(--bs-light-teal) 50%, var(--bs-light-blue) 100%);
-    
-    /* Updated button and card colors for light theme */
-    --bs-primary-btn: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
-    --bs-primary-btn-hover: linear-gradient(135deg, #93c5fd 0%, #99f6e4 50%, #86efac 100%);
-    --bs-card-icon-bg: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bs-bg);
-    color: var(--bs-text);
-    overflow-x: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Theme Toggle Button - Improved styling */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1002;
-    background: var(--bs-card);
-    border: 1px solid var(--bs-border);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.theme-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.theme-toggle i {
-    color: var(--bs-text);
-    font-size: 1.2rem;
-}
-
-/* Sidebar Styles - Enhanced padding and hover effects */
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 260px;
-    background-color: var(--bs-card);
-    border-right: 1px solid var(--bs-border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
-    padding-top: 70px;
-}
-
-.sidebar.collapsed {
-    width: 0;
-    padding: 70px 0 0 0;
-    overflow: hidden;
-}
-
-.sidebar .logo {
-    padding: 2rem 1.5rem;
-    border-bottom: 1px solid var(--bs-border);
-}
-
-.sidebar .nav-item {
-    padding: 0.85rem 1.5rem;
-    margin: 0.3rem 0.5rem;
-    border-radius: 0.75rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.sidebar .nav-item:hover {
-    background-color: var(--bs-border);
-    transform: translateX(5px);
-}
-
-.sidebar .nav-item.active {
-    background: var(--bs-primary-btn);
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.main-content {
-    margin-left: 260px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.main-content.expanded {
-    margin-left: 0;
-}
-
-/* Toggle Button - Improved hover effect */
-.sidebar-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1001;
-    background: var(--bs-primary-btn);
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.sidebar-toggle:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-/* Hero Section - Enhanced background and animations */
-.hero-section {
-    min-height: 100vh;
-    background-color: var(--bs-bg);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-}
-
-.hero-bg-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.25;
-}
-
-.hero-bg-circle {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: pulse 10s infinite ease-in-out;
-}
-
-.circle-1 {
-    top: 20%;
-    left: 20%;
-    width: 350px;
-    height: 350px;
-    background-color: var(--bs-circle-1);
-    animation-delay: -3s;
-}
-
-.circle-2 {
-    bottom: 20%;
-    right: 20%;
-    width: 450px;
-    height: 450px;
-    background-color: var(--bs-circle-2);
-    animation-delay: -6s;
-}
-
-/* Cards - Improved shadow and hover effects */
-.feature-card {
-    background-color: var(--bs-card);
-    border: 1px solid var(--bs-border);
-    border-radius: 1.25rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    height: 100%;
-    cursor: pointer;
-}
-
-.feature-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-}
-
-.card-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: var(--bs-card-icon-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Chat Interface - Enhanced message styling */
-.chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: var(--bs-bg);
-}
-
-.chat-header {
-    background-color: var(--bs-card);
-    border-bottom: 1px solid var(--bs-border);
-    padding: 1.25rem;
-}
-
-.messages-container {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.message {
-    max-width: 75%;
-    padding: 1rem 1.25rem;
-    border-radius: 1.25rem;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.message.user {
-    align-self: flex-end;
-    background: var(--bs-primary-btn);
-    color: white;
-    border-bottom-right-radius: 0.3rem;
-}
-
-.message.bot {
-    align-self: flex-start;
-    background-color: var(--bs-card);
-    color: var(--bs-text);
-    border-bottom-left-radius: 0.3rem;
-}
-
-.message-input {
-    background-color: var(--bs-card);
-    border-top: 1px solid var(--bs-border);
-    padding: 1.25rem;
-}
-
-.typing-indicator {
-    display: flex;
-    gap: 0.3rem;
-    align-self: flex-start;
-    background-color: var(--bs-card);
-    color: var(--bs-text);
-    padding: 0.85rem 1.25rem;
-    border-radius: 1.25rem;
-    border-bottom-left-radius: 0.3rem;
-    max-width: fit-content;
-}
-
-.typing-dot {
-    width: 10px;
-    height: 10px;
-    background-color: var(--bs-muted-text);
-    border-radius: 50%;
-    animation: bounce 1.2s infinite ease-in-out;
-}
-
-/* Crisis Section Styles - Improved consistency */
-.crisis-section {
-    background-color: var(--bs-bg);
-}
-
-.emergency-card, .assessment-card, .safety-card, 
-.calming-card, .resources-card {
-    background-color: var(--bs-card);
-    border: 1px solid var(--bs-border);
-    border-radius: 1.25rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.emergency-btn {
-    background: var(--bs-primary-btn);
-    border: none;
-    border-radius: 0.75rem;
-    padding: 0.75rem 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.emergency-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.breathing-circle {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    background: var(--bs-primary-btn);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.breathing-in {
-    transform: scale(1.25);
-    background: var(--bs-gradient-reverse);
-}
-
-.breathing-out {
-    transform: scale(0.85);
-    background: var(--bs-primary-btn);
-}
-
-/* Animations - Smoother transitions */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.25;
-    }
-    50% {
-        transform: scale(1.15);
-        opacity: 0.45;
-    }
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-6px);
-    }
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.7s ease-out forwards;
-}
-
-.animate-pulse-glow {
-    animation: pulse 4s infinite ease-in-out;
-}
-
-.animate-bounce {
-    animation: bounce 1.2s infinite ease-in-out;
-}
-
-/* Modal Styles - Enhanced styling */
-.modal-content {
-    background-color: var(--bs-card);
-    border: 1px solid var(--bs-border);
-    border-radius: 1.25rem;
-    color: var(--bs-text);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.modal-header {
-    border-bottom: 1px solid var(--bs-border);
-    padding: 1.25rem;
-}
-
-.modal-footer {
-    border-top: 1px solid var(--bs-border);
-    padding: 1.25rem;
-}
-
-/* Utilities */
-.text-gradient {
-    background: var(--bs-primary-btn);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.btn-gradient {
-    background: var(--bs-primary-btn);
-    border: none;
-    color: white;
-    border-radius: 0.75rem;
-    padding: 0.75rem 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.btn-gradient:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-    color: white;
-}
-
-.d-none {
-    display: none;
-}
-
-/* Mobile Responsiveness - Improved layout */
-@media (max-width: 768px) {
-    .sidebar {
-        transform: translateX(-100%);
-        width: 260px;
-    }
-    
-    .sidebar.mobile-open {
-        transform: translateX(0);
-    }
-    
-    .main-content {
-        margin-left: 0;
-    }
-    
-    .mobile-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.6);
-        z-index: 999;
-    }
-    
-    .mobile-overlay.active {
-        display: block;
-    }
-
-    .message {
-        max-width: 90%;
-    }
-
-    .breathing-circle {
-        width: 160px;
-        height: 160px;
-    }
-}
-    </style>
+    <link rel="stylesheet" href="static/css/dashboard.css">
 </head>
 <body>
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle" id="sidebarToggle">
-        <i class="bi bi-list text-white fs-5"></i>
-    </button>
-
-    <!-- Theme Toggle Button - More Visible -->
-    <button class="theme-toggle" id="themeToggle">
-        <i class="bi bi-sun fs-5"></i>
-    </button>
+    <!-- Fixed Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg">
+        <div class="container-fluid">
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="bi bi-list text-white fs-5"></i>
+                <span class="app-title">MannKiBatt_2.0</span>
+            </button>
+            <div class="ms-auto d-flex align-items-center">
+                <button class="theme-toggle me-3" id="themeToggle">
+                    <i class="bi bi-sun fs-5"></i>
+                </button>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle"></i>
+                        <span class="ms-2">Profile</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="#" data-view="profile">View Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <div class="logo">
-            <div class="d-flex align-items-center">
-                <div class="card-icon">
-                    <i class="bi bi-cpu text-white fs-4"></i>
-                </div>
-                <span class="ms-2 fw-bold fs-4">MannKiBatt_2.0</span>
-            </div>
-        </div>
-        
         <div class="nav-items mt-4">
             <div class="nav-item active" data-view="home">
                 <i class="bi bi-house"></i>
@@ -570,12 +76,6 @@ body {
                 <i class="bi bi-heart"></i>
                 <span class="ms-2">Lifestyle</span>
             </div>
-        </div>
-
-        <div class="mt-auto p-3">
-            <button id="themeToggleSidebar" class="btn btn-outline-secondary w-100">
-                <i class="bi bi-moon me-2"></i> Toggle Theme
-            </button>
         </div>
     </div>
 
@@ -609,7 +109,6 @@ body {
                     <h2 class="text-center mb-5 display-5 fw-bold">Our Features</h2>
                     
                     <div class="row g-4">
-                        <!-- Chat Bot Card -->
                         <div class="col-md-6 col-lg-4">
                             <div class="feature-card p-4 h-100" data-view="chatbot">
                                 <div class="card-icon mb-4">
@@ -620,7 +119,6 @@ body {
                             </div>
                         </div>
                         
-                        <!-- Crisis Detection Card -->
                         <div class="col-md-6 col-lg-4">
                             <div class="feature-card p-4 h-100" data-view="crisis">
                                 <div class="card-icon mb-4">
@@ -631,7 +129,6 @@ body {
                             </div>
                         </div>
                         
-                        <!-- Community Card -->
                         <div class="col-md-6 col-lg-4">
                             <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#communityModal">
                                 <div class="card-icon mb-4">
@@ -642,7 +139,6 @@ body {
                             </div>
                         </div>
                         
-                        <!-- Activities Card -->
                         <div class="col-md-6 col-lg-4">
                             <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#activitiesModal">
                                 <div class="card-icon mb-4">
@@ -653,7 +149,6 @@ body {
                             </div>
                         </div>
                         
-                        <!-- Affirmations Card -->
                         <div class="col-md-6 col-lg-4">
                             <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#affirmationsModal">
                                 <div class="card-icon mb-4">
@@ -664,7 +159,6 @@ body {
                             </div>
                         </div>
                         
-                        <!-- Lifestyle Card -->
                         <div class="col-md-6 col-lg-4">
                             <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#lifestyleModal">
                                 <div class="card-icon mb-4">
@@ -678,35 +172,7 @@ body {
                 </div>
             </section>
 
-            <!-- Footer -->
-            <footer class="border-top py-5 mt-5">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-6 text-center text-md-start">
-                            <div class="d-flex align-items-center justify-content-center justify-content-md-start">
-                                <div class="card-icon me-3">
-                                    <i class="bi bi-cpu text-white"></i>
-                                </div>
-                                <h3 class="m-0">MannKiBatt_2.0</h3>
-                            </div>
-                            <p class="mt-3">Generative AI for Youth Mental Wellness</p>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex justify-content-center justify-content-md-end">
-                                <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-facebook"></i></a>
-                                <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-twitter"></i></a>
-                                <a href="#" class="btn btn-outline-secondary btn-sm me-2"><i class="bi bi-instagram"></i></a>
-                                <a href="#" class="btn btn-outline-secondary btn-sm"><i class="bi bi-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <p class="text-center mb-0">&copy; 2023 MannKiBatt_2.0. All rights reserved.</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+        {% include 'components/footer.html' %}
         </div>
 
         <!-- Chatbot View -->
@@ -1011,6 +477,97 @@ body {
                 </div>
             </div>
         </div>
+
+        <!-- Profile View -->
+        <div id="profileView" class="d-none profile-section">
+            <div class="container py-5">
+                <div class="profile-card">
+                    <h2>Welcome, User!</h2>
+                    <h3>Lifestyle Details:</h3>
+                    <p>Diet: Balanced</p>
+                    <p>Activity: Moderate</p>
+                    <p>Sleep Hours: 7-8 hours</p>
+                    <h3>Selected Categories:</h3>
+                    <ul>
+                        <li><b>Mindfulness:</b> Meditation <br> Daily meditation practice</li>
+                        <li><b>Exercise:</b> Yoga <br> Yoga for mental wellness</li>
+                    </ul>
+                    <div class="mt-4">
+                        <button class="btn btn-gradient" data-view="home">Back to Home</button>
+                        <a href="/logout" class="btn btn-outline-secondary ms-2">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal fade" id="communityModal" tabindex="-1" aria-labelledby="communityModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="communityModalLabel">Community Hub</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Join our supportive community to connect with peers and share your experiences.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="activitiesModal" tabindex="-1" aria-labelledby="activitiesModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="activitiesModalLabel">Wellness Activities</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Explore activities designed to boost your mental health and well-being.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="affirmationsModal" tabindex="-1" aria-labelledby="affirmationsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="affirmationsModalLabel">Daily Affirmations</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Receive daily uplifting messages to inspire and motivate you.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="lifestyleModal" tabindex="-1" aria-labelledby="lifestyleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lifestyleModalLabel">Lifestyle Tracking</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Track your sleep, diet, and exercise to improve your overall wellness.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
@@ -1025,6 +582,7 @@ body {
             const homeView = document.getElementById('homeView');
             const chatbotView = document.getElementById('chatbotView');
             const crisisView = document.getElementById('crisisView');
+            const profileView = document.getElementById('profileView');
             const backToHome = document.getElementById('backToHome');
             const backToHomeCrisis = document.getElementById('backToHomeCrisis');
             const messageInput = document.getElementById('messageInput');
@@ -1038,7 +596,6 @@ body {
             const breathCount = document.getElementById('breathCount');
             const breathPhase = document.getElementById('breathPhase');
             const themeToggle = document.getElementById('themeToggle');
-            const themeToggleSidebar = document.getElementById('themeToggleSidebar');
 
             // State
             let currentView = 'home';
@@ -1062,42 +619,28 @@ body {
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 document.documentElement.setAttribute('data-theme', newTheme);
                 
-                // Update icons
                 const icon = themeToggle.querySelector('i');
-                const sidebarIcon = themeToggleSidebar.querySelector('i');
                 
                 if (newTheme === 'dark') {
                     icon.className = 'bi bi-sun fs-5';
-                    sidebarIcon.className = 'bi bi-moon me-2';
-                    themeToggleSidebar.querySelector('span').textContent = 'Toggle Theme';
                 } else {
                     icon.className = 'bi bi-moon fs-5';
-                    sidebarIcon.className = 'bi bi-sun me-2';
-                    themeToggleSidebar.querySelector('span').textContent = 'Toggle Theme';
                 }
                 
-                // Update the theme in localStorage
                 localStorage.setItem('theme', newTheme);
             }
 
-            // Add event listeners to both theme toggle buttons
             themeToggle.addEventListener('click', toggleTheme);
-            themeToggleSidebar.addEventListener('click', toggleTheme);
 
-            // Check for saved theme preference
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 document.documentElement.setAttribute('data-theme', savedTheme);
-                // Update icons based on saved theme
                 const icon = themeToggle.querySelector('i');
-                const sidebarIcon = themeToggleSidebar.querySelector('i');
                 
                 if (savedTheme === 'dark') {
                     icon.className = 'bi bi-sun fs-5';
-                    sidebarIcon.className = 'bi bi-moon me-2';
                 } else {
                     icon.className = 'bi bi-moon fs-5';
-                    sidebarIcon.className = 'bi bi-sun me-2';
                 }
             }
 
@@ -1110,13 +653,13 @@ body {
 
             // Navigation
             navItems.forEach(item => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', function(e) {
                     const view = this.getAttribute('data-view');
-                    setCurrentView(view);
-                    
-                    // Update active state
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    this.classList.add('active');
+                    if (view) {
+                        setCurrentView(view);
+                        navItems.forEach(nav => nav.classList.remove('active'));
+                        this.classList.add('active');
+                    }
                 });
             });
 
@@ -1133,6 +676,17 @@ body {
                             }
                         });
                     }
+                });
+            });
+
+            // Profile dropdown navigation
+            document.querySelectorAll('.dropdown-item[data-view]').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const view = this.getAttribute('data-view');
+                    setCurrentView(view);
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    document.querySelector('.nav-item[data-view="home"]').classList.add('active');
                 });
             });
 
@@ -1160,6 +714,18 @@ body {
                     });
                 });
             }
+
+            document.querySelectorAll('[data-view="home"]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    setCurrentView('home');
+                    navItems.forEach(nav => {
+                        nav.classList.remove('active');
+                        if (nav.getAttribute('data-view') === 'home') {
+                            nav.classList.add('active');
+                        }
+                    });
+                });
+            });
 
             // Quick actions
             if (quickActions) {
@@ -1272,7 +838,6 @@ body {
                 messages.push(userMessage);
                 renderMessage(userMessage);
                 
-                // Simulate bot typing
                 isTyping = true;
                 renderTypingIndicator();
                 
@@ -1360,21 +925,17 @@ body {
             function setCurrentView(view) {
                 currentView = view;
                 
-                // Hide all views
                 document.querySelectorAll('[id$="View"]').forEach(view => {
                     view.classList.add('d-none');
                 });
                 
-                // Show current view
                 const targetView = document.getElementById(view + 'View');
                 if (targetView) {
                     targetView.classList.remove('d-none');
                 }
                 
-                // Scroll to top
                 window.scrollTo(0, 0);
                 
-                // If it's the chatbot view, scroll to bottom of messages
                 if (view === 'chatbot') {
                     setTimeout(() => {
                         scrollToBottom();

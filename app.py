@@ -153,6 +153,8 @@ def lifestyle():
 @app.route('/category', methods = ['GET','POST'])
 def category():
 
+    if request.method == 'GET':
+          return render_template('category.html', show_quickLinks=False, categories=categories)
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('register'))

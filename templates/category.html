@@ -11,503 +11,7 @@
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bs-dark-bg: #1a1f2e;
-            --bs-dark-border: #3b4a6b;
-            --bs-dark-card: #252d44;
-            --bs-blue: #1e40af;
-            --bs-teal: #2dd4bf;
-            --bs-green: #34d399;
-            --bs-purple: #9333ea;
-            --bs-pink: #ec4899;
-            --bs-red: #ef4444;
-            --bs-orange: #f97316;
-            --bs-light-bg: #f9fafb;
-            --bs-light-border: #d1d5db;
-            --bs-light-card: #ffffff;
-            --bs-gradient: linear-gradient(135deg, var(--bs-blue) 0%, var(--bs-teal) 50%, var(--bs-green) 100%);
-            --bs-gradient-reverse: linear-gradient(135deg, var(--bs-green) 0%, var(--bs-teal) 50%, var(--bs-blue) 100%);
-            --bs-light-blue: #60a5fa;
-            --bs-light-teal: #5eead4;
-            --bs-light-green: #6ee7b7;
-            --bs-footer-bg: #2a3143;
-        }
-
-        [data-theme="dark"] {
-            --bs-bg: var(--bs-dark-bg);
-            --bs-border: var(--bs-dark-border);
-            --bs-card: var(--bs-dark-card);
-            --bs-text: #f3f4f6;
-            --bs-muted-text: #9ca3af;
-            --bs-circle-1: rgba(30, 64, 175, 0.6);
-            --bs-circle-2: rgba(45, 212, 191, 0.6);
-            --bs-primary-btn: var(--bs-gradient);
-            --bs-primary-btn-hover: linear-gradient(135deg, #3b82f6 0%, #4ade80 50%, #6ee7b7 100%);
-            --bs-card-icon-bg: var(--bs-gradient);
-            --bs-footer-bg: #2a3143;
-        }
-
-        [data-theme="light"] {
-            --bs-bg: var(--bs-light-bg);
-            --bs-border: var(--bs-light-border);
-            --bs-card: var(--bs-light-card);
-            --bs-text: #111827;
-            --bs-muted-text: #6b7280;
-            --bs-circle-1: rgba(96, 165, 250, 0.7);
-            --bs-circle-2: rgba(94, 234, 212, 0.7);
-            --bs-gradient: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
-            --bs-gradient-reverse: linear-gradient(135deg, var(--bs-light-green) 0%, var(--bs-light-teal) 50%, var(--bs-light-blue) 100%);
-            --bs-primary-btn: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
-            --bs-primary-btn-hover: linear-gradient(135deg, #93c5fd 0%, #99f6e4 50%, #86efac 100%);
-            --bs-card-icon-bg: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
-            --bs-footer-bg: #e9ecef;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bs-bg);
-            color: var(--bs-text);
-            overflow-x: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .main-content {
-            flex: 1;
-            padding-bottom: 2rem;
-        }
-
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1002;
-            background: var(--bs-card);
-            border: 1px solid var(--bs-border);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .theme-toggle i {
-            color: var(--bs-text);
-            font-size: 1.2rem;
-        }
-
-        h1.text-center {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: var(--bs-primary-btn);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
-            animation: fadeIn 0.7s ease-out;
-            padding-top: 2rem;
-        }
-
-        hr {
-            border-color: var(--bs-border);
-            opacity: 0.5;
-            margin: 1.5rem auto;
-            width: 50%;
-        }
-
-        .card {
-            background-color: var(--bs-card);
-            border: 1px solid var(--bs-border);
-            border-radius: 1.25rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            position: relative;
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out forwards;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-img-top {
-            height: 180px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .card-img-top {
-            transform: scale(1.05);
-        }
-
-        .card-body {
-            padding: 1.5rem;
-            text-align: center;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--bs-text);
-            margin-bottom: 0.75rem;
-        }
-
-        .card-text {
-            color: var(--bs-muted-text);
-            font-size: 1rem;
-            margin-bottom: 1.25rem;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
-        .btn-primary {
-            background: var(--bs-primary-btn);
-            border: none;
-            border-radius: 0.75rem;
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            align-self: center;
-        }
-
-        .btn-primary:hover {
-            background: var(--bs-primary-btn-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            color: white;
-        }
-
-        .modal-content {
-            background-color: var(--bs-card);
-            border: 1px solid var(--bs-border);
-            border-radius: 1.25rem;
-            color: var(--bs-text);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .modal-header {
-            border-bottom: 1px solid var(--bs-border);
-            padding: 1.25rem;
-            background: var(--bs-gradient);
-            color: white;
-        }
-
-        .modal-title {
-            font-weight: 600;
-            color: white;
-        }
-
-        .modal-body {
-            padding: 1.5rem;
-            color: var(--bs-text);
-        }
-
-        .modal-footer {
-            border-top: 1px solid var(--bs-border);
-            padding: 1.25rem;
-        }
-
-        .btn-secondary {
-            background: var(--bs-border);
-            border: none;
-            color: var(--bs-text);
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary:hover {
-            background: var(--bs-muted-text);
-            transform: translateY(-2px);
-        }
-
-        .hero-bg-animation {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.25;
-            z-index: -1;
-        }
-
-        .hero-bg-circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: pulse 10s infinite ease-in-out;
-        }
-
-        .circle-1 {
-            top: 20%;
-            left: 20%;
-            width: 350px;
-            height: 350px;
-            background-color: var(--bs-circle-1);
-            animation-delay: -3s;
-        }
-
-        .circle-2 {
-            bottom: 20%;
-            right: 20%;
-            width: 450px;
-            height: 450px;
-            background-color: var(--bs-circle-2);
-            animation-delay: -6s;
-        }
-
-        .footer {
-            background-color: var(--bs-footer-bg);
-            border-top: 1px solid var(--bs-border);
-            padding: 2rem 0;
-            margin-top: 3rem;
-            color: var(--bs-text);
-            position: relative;
-            text-align: center;
-            width: 100%;
-        }
-
-        .footer h3 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            background: var(--bs-primary-btn);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer p {
-            color: var(--bs-muted-text);
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 600px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .footer .row {
-            justify-content: center;
-        }
-
-        .footer .col-lg-2 {
-            margin-bottom: 1.5rem;
-        }
-
-        .footer h5 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--bs-text);
-            margin-bottom: 1rem;
-        }
-
-        .footer .btn-floating {
-            background: var(--bs-primary-btn);
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            color: white;
-        }
-
-        .footer .btn-floating:hover {
-            background: var(--bs-primary-btn-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .footer .btn-floating i {
-            font-size: 1.2rem;
-        }
-
-        .footer span[id^="chatbot"],
-        .footer span[id^="crisis"],
-        .footer span[id^="community"],
-        .footer span[id^="activities"],
-        .footer span[id^="affirmations"],
-        .footer span[id^="lifestyle"] {
-            display: block;
-            margin-top: 0.5rem;
-            color: var(--bs-muted-text);
-            font-size: 0.9rem;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer .quick-links {
-            background-color: rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .footer .quick-links b {
-            color: var(--bs-text);
-            font-weight: 600;
-        }
-
-        .footer .quick-links a {
-            color: var(--bs-text);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .footer .quick-links a:hover {
-            color: var(--bs-teal);
-        }
-
-        .footer .quick-links a::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: var(--bs-teal);
-            transform: scaleX(0);
-            transform-origin: bottom right;
-            transition: transform 0.3s ease;
-        }
-
-        .footer .quick-links a:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.25;
-            }
-            50% {
-                transform: scale(1.15);
-                opacity: 0.45;
-            }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 0.7s ease-out forwards;
-        }
-
-        .animate-pulse-glow {
-            animation: pulse 4s infinite ease-in-out;
-        }
-
-        .card.spirituality { border-left: 4px solid var(--bs-purple); }
-        .card.mindset { border-left: 4px solid var(--bs-blue); }
-        .card.health { border-left: 4px solid var(--bs-green); }
-        .card.personality { border-left: 4px solid var(--bs-orange); }
-        .card.relationships { border-left: 4px solid var(--bs-pink); }
-        .card.network { border-left: 4px solid var(--bs-teal); }
-        .card.career { border-left: 4px solid var(--bs-red); }
-        .card.money { border-left: 4px solid var(--bs-purple); }
-
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
-        .card:nth-child(6) { animation-delay: 0.6s; }
-        .card:nth-child(7) { animation-delay: 0.7s; }
-        .card:nth-child(8) { animation-delay: 0.8s; }
-
-        @media (max-width: 768px) {
-            h1.text-center {
-                font-size: 2rem;
-                padding: 0 1rem;
-            }
-
-            .card-img-top {
-                height: 150px;
-            }
-
-            .card-title {
-                font-size: 1.25rem;
-            }
-
-            .card-text {
-                font-size: 0.9rem;
-            }
-
-            .btn-primary {
-                padding: 0.5rem 1rem;
-            }
-
-            .hero-bg-circle {
-                width: 250px;
-                height: 250px;
-            }
-
-            .theme-toggle {
-                top: 15px;
-                right: 15px;
-                width: 45px;
-                height: 45px;
-            }
-
-            .footer h3 {
-                font-size: 1.5rem;
-            }
-
-            .footer .col-lg-2 {
-                flex: 0 0 50%;
-                max-width: 50%;
-            }
-
-            .footer .btn-floating {
-                width: 40px;
-                height: 40px;
-            }
-
-            .footer span[id^="chatbot"],
-            .footer span[id^="crisis"],
-            .footer span[id^="community"],
-            .footer span[id^="activities"],
-            .footer span[id^="affirmations"],
-            .footer span[id^="lifestyle"] {
-                font-size: 0.85rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="static/css/category.css">
 </head>
 
 <body data-theme="light">
@@ -522,107 +26,145 @@
         <div class="hero-bg-circle circle-2"></div>
     </div>
 
+    <!-- Macro Definition -->
+    {% macro categoryCard(title, description, image, modal_id, modal_title, categories, class_name) %}
+    <div class="col">
+        <div class="card {{ class_name }} h-100 shadow-sm feature-card animate-fade-in" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}" style="cursor:pointer;">
+            <img src="{{ image }}" class="card-img-top" alt="{{ title }}" style="height: 180px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ title }}</h5>
+                <p class="card-text">{{ description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="/category">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="{{ modal_id }}Label">{{ modal_title }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- Hidden input to send category name -->
+                        <input type="hidden" name="category" value="{{ title }}">
+
+                        <!-- Subcategory Selection -->
+                        <div class="mb-3">
+                            <label for="{{ modal_id }}_problem" class="form-label">Choose the problem you are facing</label>
+                            <select class="form-select" id="{{ modal_id }}_problem" name="subcategory" required>
+                                <option value="">(Select the problem)</option>
+                                {% for problem in categories[title] %}
+                                    <option value="{{ problem }}">{{ problem }}</option>
+                                {% endfor %}
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Problem Description -->
+                        <div class="mb-3">
+                            <label for="{{ modal_id }}_message" class="col-form-label">Describe your problem:</label>
+                            <textarea class="form-control" id="{{ modal_id }}_message" name="description"
+                                placeholder="Write about your issue..." rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-gradient">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endmacro %}
+
     <div class="main-content">
         <div class="container mx-auto mt-2 pt-5">
             <h1 class="text-center mb-4">Choose From Following 8 Categories!</h1>
             <hr class="w-50 mx-auto">
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-                <!-- Spirituality Card -->
-                <div class="col">
-                    <div class="card spirituality animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal1">
-                        <img src="static/images/spirituality.png" class="card-img-top" alt="Spirituality">
-                        <div class="card-body">
-                            <h5 class="card-title">Spirituality</h5>
-                            <p class="card-text">Find peace, clarity, and purpose in life.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mindset Card -->
-                <div class="col">
-                    <div class="card mindset animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal2">
-                        <img src="static/images/mindset.png" class="card-img-top" alt="Mindset">
-                        <div class="card-body">
-                            <h5 class="card-title">Mindset</h5>
-                            <p class="card-text">Overcome negative thoughts and build resilience.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Health Card -->
-                <div class="col">
-                    <div class="card health animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal3">
-                        <img src="static/images/health.png" class="card-img-top" alt="Health">
-                        <div class="card-body">
-                            <h5 class="card-title">Health</h5>
-                            <p class="card-text">Manage stress, sleep, and lifestyle habits.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Personality Card -->
-                <div class="col">
-                    <div class="card personality animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal4">
-                        <img src="static/images/personality.png" class="card-img-top" alt="Personality">
-                        <div class="card-body">
-                            <h5 class="card-title">Personality</h5>
-                            <p class="card-text">Boost confidence, communication, and self-image.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Relationships Card -->
-                <div class="col">
-                    <div class="card relationships animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal5">
-                        <img src="static/images/relationship.png" class="card-img-top" alt="Relationships">
-                        <div class="card-body">
-                            <h5 class="card-title">Relationships</h5>
-                            <p class="card-text">Handle breakups, rejections, and social struggles.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Network Card -->
-                <div class="col">
-                    <div class="card network animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal6">
-                        <img src="static/images/network.png" class="card-img-top" alt="Network">
-                        <div class="card-body">
-                            <h5 class="card-title">Network</h5>
-                            <p class="card-text">Navigate friendships, peers, and social circles.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Career Card -->
-                <div class="col">
-                    <div class="card career animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal7">
-                        <img src="static/images/career.png" class="card-img-top" alt="Career">
-                        <div class="card-body">
-                            <h5 class="card-title">Career</h5>
-                            <p class="card-text">Get clarity on studies, jobs, and future goals.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Money Card -->
-                <div class="col">
-                    <div class="card money animate-fade-in" data-bs-toggle="modal" data-bs-target="#modal8">
-                        <img src="static/images/money.png" class="card-img-top" alt="Money">
-                        <div class="card-body">
-                            <h5 class="card-title">Money</h5>
-                            <p class="card-text">Learn to manage expenses and reduce money stress.</p>
-                            <button class="btn btn-primary">Explore</button>
-                        </div>
-                    </div>
-                </div>
+                {% set category_data = [
+                    {
+                        'title': 'Spirituality',
+                        'description': 'Find peace, clarity, and purpose in life.',
+                        'image': 'static/images/spirituality.png',
+                        'modal_id': 'modal1',
+                        'modal_title': 'Spiritual Growth',
+                        'class_name': 'spirituality'
+                    },
+                    {
+                        'title': 'Mindset',
+                        'description': 'Overcome negative thoughts and build resilience.',
+                        'image': 'static/images/mindset.png',
+                        'modal_id': 'modal2',
+                        'modal_title': 'Mindset Challenges',
+                        'class_name': 'mindset'
+                    },
+                    {
+                        'title': 'Health',
+                        'description': 'Manage stress, sleep, and lifestyle habits.',
+                        'image': 'static/images/health.png',
+                        'modal_id': 'modal3',
+                        'modal_title': 'Health Concerns',
+                        'class_name': 'health'
+                    },
+                    {
+                        'title': 'Personality',
+                        'description': 'Boost confidence, communication, and self-image.',
+                        'image': 'static/images/personality.png',
+                        'modal_id': 'modal4',
+                        'modal_title': 'Personality Development',
+                        'class_name': 'personality'
+                    },
+                    {
+                        'title': 'Relationships',
+                        'description': 'Handle breakups, rejections, and social struggles.',
+                        'image': 'static/images/relationship.png',
+                        'modal_id': 'modal5',
+                        'modal_title': 'Relationship Issues',
+                        'class_name': 'relationships'
+                    },
+                    {
+                        'title': 'Network',
+                        'description': 'Navigate friendships, peers, and social circles.',
+                        'image': 'static/images/network.png',
+                        'modal_id': 'modal6',
+                        'modal_title': 'Social & Peer Support',
+                        'class_name': 'network'
+                    },
+                    {
+                        'title': 'Career',
+                        'description': 'Get clarity on studies, jobs, and future goals.',
+                        'image': 'static/images/career.png',
+                        'modal_id': 'modal7',
+                        'modal_title': 'Career Stress',
+                        'class_name': 'career'
+                    },
+                    {
+                        'title': 'Money',
+                        'description': 'Learn to manage expenses and reduce money stress.',
+                        'image': 'static/images/money.png',
+                        'modal_id': 'modal8',
+                        'modal_title': 'Financial Concerns',
+                        'class_name': 'money'
+                    }
+                ] %}
+                {% for data in category_data %}
+                    {{ categoryCard(
+                        title=data.title,
+                        description=data.description,
+                        image=data.image,
+                        modal_id=data.modal_id,
+                        modal_title=data.modal_title,
+                        categories=categories,
+                        class_name=data.class_name
+                    ) }}
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -691,191 +233,6 @@
         </div>
     </footer>
 
-    <!-- Modals -->
-    <div class="modal fade" id="modal1" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Spiritual Growth</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Explore your spiritual journey and find inner peace through guided meditations, mindfulness practices, and spiritual teachings.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Guided meditations</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Mindfulness practices</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Spiritual teachings</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal2" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Mindset Challenges</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Transform your mindset and overcome limiting beliefs with cognitive behavioral techniques and positive psychology exercises.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Cognitive behavioral techniques</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Positive psychology</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Goal setting tools</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal3" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Health Concerns</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Improve your physical and mental health with personalized wellness plans, nutrition guidance, and stress management techniques.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Personalized wellness plans</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Nutrition guidance</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Stress management</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal4" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Personality Development</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Discover your personality type and develop essential soft skills for personal and professional growth.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Personality assessments</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Communication skills</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Confidence building</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal5" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Relationship Issues</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Navigate relationship challenges with expert advice on communication, boundaries, and emotional intelligence.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Communication techniques</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Boundary setting</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Emotional intelligence</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal6" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Social & Peer Support</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Build meaningful connections and develop social skills to thrive in your community and peer groups.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Social skills training</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Networking strategies</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Peer support groups</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal7" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Career Stress</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Navigate career transitions and reduce work-related stress with career coaching and goal-setting tools.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Career coaching</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Goal-setting tools</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Work-life balance</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modal8" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Financial Concerns</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Master your finances and reduce money anxiety with budgeting tools, financial education, and money mindset training.</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fas fa-check text-success me-2"></i>Budgeting tools</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Financial education</li>
-                        <li><i class="fas fa-check text-success me-2"></i>Money mindset training</li>
-                    </ul>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Start Journey</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
@@ -904,16 +261,6 @@
             } else {
                 themeToggle.className = 'fas fa-moon';
             }
-
-            document.querySelectorAll('.card').forEach(card => {
-                card.addEventListener('click', function(e) {
-                    if (!e.target.closest('.btn')) {
-                        const modalId = this.getAttribute('data-bs-target');
-                        const modal = new bootstrap.Modal(document.querySelector(modalId));
-                        modal.show();
-                    }
-                });
-            });
         });
 
         function showMail(id, text) {

@@ -1,4 +1,5 @@
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="/">MannKiBaat 2.0</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,17 +11,14 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Home </a>
         </li>
-
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/lifestyle">Lifestyle Info</a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="/category">Categories</a>
-        </li> -->
       </ul>
-      <a href="/login">
-        <button style="border-radius: 2rem;" class="btn btn-outline-danger bg-danger text-white my-2 my-sm-0" type="submit">Sign In</button>
-      </a>
+      <div class="d-flex align-items-center">
+        <div class="theme-toggle" onclick="toggleTheme()">
+          <i class="fas fa-moon"></i>
+        </div>
+        <a href="/login">
+          <button style="border-radius: 2rem;" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Sign In</button>
+        </a>
+      </div>
     </div>
   </nav>
