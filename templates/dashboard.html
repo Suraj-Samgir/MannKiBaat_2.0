@@ -479,26 +479,31 @@
         </div>
 
         <!-- Profile View -->
-        <div id="profileView" class="d-none profile-section">
-            <div class="container py-5">
-                <div class="profile-card">
-                    <h2>Welcome, User!</h2>
-                    <h3>Lifestyle Details:</h3>
-                    <p>Diet: Balanced</p>
-                    <p>Activity: Moderate</p>
-                    <p>Sleep Hours: 7-8 hours</p>
-                    <h3>Selected Categories:</h3>
-                    <ul>
-                        <li><b>Mindfulness:</b> Meditation <br> Daily meditation practice</li>
-                        <li><b>Exercise:</b> Yoga <br> Yoga for mental wellness</li>
-                    </ul>
-                    <div class="mt-4">
-                        <button class="btn btn-gradient" data-view="home">Back to Home</button>
-                        <a href="/logout" class="btn btn-outline-secondary ms-2">Logout</a>
-                    </div>
-                </div>
+<div id="profileView" class="d-none profile-section">
+    <div class="container py-5">
+        <div class="profile-card">
+            <h2>Welcome, {{ user.firstName }}!</h2>
+            <h3>Lifestyle Details:</h3>
+            {% if lifestyle %}
+            <p>Diet: {{ lifestyle.diet }}</p>
+            <p>Activity: {{ lifestyle.physicalActivity }}</p>
+            <p>Sleep Hours: {{ lifestyle.sleepHrs }}</p>
+            {% else %}
+            <p>No lifestyle data available.</p>
+            {% endif %}
+            <h3>Selected Categories:</h3>
+            <ul>
+                {% for c in categories %}
+                <li><b>{{ c.category }}:</b> {{ c.subcategory }} <br> {{ c.description }}</li>
+                {% endfor %}
+            </ul>
+            <div class="mt-4">
+                <button class="btn btn-gradient" data-view="home">Back to Home</button>
+                <a href="/logout" class="btn btn-outline-secondary ms-2">Logout</a>
             </div>
         </div>
+    </div>
+</div>
     </div>
 
     <!-- Modals -->
