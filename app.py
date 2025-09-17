@@ -4,8 +4,12 @@ import bcrypt
 import os
 from datetime import datetime
 from categories_data import categories
+import google.generativeai as genai
+from dotenv import load_dotenv
+from flask import jsonify # Make sure jsonify is imported
 
 app = Flask(__name__)
+load_dotenv()
 
 #Database Configurations...
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///Database.db"
@@ -71,6 +75,80 @@ with app.app_context():
     db.create_all()
 
 # All the routes are written below...
+# --- Gemini API Configuration ---
+# ADD THIS configuration block after the app configuration
+API_KEY = os.getenv("GOOGLE_API_KEY")
+if not API_KEY:
+    raise ValueError("API key not found. Please set the GOOGLE_API_KEY environment variable.")
+genai.configure(api_key=API_KEY)
+
+# --- Chat Session Management ---
+# This dictionary will store ongoing chat sessions for each logged-in user.
+# NOTE: This is an in-memory solution. Chat history will be lost if the server restarts.
+chat_sessions = {}
+
+def create_initial_prompt(user, lifestyle, categories):
+    """Creates a personalized initial prompt for the AI based on user data."""
+    prompt = (
+        "You are a friendly and empathetic student wellness chatbot named 'Dost'. "
+        "Your purpose is to provide support and practical advice in a mix of English and Hindi (Hinglish). "
+        "Keep your responses concise, supportive, and easy to understand.\n\n"
+        "Here is the context for the student you are talking to:\n"
+        f"- Their name is {user.firstName}.\n"
+        f"- They study {user.fieldOfStudy}.\n"
+        f"- Their lifestyle info: Sleeps {lifestyle.sleepHrs} hours/night, Stress Level is {lifestyle.stressLevel}/10.\n"
+        "- The main challenges they've identified are:\n"
+    )
+    for selection in categories:
+        prompt += f"  - Under '{selection.category}', the specific issue is '{selection.subcategory}'.\n"
+    
+    prompt += "\nBegin the conversation by warmly greeting them by their first name and gently acknowledging one of their key challenges (e.g., stress or a specific category they chose). Ask them how you can help today."
+    return prompt
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    """Handles the chatbot API calls for logged-in users."""
+    email = session.get('email')
+    if not email:
+        return jsonify({"error": "Authentication required. Please log in again."}), 401
+
+    user_message = request.json.get('message')
+    if not user_message:
+        return jsonify({"error": "Message cannot be empty."}), 400
+
+    try:
+        # Retrieve or create a chat session for the current user
+        if email not in chat_sessions:
+            print(f"Creating new chat session for {email}...")
+            # Fetch user data to create a personalized context for the first time
+            user = Userdb.query.filter_by(email=email).first()
+            lifestyle = Lifestyle.query.filter_by(user_id=user.id).first()
+            categories = UserCategorySelection.query.filter_by(user_id=user.id).all()
+
+            if not all([user, lifestyle]):
+                return jsonify({"error": "Could not retrieve user data to personalize chat."}), 500
+
+            # Create a powerful, personalized starting prompt for the AI
+            initial_prompt = create_initial_prompt(user, lifestyle, categories)
+            
+            model = genai.GenerativeModel('gemini-1.5-flash')
+            
+            # Start a new chat session with this context
+            new_chat_session = model.start_chat(history=[
+                {"role": "user", "parts": [initial_prompt]},
+                {"role": "model", "parts": [f"Hi {user.firstName}! I'm Dost, your personal wellness friend. I can see you're dealing with a few things, and that's completely okay. We can talk about it. What's on your mind right now?"]}
+            ])
+            chat_sessions[email] = new_chat_session
+
+        # Get the ongoing chat session for the user
+        user_chat = chat_sessions[email]
+        response = user_chat.send_message(user_message)
+        
+        return jsonify({"reply": response.text})
+
+    except Exception as e:
+        print(f"An error occurred in /chat route: {e}")
+        return jsonify({"error": "Sorry, I'm having a little trouble thinking right now. Please try again in a moment."}), 500
 
 # Route for landing page...
 @app.route('/')
