@@ -318,7 +318,21 @@ footer p {
     transform: translateY(-3px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
+.feature-description {
+  min-height: 24px !important;
+  transition: opacity 0.3s ease !important;
+  margin: auto -22px !important;
+  width: 50px !important;
+  text-align: center !important;
+  font-size: 0.85rem !important;
+  line-height: 1.2 !important;
+}
 
+.feature-description p {
+  color: var(--bs-text-white) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
 @keyframes fadeIn {
     from {
         opacity: 0;

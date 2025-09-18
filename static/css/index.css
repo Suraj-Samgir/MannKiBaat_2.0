@@ -17,8 +17,8 @@
   --bs-light-blue: #60a5fa;
   --bs-light-teal: #5eead4;
   --bs-light-green: #6ee7b7;
-  --bs-black: #1C2526; /* Consistent black shade for navbar and footer */
-  --bs-text-white: #FFFFFF; /* White text for contrast */
+  --bs-black: #1C2526;
+  --bs-text-white: #FFFFFF;
 }
 
 [data-theme="dark"] {
@@ -32,8 +32,8 @@
   --bs-primary-btn: var(--bs-gradient);
   --bs-primary-btn-hover: linear-gradient(135deg, #3b82f6 0%, #4ade80 50%, #6ee7b7 100%);
   --bs-card-icon-bg: var(--bs-gradient);
-  --bs-footer-bg: var(--bs-black); /* Use consistent black for footer */
-  --bs-navbar-bg: var(--bs-black); /* Use consistent black for navbar */
+  --bs-footer-bg: var(--bs-black);
+  --bs-navbar-bg: var(--bs-black);
 }
 
 [data-theme="light"] {
@@ -49,8 +49,8 @@
   --bs-primary-btn: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
   --bs-primary-btn-hover: linear-gradient(135deg, #93c5fd 0%, #99f6e4 50%, #86efac 100%);
   --bs-card-icon-bg: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
-  --bs-footer-bg: var(--bs-black); /* Use consistent black for footer */
-  --bs-navbar-bg: var(--bs-black); /* Use consistent black for navbar */
+  --bs-footer-bg: var(--bs-black);
+  --bs-navbar-bg: var(--bs-black);
 }
 
 body {
@@ -68,7 +68,7 @@ body {
 }
 
 .navbar-brand, .nav-link {
-  color: var(--bs-text-white) !important; /* White text for navbar elements */
+  color: var(--bs-text-white) !important;
 }
 
 .btn-outline-danger {
@@ -78,7 +78,7 @@ body {
 
 .btn-outline-danger:hover {
   background-color: var(--bs-red);
-  color: var(--bs-text-white); /* White text on hover */
+  color: var(--bs-text-white);
 }
 
 .theme-toggle {
@@ -101,14 +101,12 @@ body {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* For dark theme – keep it white */
 [data-theme="dark"] .theme-toggle i {
-  color: #f9fafb; /* White-ish */
+  color: #f9fafb;
 }
 
-/* For light theme – make it dark for contrast */
 [data-theme="light"] .theme-toggle i {
-  color: #111827; /* Dark text */
+  color: #111827;
 }
 
 .carousel {
@@ -116,16 +114,15 @@ body {
 }
 
 .carousel-item img {
-  height: 500px;               /* Fix the height of all carousel images */
-  object-fit: contain;         /* Show full image without cropping */
-  object-position: center;     /* Center it */
+  height: 500px;
+  object-fit: cover;
+  object-position: center;
 }
 
-
 .carousel-caption {
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 1rem;
-  padding: 1.5rem;
+  background: none !important;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  bottom: 2rem;
 }
 
 .pricing-header {
@@ -197,9 +194,12 @@ iframe {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* ===============================================
+   FOOTER STYLING - MERGED AND OPTIMIZED
+   =============================================== */
 footer {
   background-color: var(--bs-footer-bg) !important;
-  color: var(--bs-text-white) !important; /* White text for footer */
+  color: var(--bs-text-white) !important;
   border-top: 1px solid var(--bs-border);
 }
 
@@ -211,29 +211,102 @@ footer h3 {
 }
 
 footer p {
-  color: var(--bs-text-white); /* White text for footer paragraphs */
+  color: var(--bs-muted-text) !important;
+}
+
+footer h5 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+footer .fa-regular, footer .fa-solid {
+  color: var(--bs-text-white) !important;
+}
+
+footer .col,
+footer .col-md-2 {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1rem;
+}
+
+#chatbot, #crisis, #community, #activities, #affirmations, #lifestyle {
+  display: block;
+  text-align: center;
+  margin-top: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+}
+
+.feature-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .btn-floating {
-  background: var(--bs-primary-btn);
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  color: var(--bs-text-white); /* White icon color for buttons */
+  background: var(--bs-primary-btn) !important;
+  border: none !important;
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+  color: white !important;
+  margin: 0 auto !important;
+}
+
+.btn-floating i {
+  padding: 0;
+  font-size: 30px;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .btn-floating:hover {
-  background: var(--bs-primary-btn-hover);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background: var(--bs-primary-btn-hover) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
 }
 
+.feature-description {
+  min-height: 24px !important;
+  transition: opacity 0.3s ease !important;
+  margin: auto -22px !important;
+  width: 50px !important;
+  text-align: center !important;
+  font-size: 0.85rem !important;
+  line-height: 1.2 !important;
+}
+
+.feature-description p {
+  color: var(--bs-text-white) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
+
+.feature-description span {
+  display: block !important;
+  text-align: center !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+}
+
+/* ===============================================
+   BACKGROUND ANIMATION
+   =============================================== */
 .hero-bg-animation {
   position: fixed;
   top: 0;
@@ -270,25 +343,28 @@ footer p {
   animation-delay: -6s;
 }
 
+/* ===============================================
+   KEYFRAMES
+   =============================================== */
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(25px);
+    opacity: 0;
+    transform: translateY(25px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes pulse {
   0%, 100% {
-      transform: scale(1);
-      opacity: 0.15;
+    transform: scale(1);
+    opacity: 0.15;
   }
   50% {
-      transform: scale(1.1);
-      opacity: 0.25;
+    transform: scale(1.1);
+    opacity: 0.25;
   }
 }
 
@@ -296,6 +372,9 @@ footer p {
   animation: fadeIn 0.7s ease-out forwards;
 }
 
+/* ===============================================
+   MOBILE RESPONSIVENESS
+   =============================================== */
 @media (max-width: 768px) {
   .carousel-item img {
     height: 300px;
@@ -320,5 +399,27 @@ footer p {
     margin-top: 10px;
     justify-content: center;
     width: 100%;
+  }
+
+  footer .col,
+  footer .col-md-2 {
+    padding: 0.5rem;
+  }
+  
+  .col-lg-2 {
+    margin-bottom: 2rem !important;
+  }
+  
+  footer h5 {
+    font-size: 0.9rem;
+  }
+  
+  .btn-floating {
+    width: 45px !important;
+    height: 45px !important;
+  }
+  
+  .feature-description p {
+    font-size: 0.85rem !important;
   }
 }

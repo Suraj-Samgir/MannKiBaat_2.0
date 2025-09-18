@@ -123,7 +123,6 @@ form {
   display: block;
 }
 
-/* Custom select styling to fix text cutoff */
 .form-control {
   background-color: var(--bs-card);
   border: 1px solid var(--bs-border);
@@ -136,7 +135,6 @@ form {
   transition: all 0.3s ease;
 }
 
-/* Specific styling for select elements */
 select.form-control {
   padding: 0.75rem 2.5rem 0.75rem 1rem;
   -webkit-appearance: none;
@@ -288,6 +286,8 @@ footer {
   background-color: var(--bs-footer-bg) !important;
   color: var(--bs-text-white) !important;
   border-top: 1px solid var(--bs-border);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 }
 
 footer h3 {
@@ -295,10 +295,38 @@ footer h3 {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+footer h5 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  background: var(--bs-primary-btn);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
 }
 
 footer p {
-  color: var(--bs-muted-text);
+  color: var(--bs-text-white);
+  margin-top: 0;
+}
+
+footer .fa-regular, footer .fa-solid, footer .fab {
+  color: var(--bs-text-white) !important;
+}
+
+.feature-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.6rem;
 }
 
 .btn-floating {
@@ -312,7 +340,17 @@ footer p {
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  color: white;
+  color: var(--bs-text-white);
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.btn-floating i {
+  font-size: 30px;
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-block;
+  padding: 0;
 }
 
 .btn-floating:hover {
@@ -321,25 +359,114 @@ footer p {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+.feature-description {
+  min-height: 24px !important;
+  transition: opacity 0.3s ease !important;
+  margin: auto -22px !important;
+  width: 50px !important;
+  text-align: center !important;
+  font-size: 0.85rem !important;
+  line-height: 1.2 !important;
+}
+
+.feature-description p {
+  color: var(--bs-text-white) !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
+
+.feature-description span {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+
+
+footer .feature .feature-details {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+footer .feature:hover .feature-details {
+  opacity: 1;
+  max-height: 200px;
+  margin-bottom: 1rem;
+}
+
+/* Optional: subtle hover feedback */
+footer .feature:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  form {
+    padding: 1.5rem;
+  }
+
+  .theme-toggle {
+    top: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .theme-toggle i {
+    font-size: 0.9rem;
+  }
+
+  .hero-bg-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+  .form-control {
+    min-height: 44px;
+    font-size: 0.9rem;
+  }
+
+  .col-lg-2 {
+    margin-bottom: 2rem !important;
+  }
+
+  footer h5 {
+    font-size: 0.9rem;
+  }
+
+  footer .btn-floating {
+    width: 45px !important;
+    height: 45px !important;
+  }
+}
+
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(25px);
+    opacity: 0;
+    transform: translateY(25px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes pulse {
   0%, 100% {
-      transform: scale(1);
-      opacity: 0.15;
+    transform: scale(1);
+    opacity: 0.15;
   }
   50% {
-      transform: scale(1.1);
-      opacity: 0.25;
+    transform: scale(1.1);
+    opacity: 0.25;
   }
 }
 
@@ -347,29 +474,16 @@ footer p {
   animation: fadeIn 0.7s ease-out forwards;
 }
 
-@media (max-width: 768px) {
-  form {
-    padding: 1.5rem;
-  }
-  
-  .theme-toggle {
-    top: 15px;
-    right: 15px;
-    width: 45px;
-    height: 45px;
-  }
-  
-  .theme-toggle i {
-    font-size: 0.9rem;
-  }
-  
-  .hero-bg-circle {
-    width: 200px;
-    height: 200px;
-  }
-  
-  .form-control {
-    min-height: 44px;
-    font-size: 0.9rem;
-  }
+/* For feature section titles: remove gradient, make white */
+footer .row.justify-content-center h5 {
+  background: transparent !important;
+  color: white !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+}
+
+/* For feature icons: ensure they are white */
+footer .feature-icon-container .btn-floating i {
+  color: white !important;
 }
