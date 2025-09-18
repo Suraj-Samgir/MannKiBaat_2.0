@@ -1,3 +1,4 @@
+/*register.css*/
 :root {
   --bs-dark-bg: #1a1f2e;
   --bs-dark-border: #3b4a6b;
@@ -267,6 +268,19 @@ footer p {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+.feature-description {
+  min-height: 24px;
+  transition: opacity 0.3s ease;
+  margin: auto -22px;
+}
+
+.feature-description p {
+  color: var(--bs-text-white) !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+
 @keyframes fadeIn {
   from {
       opacity: 0;
@@ -315,5 +329,9 @@ footer p {
   .form-control {
     min-height: 44px;
     font-size: 0.9rem;
+  }
+  
+  .feature-description p {
+    font-size: 0.85rem;
   }
 }

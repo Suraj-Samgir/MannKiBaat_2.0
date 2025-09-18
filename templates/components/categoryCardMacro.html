@@ -1,55 +1,55 @@
-
-{% macro categoryCard(title, description, image, modal_id, modal_title, categories) %}
-<div class="col">
-  <div class="card h-100 shadow-sm feature-card" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}" style="cursor:pointer;">
-    <img src="{{ image }}" class="card-img-top" alt="{{ title }}" style="height: 180px; object-fit: cover;">
-    <div class="card-body">
-      <h5 class="card-title">{{ title }}</h5>
-      <p class="card-text">{{ description }}</p>
+    <!-- Macro Definition -->
+    {% macro categoryCard(title, description, image, modal_id, modal_title, categories, class_name) %}
+    <div class="col">
+        <div class="card {{ class_name }} h-100 shadow-sm feature-card animate-fade-in" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}" style="cursor:pointer;">
+            <img src="{{ image }}" class="card-img-top" alt="{{ title }}" style="height: 180px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ title }}</h5>
+                <p class="card-text">{{ description }}</p>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<!-- Modal -->
-<div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="POST" action="/category">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="{{ modal_id }}Label">{{ modal_title }}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Modal -->
+    <div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="/category">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="{{ modal_id }}Label">{{ modal_title }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- Hidden input to send category name -->
+                        <input type="hidden" name="category" value="{{ title }}">
+
+                        <!-- Subcategory Selection -->
+                        <div class="mb-3">
+                            <label for="{{ modal_id }}_problem" class="form-label">Choose the problem you are facing</label>
+                            <select class="form-select" id="{{ modal_id }}_problem" name="subcategory" required>
+                                <option value="">(Select the problem)</option>
+                                {% for problem in categories[title] %}
+                                    <option value="{{ problem }}">{{ problem }}</option>
+                                {% endfor %}
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Problem Description -->
+                        <div class="mb-3">
+                            <label for="{{ modal_id }}_message" class="col-form-label">Describe your problem:</label>
+                            <textarea class="form-control" id="{{ modal_id }}_message" name="description"
+                                placeholder="Write about your issue..." rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-gradient">Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div class="modal-body">
-          <!-- Hidden input to send category name -->
-          <input type="hidden" name="category" value="{{ title }}">
-
-          <!-- Subcategory Selection -->
-          <div class="mb-3">
-            <label for="{{ modal_id }}_problem" class="form-label">Choose the problem you are facing</label>
-            <select class="form-select" id="{{ modal_id }}_problem" name="subcategory" required>
-              <option value="">(Select the problem)</option>
-              {% for problem in categories[title] %}
-                <option value="{{ problem }}">{{ problem }}</option>
-              {% endfor %}
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <!-- Problem Description -->
-          <div class="mb-3">
-            <label for="{{ modal_id }}_message" class="col-form-label">Describe your problem :</label>
-            <textarea class="form-control" id="{{ modal_id }}_message" name="description"
-              placeholder="Write about your issue..." rows="3"></textarea>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-gradient">Submit</button>
-        </div>
-      </form>
     </div>
-  </div>
-</div>
-{% endmacro %}
+    {% endmacro %}
