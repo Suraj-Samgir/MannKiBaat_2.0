@@ -313,7 +313,7 @@ footer h5 {
 }
 
 footer p {
-  color: var(--bs-text-white);
+  color: var(--bs-muted-text);
   margin-top: 0;
 }
 

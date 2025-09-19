@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 import os
@@ -6,19 +6,17 @@ from datetime import datetime
 from categories_data import categories
 import google.generativeai as genai
 from dotenv import load_dotenv
-from flask import jsonify # Make sure jsonify is imported
 
 app = Flask(__name__)
 load_dotenv()
 
-#Database Configurations...
+# Database Configurations...
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///Database.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = os.urandom(24)
-db = SQLAlchemy(app)   
-app.app_context().push()
+db = SQLAlchemy(app)
 
-# Table for User registeration...
+# Table for User registration...
 class Userdb(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(50), nullable=False)
@@ -38,6 +36,7 @@ class Userdb(db.Model):
         self.lastName = lastName
         self.email = email
         self.phone = phone
+        # store hashed password as utf-8 string
         self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         self.gender = gender
         self.birthDate = birthDate
@@ -46,7 +45,7 @@ class Userdb(db.Model):
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
-    
+
 # Table for lifestyle data...
 class Lifestyle(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -74,17 +73,14 @@ class UserCategorySelection(db.Model):
 with app.app_context():
     db.create_all()
 
-# All the routes are written below...
 # --- Gemini API Configuration ---
-# ADD THIS configuration block after the app configuration
 API_KEY = os.getenv("GOOGLE_API_KEY")
 if not API_KEY:
     raise ValueError("API key not found. Please set the GOOGLE_API_KEY environment variable.")
 genai.configure(api_key=API_KEY)
 
 # --- Chat Session Management ---
-# This dictionary will store ongoing chat sessions for each logged-in user.
-# NOTE: This is an in-memory solution. Chat history will be lost if the server restarts.
+# In-memory chat sessions (lost on restart)
 chat_sessions = {}
 
 def create_initial_prompt(user, lifestyle, categories):
@@ -100,8 +96,11 @@ def create_initial_prompt(user, lifestyle, categories):
         "- The main challenges they've identified are:\n"
     )
     for selection in categories:
-        prompt += f"  - Under '{selection.category}', the specific issue is '{selection.subcategory}'.\n"
-    
+        prompt += (
+            f"  - Under '{selection.category}', the specific issue is '{selection.subcategory}' "
+            f"and the description is '{selection.description}'.\n"
+        )
+
     prompt += "\nBegin the conversation by warmly greeting them by their first name and gently acknowledging one of their key challenges (e.g., stress or a specific category they chose). Ask them how you can help today."
     return prompt
 
@@ -119,20 +118,17 @@ def chat():
     try:
         # Retrieve or create a chat session for the current user
         if email not in chat_sessions:
-            print(f"Creating new chat session for {email}...")
             # Fetch user data to create a personalized context for the first time
             user = Userdb.query.filter_by(email=email).first()
             lifestyle = Lifestyle.query.filter_by(user_id=user.id).first()
-            categories = UserCategorySelection.query.filter_by(user_id=user.id).all()
+            categories_sel = UserCategorySelection.query.filter_by(user_id=user.id).all()
 
             if not all([user, lifestyle]):
                 return jsonify({"error": "Could not retrieve user data to personalize chat."}), 500
 
-            # Create a powerful, personalized starting prompt for the AI
-            initial_prompt = create_initial_prompt(user, lifestyle, categories)
-            
+            initial_prompt = create_initial_prompt(user, lifestyle, categories_sel)
             model = genai.GenerativeModel('gemini-1.5-flash')
-            
+
             # Start a new chat session with this context
             new_chat_session = model.start_chat(history=[
                 {"role": "user", "parts": [initial_prompt]},
@@ -140,15 +136,62 @@ def chat():
             ])
             chat_sessions[email] = new_chat_session
 
-        # Get the ongoing chat session for the user
+        # Get the ongoing chat session for the user and send their message
         user_chat = chat_sessions[email]
         response = user_chat.send_message(user_message)
-        
+
+        # Return the model's reply text (adapt as needed depending on genai SDK response shape)
         return jsonify({"reply": response.text})
 
     except Exception as e:
         print(f"An error occurred in /chat route: {e}")
         return jsonify({"error": "Sorry, I'm having a little trouble thinking right now. Please try again in a moment."}), 500
+
+# Route for affirmations ...
+@app.route('/affirmation')
+def affirmation():
+    email = session.get('email')
+    if not email:
+        return jsonify({"error": "Authentication required. Please log in again."}), 401
+
+    try:
+        # Fetch user details
+        user = Userdb.query.filter_by(email=email).first()
+        lifestyle = Lifestyle.query.filter_by(user_id=user.id).first()
+        categories_sel = UserCategorySelection.query.filter_by(user_id=user.id).all()
+
+        if not all([user, lifestyle]):
+            return jsonify({"error": "Could not retrieve user data to personalize affirmation."}), 500
+
+        # Build a personalized prompt
+        prompt = (
+            f"You are an empathetic wellness assistant. "
+            f"Generate ONE short, positive, uplifting affirmation. "
+            f"Make it motivational, relevant to their challenges and lifestyle. "
+            f"They sleep {lifestyle.sleepHrs} hours/night and have a stress level of {lifestyle.stressLevel}/10. "
+            "- The main challenges they've identified are:\n"
+        )
+        for selection in categories_sel:
+            prompt += (
+                f"  - Under '{selection.category}', the specific issue is '{selection.subcategory}' "
+                f"and the description is '{selection.description}'.\n"
+            )
+
+        prompt += (
+            "\nKeep it under 20 words. "
+            "Avoid quotes, numbering, or extra explanations. "
+            "Return just the affirmation text. "
+            "Make it unique."
+        )
+
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(prompt)
+
+        return jsonify({"affirmation": response.text.strip()})
+
+    except Exception as e:
+        print(f"Error generating affirmation: {e}")
+        return jsonify({"error": "Failed to generate affirmation."}), 500
 
 # Route for landing page...
 @app.route('/')
@@ -156,7 +199,7 @@ def index():
     return render_template('index.html', show_quickLinks=True)
 
 # Route for Login Page...
-@app.route('/login', methods = ['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
@@ -168,15 +211,14 @@ def login():
             session['email'] = user.email
             return redirect('/dashboard')
         else:
-            return render_template("login.html", errorMsg = "* Invalid Username or Password *")
-        
+            return render_template("login.html", errorMsg="* Invalid Username or Password *")
+
     return render_template('login.html', show_quickLinks=True)
 
-
-# Route for registeration....
-@app.route('/register', methods = ['GET','POST'])
+# Route for registration....
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':  
+    if request.method == 'POST':
         firstName = request.form['firstName']
         lastName = request.form['lastName']
         email = request.form['email']
@@ -191,6 +233,7 @@ def register():
         if existing_user:
             return "Email already registered! Please login."
 
+        # Use the model's constructor (it hashes the password)
         new_user = Userdb(firstName, lastName, email, phone, password, gender, birthDate, eduLevel, fieldOfStudy)
         db.session.add(new_user)
         db.session.commit()
@@ -201,8 +244,8 @@ def register():
 
     return render_template('register.html', show_quickLinks=True)
 
-#Route for lifestyle data...
-@app.route('/lifestyle', methods = ['GET','POST'])
+# Route for lifestyle data...
+@app.route('/lifestyle', methods=['GET', 'POST'])
 def lifestyle():
     if request.method == 'POST':
         user_id = session.get('user_id')
@@ -224,27 +267,27 @@ def lifestyle():
         db.session.commit()
 
         return redirect(url_for('category'))
-    
+
     return render_template('lifestyle.html', show_quickLinks=False)
 
 # Route for category selection....
-@app.route('/category', methods = ['GET','POST'])
+@app.route('/category', methods=['GET', 'POST'])
 def category():
-
     if request.method == 'GET':
-          return render_template('category.html', show_quickLinks=False, categories=categories)
+        return render_template('category.html', show_quickLinks=False, categories=categories)
+
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('register'))
 
     if request.method == 'POST':
-        category = request.form.get('category')
+        category_val = request.form.get('category')
         subcategory = request.form.get('subcategory')
         description = request.form.get('description')
 
         new_selection = UserCategorySelection(
             user_id=user_id,
-            category=category,
+            category=category_val,
             subcategory=subcategory,
             description=description
         )
@@ -254,7 +297,7 @@ def category():
         session.pop('user_id', None)
 
         return redirect(url_for('login'))
-    
+
     return render_template('category.html', show_quickLinks=False, categories=categories)
 
 # Route after login successful, showing AI Dashboard...
@@ -267,21 +310,21 @@ def dashboard():
             return redirect('/login')  # fallback if no user found
 
         lifestyle = Lifestyle.query.filter_by(user_id=user.id).first()
-        categories = UserCategorySelection.query.filter_by(user_id=user.id).all()
+        categories_sel = UserCategorySelection.query.filter_by(user_id=user.id).all()
 
         return render_template(
             "dashboard.html",
             user=user,
             lifestyle=lifestyle,
-            categories=categories
+            categories=categories_sel
         )
     else:
         return redirect('/login')
-    
+
 # Route for logout ....
 @app.route('/logout')
 def logout():
-    session.pop('email',None)
+    session.pop('email', None)
     return redirect('/')
 
 if __name__ == "__main__":

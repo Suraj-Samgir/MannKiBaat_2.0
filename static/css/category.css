@@ -17,8 +17,8 @@
   --bs-light-blue: #60a5fa;
   --bs-light-teal: #5eead4;
   --bs-light-green: #6ee7b7;
-  --bs-footer-bg: #2a3143;
-  --bs-black: #1C2526; /* Consistent black shade for navbar and footer */
+  --bs-footer-bg: #2a3143;    
+  --bs-black: #1C2526;
   --bs-text-white: #FFFFFF;
 }
 
@@ -35,6 +35,8 @@
   --bs-card-icon-bg: var(--bs-gradient);
   --bs-footer-bg: var(--bs-black);
   --bs-navbar-bg: var(--bs-black);
+  --bs-form-bg: #252d44;
+  --bs-select-bg: #2a3143;
 }
 
 [data-theme="light"] {
@@ -52,6 +54,8 @@
   --bs-card-icon-bg: linear-gradient(135deg, var(--bs-light-blue) 0%, var(--bs-light-teal) 50%, var(--bs-light-green) 100%);
   --bs-footer-bg: var(--bs-black);
   --bs-navbar-bg: var(--bs-black);
+  --bs-form-bg: #ffffff;
+  --bs-select-bg: #ffffff;
 }
 
 body {
@@ -236,7 +240,7 @@ hr {
 }
 
 .hero-bg-animation {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -279,6 +283,7 @@ footer {
   position: relative;
   text-align: center;
   width: 100%;
+  font-weight: bold;
 }
 
 footer .container {
@@ -296,11 +301,8 @@ footer h3 {
 }
 
 footer p {
-  color: var(--bs-text-white);
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 700px;
-  margin: 0 auto 1.5rem;
+  color: var(--bs-muted-text);
+
 }
 
 footer .row {
@@ -314,14 +316,7 @@ footer .col-lg-2 {
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-}
-
-footer h5 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--bs-text-white);
-  margin-bottom: 1rem;
-  text-transform: uppercase;
+  color: white; 
 }
 
 .btn-floating {
@@ -336,7 +331,7 @@ footer h5 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   color: white;
-  margin: 0 auto 0.5rem;
+
 }
 
 .btn-floating:hover {
@@ -358,13 +353,16 @@ footer .feature-icon-container {
   margin-bottom: 0.5rem;
 }
 
-footer .feature-description {
+.feature-description {
   min-height: 24px;
   transition: opacity 0.3s ease;
-  margin: 0;
-  width: 100%;
-  text-align: center;
+  margin-right: -18px;
 }
+
+.feature-description p {
+  color: var(--bs-text-white) !important;
+}
+
 
 footer .feature-description span {
   color: var(--bs-text-white);

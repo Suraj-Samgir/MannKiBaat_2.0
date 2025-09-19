@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Select Categories</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
@@ -26,7 +26,61 @@
         <div class="hero-bg-circle circle-2"></div>
     </div>
 
-    {% import "components/categoryCardMacro.html" as macros %}
+    <!-- Macro Definition -->
+    {% macro categoryCard(title, description, image, modal_id, modal_title, categories, class_name) %}
+    <div class="col">
+        <div class="card {{ class_name }} h-100 shadow-sm feature-card animate-fade-in" data-bs-toggle="modal" data-bs-target="#{{ modal_id }}" style="cursor:pointer;">
+            <img src="{{ image }}" class="card-img-top" alt="{{ title }}" style="height: 180px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ title }}</h5>
+                <p class="card-text">{{ description }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="{{ modal_id }}" tabindex="-1" aria-labelledby="{{ modal_id }}Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="/category">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="{{ modal_id }}Label">{{ modal_title }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <!-- Hidden input to send category name -->
+                        <input type="hidden" name="category" value="{{ title }}">
+
+                        <!-- Subcategory Selection -->
+                        <div class="mb-3">
+                            <label for="{{ modal_id }}_problem" class="form-label">Choose the problem you are facing</label>
+                            <select class="form-select" id="{{ modal_id }}_problem" name="subcategory" required>
+                                <option value="">(Select the problem)</option>
+                                {% for problem in categories[title] %}
+                                    <option value="{{ problem }}">{{ problem }}</option>
+                                {% endfor %}
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <!-- Problem Description -->
+                        <div class="mb-3">
+                            <label for="{{ modal_id }}_message" class="col-form-label">Describe your problem:</label>
+                            <textarea class="form-control" id="{{ modal_id }}_message" name="description"
+                                placeholder="Write about your issue..." rows="3"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-gradient">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endmacro %}
 
     <div class="main-content">
         <div class="container mx-auto mt-2 pt-5">
@@ -101,7 +155,7 @@
                     }
                 ] %}
                 {% for data in category_data %}
-                    {{ macros.categoryCard(
+                    {{ categoryCard(
                         title=data.title,
                         description=data.description,
                         image=data.image,
@@ -117,15 +171,8 @@
 
     {% include 'components/footer.html' %}
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
     <script>
@@ -155,7 +202,7 @@
         });
 
         function showMail(id, text) {
-            document.getElementById(id).innerHTML = `<p style="white-space: nowrap; margin: 0;">${text}</p>`;
+            document.getElementById(id).innerHTML = `<p style="white-space: nowrap; margin: 0; font-weight: normal;">${text}</p>`;
         }
 
         function hideMail(id) {

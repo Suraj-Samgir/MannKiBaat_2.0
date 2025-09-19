@@ -6,12 +6,19 @@
     <title>MannKiBaat_2.0: Generative AI for Youth Mental Wellness</title>
     <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="static/css/dashboard.css">
 </head>
 <body>
@@ -505,72 +512,49 @@
             </div>
         </div>
 
-       <!-- Affirmations View -->
-<div id="affirmationsView" class="d-none">
-  <div class="container py-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-10">
-        <div class="d-flex justify-content-between align-items-center mb-5">
-          <h2 class="text-gradient">Daily Affirmations</h2>
-          <div>
-            <button class="btn btn-outline-secondary me-2" id="prevAffirmation">
-              <i class="bi bi-arrow-left"></i> Previous
-            </button>
-            <button class="btn btn-outline-secondary" id="nextAffirmation">
-              Next <i class="bi bi-arrow-right"></i>
-            </button>
-          </div>
-        </div>
-<div class="affirmation-card">
-  <div class="affirmation-image" id="affirmationImage">
-    <!-- Previous button on left of image -->
-    <button class="side-btn prev-btn" id="prevAffirmation" title="Previous">
-      <i class="bi bi-chevron-left"></i>
-    </button>
-    <!-- Affirmation text overlay -->
-    <div class="affirmation-overlay">
-      <p class="affirmation-text" id="affirmationText"></p>
-    </div>
-    <!-- Like, refresh, save buttons separately -->
-    <div class="affirmation-action action-left">
-      <button class="btn-affirmation" id="likeAffirmation" title="Like">
-        <i class="bi bi-heart"></i>
-      </button>
-    </div>
-    <div class="affirmation-action action-center">
-      <button class="btn-affirmation" id="refreshAffirmation" title="Refresh">
-        <i class="bi bi-arrow-repeat"></i>
-      </button>
-    </div>
-    <div class="affirmation-action action-right">
-      <button class="btn-affirmation" id="saveAffirmation" title="Save">
-        <i class="bi bi-bookmark"></i>
-      </button>
-    </div>
-    <!-- Next button on right of image -->
-    <button class="side-btn next-btn" id="nextAffirmation" title="Next">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
-</div>
+        <!-- Affirmations View -->
+        <div id="affirmationsView" class="d-none">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        
+                        <div class="affirmation-card">
+                            <div class="affirmation-image" id="affirmationImage">
+                                <!-- Previous button on left of image -->
+                                <button class="side-btn prev-btn" id="prevAffirmationSide" title="Previous">
+                                    <i class="bi bi-chevron-left"></i>
+                                </button>
+                                <!-- Affirmation text overlay -->
+                                <div class="affirmation-overlay">
+                                    <p class="affirmation-text" id="affirmationText"></p>
+                                </div>
+                                <!-- Like, refresh, save buttons separately -->
+                                <div class="affirmation-action action-left">
+                                    <button class="btn-affirmation" id="likeAffirmation" title="Like">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                </div>
+                                <div class="affirmation-action action-center">
+                                    <button class="btn-affirmation" id="refreshAffirmation" title="Refresh">
+                                        <i class="bi bi-arrow-repeat"></i>
+                                    </button>
+                                </div>
+                                <div class="affirmation-action action-right">
+                                    <button class="btn-affirmation" id="saveAffirmation" title="Save">
+                                        <i class="bi bi-bookmark"></i>
+                                    </button>
+                                </div>
+                                <!-- Next button on right of image -->
+                                <button class="side-btn next-btn" id="nextAffirmationSide" title="Next">
+                                    <i class="bi bi-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
 
-
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mt-5">
-          <h4 class="mb-4">Categories</h4>
-          <div class="d-flex flex-wrap gap-2">
-            <button class="btn btn-outline-primary category-btn active" data-category="all">All</button>
-            <button class="btn btn-outline-primary category-btn" data-category="motivation">Motivation</button>
-            <button class="btn btn-outline-primary category-btn" data-category="confidence">Confidence</button>
-            <button class="btn btn-outline-primary category-btn" data-category="peace">Inner Peace</button>
-            <button class="btn btn-outline-primary category-btn" data-category="gratitude">Gratitude</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 
         <!-- Favorites View -->
         <div id="favoritesView" class="d-none">
@@ -647,359 +631,540 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const mobileOverlay = document.getElementById('mobileOverlay');
-            const homeView = document.getElementById('homeView');
-            const chatbotView = document.getElementById('chatbotView');
-            const crisisView = document.getElementById('crisisView');
-            const profileView = document.getElementById('profileView');
-            const affirmationsView = document.getElementById('affirmationsView');
-            const favoritesView = document.getElementById('favoritesView');
-            const backToHome = document.getElementById('backToHome');
-            const backToHomeCrisis = document.getElementById('backToHomeCrisis');
-            const messageInput = document.getElementById('messageInput');
-            const sendMessageBtn = document.getElementById('sendMessage');
-            const messagesContainer = document.getElementById('messagesContainer');
-            const navItems = document.querySelectorAll('.nav-item');
-            const quickActions = document.querySelectorAll('.quick-action');
-            const featureCards = document.querySelectorAll('.feature-card');
-            const startBreathingBtn = document.getElementById('startBreathing');
-            const breathingCircle = document.getElementById('breathingCircle');
-            const breathCount = document.getElementById('breathCount');
-            const breathPhase = document.getElementById('breathPhase');
-            const themeToggle = document.getElementById('themeToggle');
-            const affirmationImage = document.getElementById('affirmationImage');
-            const affirmationText = document.getElementById('affirmationText');
-            const likeBtn = document.getElementById('likeAffirmation');
-            const refreshBtn = document.getElementById('refreshAffirmation');
-            const saveBtn = document.getElementById('saveAffirmation');
-            const prevBtn = document.getElementById('prevAffirmation');
-            const nextBtn = document.getElementById('nextAffirmation');
-            const categoryBtns = document.querySelectorAll('.category-btn');
-            const favoritesContainer = document.getElementById('favoritesContainer');
-            const emptyFavorites = document.getElementById('emptyFavorites');
+    function showMail(a, b) {
+        document.getElementById(a).innerHTML = `<p style="white-space: nowrap; margin:0;">${b}</p>`;
+    }
 
-            // State
-            let currentView = 'home';
-            let messages = [
-                {
-                    id: 1,
-                    text: "Hello! I'm MindfulChat, your AI companion. How are you feeling today?",
-                    sender: "bot",
-                    timestamp: new Date(),
+    function hideMail(a) {
+        document.getElementById(a).innerHTML = "";
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // DOM Elements
+        const affirmationImages = [
+            "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
+            "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
+            "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
+            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
+            "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80"
+        ];
+
+        const todaysAffirmations = []
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const homeView = document.getElementById('homeView');
+        const chatbotView = document.getElementById('chatbotView');
+        const crisisView = document.getElementById('crisisView');
+        const profileView = document.getElementById('profileView');
+        const affirmationsView = document.getElementById('affirmationsView');
+        const favoritesView = document.getElementById('favoritesView');
+        const backToHome = document.getElementById('backToHome');
+        const backToHomeCrisis = document.getElementById('backToHomeCrisis');
+        const messageInput = document.getElementById('messageInput');
+        const sendMessageBtn = document.getElementById('sendMessage');
+        const messagesContainer = document.getElementById('messagesContainer');
+        const navItems = document.querySelectorAll('.nav-item');
+        const quickActions = document.querySelectorAll('.quick-action');
+        const featureCards = document.querySelectorAll('.feature-card');
+        const startBreathingBtn = document.getElementById('startBreathing');
+        const breathingCircle = document.getElementById('breathingCircle');
+        const breathCount = document.getElementById('breathCount');
+        const breathPhase = document.getElementById('breathPhase');
+        const themeToggle = document.getElementById('themeToggle');
+        const affirmationImage = document.getElementById('affirmationImage');
+        const affirmationText = document.getElementById('affirmationText');
+        const likeBtn = document.getElementById('likeAffirmation');
+        const refreshBtn = document.getElementById('refreshAffirmation');
+        const saveBtn = document.getElementById('saveAffirmation');
+        const prevBtn = document.getElementById('prevAffirmation');
+        const nextBtn = document.getElementById('nextAffirmation');
+        const prevBtnSide = document.getElementById('prevAffirmationSide');
+        const nextBtnSide = document.getElementById('nextAffirmationSide');
+        const favoritesContainer = document.getElementById('favoritesContainer');
+        const emptyFavorites = document.getElementById('emptyFavorites');
+
+        // State variables
+        let currentView = 'home';
+        let messages = [
+            {
+                id: 1,
+                text: "Hello! I'm MindfulChat, your AI companion. How are you feeling today?",
+                sender: "bot",
+                timestamp: new Date(),
+            }
+        ];
+        let isTyping = false;
+        let breathingActive = false;
+        let breathingPhaseState = 'inhale';
+        let breathingCountState = 4;
+        let breathingInterval = null;
+        let likedAffirmations = JSON.parse(localStorage.getItem('likedAffirmations')) || [];
+        let savedAffirmations = JSON.parse(localStorage.getItem('savedAffirmations')) || [];
+        let currentCategory = 'all';
+        let currentAffirmation = null;
+        let affirmationRequestInProgress = false;
+
+        // Initialize Bootstrap Dropdowns
+        function initializeDropdowns() {
+            // Find all dropdown toggle elements
+            const dropdownTriggers = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+            
+            dropdownTriggers.forEach(trigger => {
+                // Initialize Bootstrap dropdown if available
+                if (typeof bootstrap !== 'undefined' && bootstrap.Dropdown) {
+                    new bootstrap.Dropdown(trigger);
                 }
-            ];
-            let isTyping = false;
-            let breathingActive = false;
-            let breathingPhaseState = 'inhale';
-            let breathingCountState = 4;
-            let breathingInterval = null;
-            let currentAffirmationIndex = 0;
-            let likedAffirmations = JSON.parse(localStorage.getItem('likedAffirmations')) || [];
-            let savedAffirmations = JSON.parse(localStorage.getItem('savedAffirmations')) || [];
-            let currentCategory = 'all';
+            });
+        }
 
-            // Affirmations data
-            const affirmations = [
-                {
-                    text: "I am capable of achieving great things.",
-                    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "motivation"
-                },
-                {
-                    text: "I believe in myself and my abilities.",
-                    image: "https://images.unsplash.com/photo-1464822759849-e0e100921dae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "confidence"
-                },
-                {
-                    text: "I am at peace with myself and the world around me.",
-                    image: "https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "peace"
-                },
-                {
-                    text: "I am grateful for all the blessings in my life.",
-                    image: "https://images.unsplash.com/photo-1506260405121-e77d8e5e6c0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "gratitude"
-                },
-                {
-                    text: "Every day is a new opportunity to grow and learn.",
-                    image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "motivation"
-                },
-                {
-                    text: "I radiate confidence and positivity.",
-                    image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "confidence"
-                },
-                {
-                    text: "I choose to let go of things I cannot control.",
-                    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "peace"
-                },
-                {
-                    text: "I appreciate the small joys in everyday life.",
-                    image: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80",
-                    category: "gratitude"
+        // Function to show views dynamically
+        function showView(view) {
+            [homeView, chatbotView, crisisView, profileView, affirmationsView, favoritesView]
+                .forEach(v => v.classList.add('d-none'));
+            view.classList.remove('d-none');
+        }
+
+        // CONSOLIDATED navigation handler
+        function handleNavigation(targetView) {
+            switch (targetView) {
+                case 'home': 
+                    showView(homeView); 
+                    break;
+                case 'chatbot': 
+                    showView(chatbotView); 
+                    break;
+                case 'crisis': 
+                    showView(crisisView); 
+                    break;
+                case 'profile': 
+                    showView(profileView); 
+                    break;
+                case 'affirmations':
+                    showView(affirmationsView);
+                    getRandomAffirmation();
+                    break;
+                case 'favorites':
+                    showView(favoritesView);
+                    renderFavorites();
+                    break;
+            }
+            
+            // Update active nav state
+            navItems.forEach(nav => nav.classList.remove('active'));
+            const activeNav = document.querySelector(`.nav-item[data-view="${targetView}"]`);
+            if (activeNav) activeNav.classList.add('active');
+
+            // Close any open dropdowns after navigation
+            const openDropdowns = document.querySelectorAll('.dropdown-menu.show');
+            openDropdowns.forEach(dropdown => {
+                dropdown.classList.remove('show');
+                const toggle = dropdown.previousElementSibling;
+                if (toggle) toggle.setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        // Navigation event listeners
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const view = this.dataset.view;
+                if (view) {
+                    handleNavigation(view);
                 }
-            ];
+            });
+        });
 
-            // Initialize
-            displayAffirmation(currentAffirmationIndex);
-            updateButtonStates();
-            renderFavorites();
-
-            // Theme toggle functionality
-            function toggleTheme() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-theme', newTheme);
-                
-                const icon = themeToggle.querySelector('i');
-                
-                if (newTheme === 'dark') {
-                    icon.className = 'bi bi-sun fs-5';
-                } else {
-                    icon.className = 'bi bi-moon fs-5';
+        // Feature cards navigation
+        featureCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const view = this.dataset.view;
+                if (view) {
+                    handleNavigation(view);
                 }
+            });
+        });
+
+        // Profile dropdown navigation - Enhanced with proper dropdown handling
+        document.querySelectorAll('.dropdown-item[data-view]').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const view = this.getAttribute('data-view');
+                handleNavigation(view);
+            });
+        });
+
+        // Handle profile dropdown toggle manually if Bootstrap doesn't work
+        const profileDropdownToggle = document.querySelector('.dropdown-toggle[data-bs-toggle="dropdown"]');
+        if (profileDropdownToggle) {
+            profileDropdownToggle.addEventListener('click', function(e) {
+                const dropdownMenu = this.nextElementSibling;
+                if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                    const isShown = dropdownMenu.classList.contains('show');
+                    
+                    // Close all other dropdowns first
+                    document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                        if (menu !== dropdownMenu) {
+                            menu.classList.remove('show');
+                            const toggle = menu.previousElementSibling;
+                            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    if (isShown) {
+                        dropdownMenu.classList.remove('show');
+                        this.setAttribute('aria-expanded', 'false');
+                    } else {
+                        dropdownMenu.classList.add('show');
+                        this.setAttribute('aria-expanded', 'true');
+                    }
+                }
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            let clickedInside = false;
+            
+            dropdownToggles.forEach(toggle => {
+                const dropdownMenu = toggle.nextElementSibling;
+                if (toggle.contains(e.target) || (dropdownMenu && dropdownMenu.contains(e.target))) {
+                    clickedInside = true;
+                }
+            });
+            
+            if (!clickedInside) {
+                document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                    menu.classList.remove('show');
+                    const toggle = menu.previousElementSibling;
+                    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+
+        // Back to home button handlers
+        if (backToHome) {
+            backToHome.addEventListener('click', function() {
+                handleNavigation('home');
+            });
+        }
+
+        if (backToHomeCrisis) {
+            backToHomeCrisis.addEventListener('click', function() {
+                handleNavigation('home');
+            });
+        }
+
+        // PROTECTED affirmation fetch function
+            async function getRandomAffirmation() {
+            if (affirmationRequestInProgress) {
+                console.log('Affirmation request already in progress, skipping...');
+                return;
+            }
+            
+            affirmationRequestInProgress = true;
+            if (todaysAffirmations.length == 5) {
+                    alert("You have reached the maximum of 5 affirmations for today. Please come back tomorrow for more!");
+                    return;
+                }
+            try {
+
+                let url = '/affirmation';
+                if (currentCategory && currentCategory !== 'all') {
+                    url += `?category=${encodeURIComponent(currentCategory)}`;
+                }
+                const response = await fetch(url);
+                if (!response.ok) throw new Error("Failed to fetch affirmation.");
+                const data = await response.json();
+                console.log(data.affirmation);
                 
-                localStorage.setItem('theme', newTheme);
+                // Create affirmation object with random image
+                currentAffirmation = {
+                    text: data.affirmation,
+                    image: getRandomAffirmationImage() // Use random image from array
+                };
+                
+                todaysAffirmations.push(currentAffirmation);
+                    
+                
+                displayAffirmation(currentAffirmation);
+            } catch (error) {
+                console.error("Error fetching affirmation:", error);
+                // Fallback affirmation also gets random image
+                currentAffirmation = {
+                    text: "Keep going! You are doing great.",
+                    image: getRandomAffirmationImage()
+                };
+                displayAffirmation(currentAffirmation);
+            } finally {
+                affirmationRequestInProgress = false;
+            }
+        }
+        function getRandomAffirmationImage() {
+            const randomIndex = Math.floor(Math.random() * affirmationImages.length);
+
+            return affirmationImages[randomIndex];
+        }
+
+      function displayAffirmation(affirmation) {
+            if (affirmationImage && affirmationText) {
+                affirmationImage.style.backgroundImage = `url(${affirmation.image})`;
+                affirmationText.textContent = affirmation.text;
+                updateButtonStates();
+            }
+        }
+
+        function toggleLike() {
+            if (!currentAffirmation) return;
+            const index = likedAffirmations.findIndex(a => a.text === currentAffirmation.text);
+            if (index === -1) {
+                likedAffirmations.push(currentAffirmation);
+                likeBtn.classList.add('active');
+                likeBtn.innerHTML = '<i class="bi bi-heart-fill"></i>';
+            } else {
+                likedAffirmations.splice(index, 1);
+                likeBtn.classList.remove('active');
+                likeBtn.innerHTML = '<i class="bi bi-heart"></i>';
+            }
+            localStorage.setItem('likedAffirmations', JSON.stringify(likedAffirmations));
+        }
+
+        function toggleSave() {
+            if (!currentAffirmation) return;
+            const index = savedAffirmations.findIndex(a => a.text === currentAffirmation.text);
+            if (index === -1) {
+                savedAffirmations.push(currentAffirmation);
+                saveBtn.classList.add('active');
+                saveBtn.innerHTML = '<i class="bi bi-bookmark-fill"></i>';
+            } else {
+                savedAffirmations.splice(index, 1);
+                saveBtn.classList.remove('active');
+                saveBtn.innerHTML = '<i class="bi bi-bookmark"></i>';
+            }
+            localStorage.setItem('savedAffirmations', JSON.stringify(savedAffirmations));
+        }
+
+        function updateButtonStates() {
+            if (!currentAffirmation) return;
+            const isLiked = likedAffirmations.some(a => a.text === currentAffirmation.text);
+            if (likeBtn) {
+                likeBtn.classList.toggle('active', isLiked);
+                likeBtn.innerHTML = isLiked
+                    ? '<i class="bi bi-heart-fill"></i>'
+                    : '<i class="bi bi-heart"></i>';
             }
 
-            themeToggle.addEventListener('click', toggleTheme);
+            const isSaved = savedAffirmations.some(a => a.text === currentAffirmation.text);
+            if (saveBtn) {
+                saveBtn.classList.toggle('active', isSaved);
+                saveBtn.innerHTML = isSaved
+                    ? '<i class="bi bi-bookmark-fill"></i>'
+                    : '<i class="bi bi-bookmark"></i>';
+            }
+        }
 
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                document.documentElement.setAttribute('data-theme', savedTheme);
-                const icon = themeToggle.querySelector('i');
-                
+        function renderFavorites() {
+            if (!favoritesContainer) return;
+            favoritesContainer.innerHTML = '';
+            if (savedAffirmations.length === 0) {
+                if (emptyFavorites) {
+                    favoritesContainer.appendChild(emptyFavorites);
+                    emptyFavorites.classList.remove('d-none');
+                }
+                return;
+            }
+            if (emptyFavorites) emptyFavorites.classList.add('d-none');
+            savedAffirmations.forEach((affirmation, index) => {
+                const favoriteItem = document.createElement('div');
+                favoriteItem.className = 'favorite-item';
+                favoriteItem.innerHTML = `
+                    <img src="${affirmation.image}" alt="Affirmation" class="favorite-image">
+                    <div class="favorite-overlay">
+                        <p class="favorite-quote">${affirmation.text}</p>
+                    </div>
+                    <button class="remove-favorite" data-index="${index}">
+                        <i class="bi bi-x"></i>
+                    </button>
+                `;
+                favoritesContainer.appendChild(favoriteItem);
+            });
+            document.querySelectorAll('.remove-favorite').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    savedAffirmations.splice(index, 1);
+                    localStorage.setItem('savedAffirmations', JSON.stringify(savedAffirmations));
+                    renderFavorites();
+                    updateButtonStates();
+                });
+            });
+        }
+
+        // Wire up affirmation buttons
+        if (refreshBtn) refreshBtn.addEventListener('click', getRandomAffirmation);
+        if (prevBtn) prevBtn.addEventListener('click', getRandomAffirmation);
+        if (nextBtn) nextBtn.addEventListener('click', getRandomAffirmation);
+        if (prevBtnSide) prevBtnSide.addEventListener('click', getRandomAffirmation);
+        if (nextBtnSide) nextBtnSide.addEventListener('click', getRandomAffirmation);
+        if (likeBtn) likeBtn.addEventListener('click', toggleLike);
+        if (saveBtn) saveBtn.addEventListener('click', toggleSave);
+        
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            
+            const icon = themeToggle.querySelector('i');
+            
+            if (newTheme === 'dark') {
+                icon.className = 'bi bi-sun fs-5';
+            } else {
+                icon.className = 'bi bi-moon fs-5';
+            }
+            
+            localStorage.setItem('theme', newTheme);
+        }
+
+        if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const icon = themeToggle ? themeToggle.querySelector('i') : null;
+            
+            if (icon) {
                 if (savedTheme === 'dark') {
                     icon.className = 'bi bi-sun fs-5';
                 } else {
                     icon.className = 'bi bi-moon fs-5';
                 }
             }
+        }
 
-            // Sidebar toggle functionality
+        // Sidebar toggle
+        if (sidebarToggle) {
             sidebarToggle.addEventListener('click', function() {
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('expanded');
                 mobileOverlay.classList.toggle('active');
             });
+        }
 
-            // Navigation
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    const view = this.getAttribute('data-view');
-                    if (view) {
-                        setCurrentView(view);
-                        navItems.forEach(nav => nav.classList.remove('active'));
-                        this.classList.add('active');
-                    }
+        // Quick actions
+        if (quickActions) {
+            quickActions.forEach(action => {
+                action.addEventListener('click', function() {
+                    const actionText = this.getAttribute('data-action');
+                    const quickMessages = {
+                        "I need to talk": "I need someone to talk to right now.",
+                        "Tell me a story": "Could you tell me an uplifting story?",
+                        "I'm feeling anxious": "I'm feeling anxious and could use some support."
+                    };
+                    sendMessage(quickMessages[actionText]);
                 });
             });
+        }
 
-            // Feature cards navigation
-            featureCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const view = this.getAttribute('data-view');
-                    if (view) {
-                        setCurrentView(view);
-                        navItems.forEach(nav => {
-                            nav.classList.remove('active');
-                            if (nav.getAttribute('data-view') === view) {
-                                nav.classList.add('active');
-                            }
-                        });
-                    }
-                });
+        // Send message functionality
+        if (sendMessageBtn && messageInput) {
+            sendMessageBtn.addEventListener('click', function() {
+                if (messageInput.value.trim()) {
+                    sendMessage(messageInput.value);
+                    messageInput.value = '';
+                }
             });
 
-            // Profile dropdown navigation
-            document.querySelectorAll('.dropdown-item[data-view]').forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const view = this.getAttribute('data-view');
-                    setCurrentView(view);
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    document.querySelector('.nav-item[data-view="home"]').classList.add('active');
-                });
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && messageInput.value.trim()) {
+                    sendMessage(messageInput.value);
+                    messageInput.value = '';
+                }
             });
+        }
 
-            // Back to home buttons
-            if (backToHome) {
-                backToHome.addEventListener('click', function() {
-                    setCurrentView('home');
-                    navItems.forEach(nav => {
-                        nav.classList.remove('active');
-                        if (nav.getAttribute('data-view') === 'home') {
-                            nav.classList.add('active');
-                        }
-                    });
-                });
-            }
-
-            if (backToHomeCrisis) {
-                backToHomeCrisis.addEventListener('click', function() {
-                    setCurrentView('home');
-                    navItems.forEach(nav => {
-                        nav.classList.remove('active');
-                        if (nav.getAttribute('data-view') === 'home') {
-                            nav.classList.add('active');
-                        }
-                    });
-                });
-            }
-
-            document.querySelectorAll('[data-view="home"]').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    setCurrentView('home');
-                    navItems.forEach(nav => {
-                        nav.classList.remove('active');
-                        if (nav.getAttribute('data-view') === 'home') {
-                            nav.classList.add('active');
-                        }
-                    });
-                });
-            });
-
-            // Affirmations event listeners
-            if (likeBtn) likeBtn.addEventListener('click', toggleLike);
-            if (refreshBtn) refreshBtn.addEventListener('click', getRandomAffirmation);
-            if (saveBtn) saveBtn.addEventListener('click', toggleSave);
-            if (prevBtn) prevBtn.addEventListener('click', showPreviousAffirmation);
-            if (nextBtn) nextBtn.addEventListener('click', showNextAffirmation);
-
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentCategory = this.dataset.category;
-                    getRandomAffirmation();
-                });
-            });
-
-            // Quick actions
-            if (quickActions) {
-                quickActions.forEach(action => {
-                    action.addEventListener('click', function() {
-                        const actionText = this.getAttribute('data-action');
-                        const quickMessages = {
-                            "I need to talk": "I need someone to talk to right now.",
-                            "Tell me a story": "Could you tell me an uplifting story?",
-                            "I'm feeling anxious": "I'm feeling anxious and could use some support."
-                        };
-                        sendMessage(quickMessages[actionText]);
-                    });
-                });
-            }
-
-            // Send message
-            if (sendMessageBtn && messageInput) {
-                sendMessageBtn.addEventListener('click', function() {
-                    if (messageInput.value.trim()) {
-                        sendMessage(messageInput.value);
-                        messageInput.value = '';
-                    }
-                });
-
-                messageInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter' && messageInput.value.trim()) {
-                        sendMessage(messageInput.value);
-                        messageInput.value = '';
-                    }
-                });
-            }
-
-            // Breathing exercise
-            if (startBreathingBtn) {
-                startBreathingBtn.addEventListener('click', function() {
-                    breathingActive = !breathingActive;
-                    
-                    if (breathingActive) {
-                        this.innerHTML = '<i class="bi bi-pause-circle me-2"></i> Pause Exercise';
-                        startBreathingExercise();
-                    } else {
-                        this.innerHTML = '<i class="bi bi-play-circle me-2"></i> Start Exercise';
-                        stopBreathingExercise();
-                    }
-                });
-            }
-
-            function startBreathingExercise() {
-                breathingPhaseState = 'inhale';
-                breathingCountState = 4;
-                updateBreathingUI();
+        // Breathing exercise
+        if (startBreathingBtn) {
+            startBreathingBtn.addEventListener('click', function() {
+                breathingActive = !breathingActive;
                 
-                breathingInterval = setInterval(function() {
-                    breathingCountState--;
-                    
-                    if (breathingCountState <= 0) {
-                        breathingPhaseState = breathingPhaseState === 'inhale' ? 'hold' : breathingPhaseState === 'hold' ? 'exhale' : 'inhale';
-                        
-                        if (breathingPhaseState === 'inhale') breathingCountState = 4;
-                        else if (breathingPhaseState === 'hold') breathingCountState = 7;
-                        else if (breathingPhaseState === 'exhale') breathingCountState = 8;
-                    }
-                    
-                    updateBreathingUI();
-                }, 1000);
-            }
-
-            function stopBreathingExercise() {
-                if (breathingInterval) {
-                    clearInterval(breathingInterval);
+                if (breathingActive) {
+                    this.innerHTML = '<i class="bi bi-pause-circle me-2"></i> Pause Exercise';
+                    startBreathingExercise();
+                } else {
+                    this.innerHTML = '<i class="bi bi-play-circle me-2"></i> Start Exercise';
+                    stopBreathingExercise();
                 }
-                if (breathingCircle && breathCount && breathPhase) {
-                    breathingCircle.classList.remove('breathing-in', 'breathing-out');
-                    breathCount.textContent = '4';
+            });
+        }
+
+        function startBreathingExercise() {
+            breathingPhaseState = 'inhale';
+            breathingCountState = 4;
+            updateBreathingUI();
+            
+            breathingInterval = setInterval(function() {
+                breathingCountState--;
+                
+                if (breathingCountState <= 0) {
+                    breathingPhaseState = breathingPhaseState === 'inhale' ? 'hold' : breathingPhaseState === 'hold' ? 'exhale' : 'inhale';
+                    
+                    if (breathingPhaseState === 'inhale') breathingCountState = 4;
+                    else if (breathingPhaseState === 'hold') breathingCountState = 7;
+                    else if (breathingPhaseState === 'exhale') breathingCountState = 8;
+                }
+                
+                updateBreathingUI();
+            }, 1000);
+        }
+
+        function stopBreathingExercise() {
+            if (breathingInterval) {
+                clearInterval(breathingInterval);
+            }
+            if (breathingCircle && breathCount && breathPhase) {
+                breathingCircle.classList.remove('breathing-in', 'breathing-out');
+                breathCount.textContent = '4';
+                breathPhase.textContent = 'Inhale';
+            }
+        }
+
+        function updateBreathingUI() {
+            if (breathCount && breathPhase && breathingCircle) {
+                breathCount.textContent = breathingCountState;
+                
+                if (breathingPhaseState === 'inhale') {
                     breathPhase.textContent = 'Inhale';
+                    breathingCircle.classList.add('breathing-in');
+                    breathingCircle.classList.remove('breathing-out');
+                } else if (breathingPhaseState === 'hold') {
+                    breathPhase.textContent = 'Hold';
+                    breathingCircle.classList.remove('breathing-in', 'breathing-out');
+                } else if (breathingPhaseState === 'exhale') {
+                    breathPhase.textContent = 'Exhale';
+                    breathingCircle.classList.remove('breathing-in');
+                    breathingCircle.classList.add('breathing-out');
                 }
             }
+        }
 
-            function updateBreathingUI() {
-                if (breathCount && breathPhase && breathingCircle) {
-                    breathCount.textContent = breathingCountState;
-                    
-                    if (breathingPhaseState === 'inhale') {
-                        breathPhase.textContent = 'Inhale';
-                        breathingCircle.classList.add('breathing-in');
-                        breathingCircle.classList.remove('breathing-out');
-                    } else if (breathingPhaseState === 'hold') {
-                        breathPhase.textContent = 'Hold';
-                        breathingCircle.classList.remove('breathing-in', 'breathing-out');
-                    } else if (breathingPhaseState === 'exhale') {
-                        breathPhase.textContent = 'Exhale';
-                        breathingCircle.classList.remove('breathing-in');
-                        breathingCircle.classList.add('breathing-out');
-                    }
-                }
-            }
-
-            // Send message function (NEW - Connected to the backend)
+        // Send message function
         async function sendMessage(text) {
             if (!text || !text.trim()) return;
             
-            // 1. Create and render the user's message immediately for a responsive feel
             const userMessage = {
-                id: Date.now(), // Use a unique timestamp for the ID
+                id: Date.now(),
                 text: text.trim(),
                 sender: "user",
                 timestamp: new Date(),
             };
-            // No longer need to push to a local 'messages' array
             renderMessage(userMessage);
             
-            // 2. Show the "bot is typing" indicator
             renderTypingIndicator();
             
-            // 3. Send the message to your Flask backend
             try {
                 const response = await fetch('/chat', {
                     method: 'POST',
@@ -1007,7 +1172,6 @@
                     body: JSON.stringify({ message: userMessage.text })
                 });
 
-                // Once we get a response, remove the typing indicator
                 removeTypingIndicator();
 
                 if (!response.ok) {
@@ -1017,7 +1181,6 @@
 
                 const data = await response.json();
                 
-                // 4. Create and render the bot's actual response
                 const botMessage = {
                     id: Date.now() + 1,
                     text: data.reply,
@@ -1028,9 +1191,8 @@
 
             } catch (error) {
                 console.error('Chat API Error:', error);
-                removeTypingIndicator(); // Make sure to remove indicator on error too
+                removeTypingIndicator();
                 
-                // Display a helpful error message in the chat window
                 const errorMessage = {
                     id: Date.now() + 1,
                     text: `Sorry, I couldn't connect to my brain. Please check the connection and try again. (${error.message})`,
@@ -1041,227 +1203,64 @@
             }
         }
 
-            // Render message
-            function renderMessage(message) {
-                if (!messagesContainer) return;
-                
-                const messageEl = document.createElement('div');
-                messageEl.className = `message ${message.sender} animate-fade-in`;
-                
-                const messageText = document.createElement('p');
-                messageText.className = 'mb-1';
-                messageText.textContent = message.text;
-                
-                const timestamp = document.createElement('small');
-                timestamp.className = 'opacity-75';
-                timestamp.textContent = message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                messageEl.appendChild(messageText);
-                messageEl.appendChild(timestamp);
-                
-                messagesContainer.appendChild(messageEl);
-                scrollToBottom();
-            }
+        function renderMessage(message) {
+            if (!messagesContainer) return;
+            
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${message.sender} animate-fade-in`;
+            
+            const messageText = document.createElement('p');
+            messageText.className = 'mb-1';
+            messageText.textContent = message.text;
+            
+            const timestamp = document.createElement('small');
+            timestamp.className = 'opacity-75';
+            timestamp.textContent = message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            messageEl.appendChild(messageText);
+            messageEl.appendChild(timestamp);
+            
+            messagesContainer.appendChild(messageEl);
+            scrollToBottom();
+        }
 
-            // Render typing indicator
-            function renderTypingIndicator() {
-                if (!messagesContainer) return;
-                
-                const typingEl = document.createElement('div');
-                typingEl.className = 'typing-indicator';
-                typingEl.id = 'typingIndicator';
-                
-                for (let i = 0; i < 3; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'typing-dot animate-bounce';
-                    dot.style.animationDelay = `${i * 0.2}s`;
-                    typingEl.appendChild(dot);
-                }
-                
-                messagesContainer.appendChild(typingEl);
-                scrollToBottom();
+        function renderTypingIndicator() {
+            if (!messagesContainer) return;
+            
+            const typingEl = document.createElement('div');
+            typingEl.className = 'typing-indicator';
+            typingEl.id = 'typingIndicator';
+            
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'typing-dot animate-bounce';
+                dot.style.animationDelay = `${i * 0.2}s`;
+                typingEl.appendChild(dot);
             }
+            
+            messagesContainer.appendChild(typingEl);
+            scrollToBottom();
+        }
 
-            // Remove typing indicator
-            function removeTypingIndicator() {
-                const typingIndicator = document.getElementById('typingIndicator');
-                if (typingIndicator) {
-                    typingIndicator.remove();
-                }
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
             }
+        }
 
-            // Scroll to bottom of messages
-            function scrollToBottom() {
-                if (messagesContainer) {
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }
+        function scrollToBottom() {
+            if (messagesContainer) {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
+        }
 
-            // Set current view
-            function setCurrentView(view) {
-                currentView = view;
-                
-                document.querySelectorAll('[id$="View"]').forEach(view => {
-                    view.classList.add('d-none');
-                });
-                
-                const targetView = document.getElementById(view + 'View');
-                if (targetView) {
-                    targetView.classList.remove('d-none');
-                }
-                
-                window.scrollTo(0, 0);
-                
-                if (view === 'chatbot') {
-                    setTimeout(() => {
-                        scrollToBottom();
-                    }, 100);
-                } else if (view === 'favorites') {
-                    renderFavorites();
-                }
-            }
+        // Initialize dropdowns and load home view
+        initializeDropdowns();
+        showView(homeView);
+    });
+</script>
 
-            // Affirmations functions
-            function displayAffirmation(index) {
-                const affirmation = affirmations[index];
-                affirmationImage.style.backgroundImage = `url(${affirmation.image})`;
-                affirmationText.textContent = affirmation.text;
-                currentAffirmationIndex = index;
-                updateButtonStates();
-            }
 
-            function getRandomAffirmation() {
-                let filteredAffirmations = affirmations;
-                if (currentCategory !== 'all') {
-                    filteredAffirmations = affirmations.filter(a => a.category === currentCategory);
-                }
-                
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * filteredAffirmations.length);
-                } while (filteredAffirmations.length > 1 && randomIndex === currentAffirmationIndex);
-                
-                currentAffirmationIndex = affirmations.indexOf(filteredAffirmations[randomIndex]);
-                displayAffirmation(currentAffirmationIndex);
-            }
-
-            function showPreviousAffirmation() {
-                let newIndex = currentAffirmationIndex - 1;
-                if (newIndex < 0) newIndex = affirmations.length - 1;
-                displayAffirmation(newIndex);
-            }
-
-            function showNextAffirmation() {
-                let newIndex = currentAffirmationIndex + 1;
-                if (newIndex >= affirmations.length) newIndex = 0;
-                displayAffirmation(newIndex);
-            }
-
-            function toggleLike() {
-                const currentAffirmation = affirmations[currentAffirmationIndex];
-                const index = likedAffirmations.findIndex(a => a.text === currentAffirmation.text);
-                
-                if (index === -1) {
-                    likedAffirmations.push(currentAffirmation);
-                    likeBtn.classList.add('active');
-                    likeBtn.innerHTML = '<i class="bi bi-heart-fill"></i> Liked';
-                } else {
-                    likedAffirmations.splice(index, 1);
-                    likeBtn.classList.remove('active');
-                    likeBtn.innerHTML = '<i class="bi bi-heart"></i> Like';
-                }
-                
-                localStorage.setItem('likedAffirmations', JSON.stringify(likedAffirmations));
-            }
-
-            function toggleSave() {
-                const currentAffirmation = affirmations[currentAffirmationIndex];
-                const index = savedAffirmations.findIndex(a => a.text === currentAffirmation.text);
-                
-                if (index === -1) {
-                    savedAffirmations.push(currentAffirmation);
-                    saveBtn.classList.add('active');
-                    saveBtn.innerHTML = '<i class="bi bi-bookmark-fill"></i> Saved';
-                    // TODO: Add POST request to /save_affirmation
-                } else {
-                    savedAffirmations.splice(index, 1);
-                    saveBtn.classList.remove('active');
-                    saveBtn.innerHTML = '<i class="bi bi-bookmark"></i> Save';
-                }
-                
-                localStorage.setItem('savedAffirmations', JSON.stringify(savedAffirmations));
-            }
-
-            function updateButtonStates() {
-                const currentAffirmation = affirmations[currentAffirmationIndex];
-                
-                // Update like button
-                const isLiked = likedAffirmations.some(a => a.text === currentAffirmation.text);
-                if (isLiked) {
-                    likeBtn.classList.add('active');
-                    likeBtn.innerHTML = '<i class="bi bi-heart-fill"></i> Liked';
-                } else {
-                    likeBtn.classList.remove('active');
-                    likeBtn.innerHTML = '<i class="bi bi-heart"></i> Like';
-                }
-                
-                // Update save button
-                const isSaved = savedAffirmations.some(a => a.text === currentAffirmation.text);
-                if (isSaved) {
-                    saveBtn.classList.add('active');
-                    saveBtn.innerHTML = '<i class="bi bi-bookmark-fill"></i> Saved';
-                } else {
-                    saveBtn.classList.remove('active');
-                    saveBtn.innerHTML = '<i class="bi bi-bookmark"></i> Save';
-                }
-            }
-
-            function renderFavorites() {
-                favoritesContainer.innerHTML = '';
-                
-                if (savedAffirmations.length === 0) {
-                    favoritesContainer.appendChild(emptyFavorites);
-                    emptyFavorites.classList.remove('d-none');
-                    return;
-                }
-                
-                emptyFavorites.classList.add('d-none');
-                
-                savedAffirmations.forEach((affirmation, index) => {
-                    const favoriteItem = document.createElement('div');
-                    favoriteItem.className = 'favorite-item';
-                    favoriteItem.innerHTML = `
-                        <img src="${affirmation.image}" alt="Affirmation" class="favorite-image">
-                        <div class="favorite-overlay">
-                            <p class="favorite-quote">${affirmation.text}</p>
-                        </div>
-                        <button class="remove-favorite" data-index="${index}">
-                            <i class="bi bi-x"></i>
-                        </button>
-                    `;
-                    favoritesContainer.appendChild(favoriteItem);
-                });
-                
-                // Add event listeners to remove buttons
-                document.querySelectorAll('.remove-favorite').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const index = parseInt(this.dataset.index);
-                        savedAffirmations.splice(index, 1);
-                        localStorage.setItem('savedAffirmations', JSON.stringify(savedAffirmations));
-                        renderFavorites();
-                        updateButtonStates();
-                    });
-                });
-            }
-
-            // Add animation to feature cards
-            if (featureCards) {
-                featureCards.forEach((card, index) => {
-                    card.style.animationDelay = `${index * 0.1}s`;
-                    card.classList.add('animate-fade-in');
-                });
-            }
-        });
-    </script>
 </body>
 </html>
