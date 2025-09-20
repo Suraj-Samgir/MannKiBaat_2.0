@@ -169,13 +169,13 @@ def create_initial_prompt(user, lifestyle, categories_list):
         f"- Their lifestyle info: Sleeps {getattr(lifestyle, 'sleepHrs', 'N/A')} hours/night, Stress Level is {getattr(lifestyle, 'stressLevel', 'N/A')}/10.\n"
         "- The main challenges they've identified are:\n"
     )
-    for selection in categories:
+    
+    # First loop through the categories_list (UserCategorySelection objects)
+    for selection in categories_list:
         prompt += (
             f"  - Under '{selection.category}', the specific issue is '{selection.subcategory}' "
             f"and the description is '{selection.description}'.\n"
         )
-    for selection in categories_list:
-        prompt += f"  - Under '{selection.category}', the specific issue is '{selection.subcategory}'.\n"
 
     prompt += "\nBegin the conversation by warmly greeting them by their first name and gently acknowledging one of their key challenges (e.g., stress or a specific category they chose). Ask them how you can help today."
     return prompt
