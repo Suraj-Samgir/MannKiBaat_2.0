@@ -154,6 +154,7 @@ body {
 .main-content {
   margin-left: 260px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-top: 80px;  /* 👈 add this */
 }
 
 .main-content.expanded {
@@ -179,6 +180,8 @@ body {
   transform: scale(1.1);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
+
+
 
 .app-title {
   color: white;
@@ -894,5 +897,68 @@ footer .quick-links a:hover::after {
   }
   footer .feature-description span {
     font-size: 0.85rem;
+  }
+}
+
+/* Activity Cards with Checkbox */
+.activity-card {
+  display: block;
+  background-color: var(--bs-card);
+  border: 1px solid var(--bs-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.activity-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Hide the raw checkbox */
+.activity-checkbox {
+  display: none;
+}
+
+/* Checkmark overlay */
+.activity-card::after {
+  content: "✔";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 1.4rem;
+  color: var(--bs-green);
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.3s ease;
+}
+
+/* Completed state */
+.activity-checkbox:checked + .card-body {
+  opacity: 0.5;
+  transform: scale(0.97);
+}
+
+.activity-checkbox:checked ~ .activity-card::after,
+.activity-checkbox:checked + .card-body::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Optional fade-out effect */
+.activity-card.completed {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
   }
 }

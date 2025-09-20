@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="static/css/dashboard.css">
 </head>
 <body>
@@ -167,7 +167,7 @@
                         </div>
                         
                         <div class="col-md-6 col-lg-4">
-                            <div class="feature-card p-4 h-100" data-bs-toggle="modal" data-bs-target="#lifestyleModal">
+                            <div class="feature-card p-4 h-100" data-view="lifestyle">
                                 <div class="card-icon mb-4">
                                     <i class="bi bi-heart text-white fs-3"></i>
                                 </div>
@@ -556,7 +556,8 @@
             </div>
         </div>
 
-        <!-- Favorites View -->
+
+ <!-- Favorites View -->
         <div id="favoritesView" class="d-none">
             <div class="container py-5">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -579,6 +580,27 @@
         </div>
     </div>
 
+    <!-- Lifestyle View -->
+<div id="lifestyleView" class="d-none">
+  <div class="container py-5 text-center">
+
+    <h2 class="mb-4">Lifestyle Suggestions</h2>
+
+    <!-- Activities list -->
+    <div id="activitiesContainer" class="row g-3 justify-content-center"></div>
+
+    <!-- Surprise Me Button -->
+    <button id="surpriseMeBtn" class="btn btn-success mt-4">Surprise Me!</button>
+
+    <!-- Streak indicator -->
+    <div class="mt-4">
+      <strong>Your streak:</strong> <span id="streakCounter">0</span>
+    </div>
+
+  </div>
+</div>
+
+
     <!-- Modals -->
     <div class="modal fade" id="communityModal" tabindex="-1" aria-labelledby="communityModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -597,22 +619,39 @@
         </div>
     </div>
 
-    <div class="modal fade" id="activitiesModal" tabindex="-1" aria-labelledby="activitiesModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="activitiesModalLabel">Wellness Activities</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Explore activities designed to boost your mental health and well-being.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
+<div class="modal fade" id="activitiesModal" tabindex="-1" aria-labelledby="activitiesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="activitiesModalLabel">Wellness Activities</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <button id="surpriseBtn" class="btn btn-primary">Surprise Me</button>
+            <button id="refreshBtn" class="btn btn-outline-secondary">Show Again</button>
+          </div>
+          <div>
+            <small>Streak:</small>
+            <span id="streakBadge" class="badge bg-success">0</span>
+          </div>
         </div>
+
+        <ul id="activitiesList" class="list-group">
+          <!-- items will be injected here -->
+        </ul>
+      </div>
+
+      <div class="modal-footer">
+        <small class="text-muted me-auto">Complete activities to build your streak — short, mood-lifting tasks.</small>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
+</div>
+
 
     <div class="modal fade" id="lifestyleModal" tabindex="-1" aria-labelledby="lifestyleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -661,6 +700,8 @@
         const profileView = document.getElementById('profileView');
         const affirmationsView = document.getElementById('affirmationsView');
         const favoritesView = document.getElementById('favoritesView');
+        const lifestyleView = document.getElementById('lifestyleView');
+        const activitiesView = document.getElementById('activitiesView');
         const backToHome = document.getElementById('backToHome');
         const backToHomeCrisis = document.getElementById('backToHomeCrisis');
         const messageInput = document.getElementById('messageInput');
@@ -722,7 +763,7 @@
 
         // Function to show views dynamically
         function showView(view) {
-            [homeView, chatbotView, crisisView, profileView, affirmationsView, favoritesView]
+            [homeView, chatbotView, crisisView, profileView, affirmationsView, favoritesView, lifestyleView]
                 .forEach(v => v.classList.add('d-none'));
             view.classList.remove('d-none');
         }
@@ -750,6 +791,9 @@
                     showView(favoritesView);
                     renderFavorites();
                     break;
+                case 'lifestyle':
+                    showView(lifestyleView);
+                     break;
             }
             
             // Update active nav state
@@ -1249,6 +1293,65 @@
             }
         }
 
+        document.addEventListener('DOMContentLoaded', () => {
+  const streakElem = document.getElementById('streakCounter');
+  const container = document.getElementById('activitiesContainer');
+  const btn = document.getElementById('surpriseMeBtn');
+  
+
+  // Fetch and show current streak
+  function fetchStreak() {
+    fetch('/activities/streak')
+      .then(res => res.json())
+      .then(data => {
+        streakElem.textContent = data.streak ?? 0;
+      });
+  }
+
+  // Load 5 random activities and display as cards
+function renderActivities(activities) {
+  const container = document.getElementById('activitiesContainer');
+  container.innerHTML = '';
+
+  const list = document.createElement('ul');
+  list.className = 'list-group w-100';
+
+  activities.forEach(a => {
+    const li = document.createElement('li');
+    li.className = 'list-group-item d-flex align-items-center justify-content-between';
+
+    li.innerHTML = `
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="act${a.id}">
+        <label class="form-check-label ms-2" for="act${a.id}">
+          <strong>${a.title}</strong><br>
+          <small class="text-muted">${a.description}</small>
+        </label>
+      </div>
+    `;
+
+    li.querySelector('input').addEventListener('change', e => {
+      if (e.target.checked) {
+        li.classList.add('animate__animated', 'animate__fadeOut');
+        setTimeout(() => li.remove(), 500);
+      }
+    });
+
+    list.appendChild(li);
+  });
+
+  container.appendChild(list);
+}
+
+document.getElementById('surpriseMeBtn').addEventListener('click', () => {
+  fetch('/activities/random?count=5')
+    .then(r => r.json())
+    .then(renderActivities)
+    .catch(err => console.error("Error loading activities:", err));
+});
+        });
+
+
         function scrollToBottom() {
             if (messagesContainer) {
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -1259,6 +1362,62 @@
         initializeDropdowns();
         showView(homeView);
     });
+
+    document.querySelectorAll('.activity-checkbox').forEach(cb => {
+  cb.addEventListener('change', function() {
+    if (this.checked) {
+      const card = this.closest('.activity-card');
+      card.classList.add('completed');
+      setTimeout(() => card.style.display = 'none', 500); // fade out
+    }
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const surpriseBtn = document.getElementById('surpriseMeBtn');
+  const activitiesContainer = document.getElementById('activitiesContainer');
+
+  if (surpriseBtn) {
+    surpriseBtn.addEventListener('click', () => {
+      fetch('/activities/random?count=5')
+        .then(r => r.json())
+        .then(activities => {
+          activitiesContainer.innerHTML = ''; // clear old ones
+          activities.forEach(a => {
+            const card = document.createElement('div');
+            card.className = 'col-md-6 col-lg-4';
+            card.innerHTML = `
+              <label class="activity-card">
+                <input type="checkbox" class="activity-checkbox">
+                <div class="card-body">
+                  <h5 class="card-title">${a.title}</h5>
+                  <p class="card-text">${a.description}</p>
+                </div>
+              </label>
+            `;
+            activitiesContainer.appendChild(card);
+          });
+
+          // re-attach checkbox animation
+          activitiesContainer.querySelectorAll('.activity-checkbox').forEach(cb => {
+            cb.addEventListener('change', function() {
+              if (this.checked) {
+                const card = this.closest('.activity-card');
+                card.classList.add('completed');
+                setTimeout(() => card.style.display = 'none', 500);
+              }
+            });
+          });
+        })
+        .catch(err => {
+          console.error("Error loading activities:", err);
+        });
+    });
+  }
+});
+   
+
 </script>
 
 
