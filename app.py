@@ -360,7 +360,7 @@ def lifestyle():
             db.session.add(lifestyle)
 
         db.session.commit()
-        return redirect(url_for("dashboard"))
+        return redirect(url_for("category"))
 
     # If GET, render lifestyle.html form
     return render_template("lifestyle.html")
